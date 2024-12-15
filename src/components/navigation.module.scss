@@ -7,90 +7,129 @@
   left: 0;
   right: 0;
   z-index: $z-index-sticky;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba($surface-primary, 0.95);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid $surface-secondary;
 }
 
 .navContent {
   max-width: $container-max-width;
   margin: 0 auto;
-  padding: 0 $spacing-md;
+  padding: $spacing-md;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 4rem;
 }
 
 .logo {
   font-size: $font-size-xl;
   font-weight: $font-weight-bold;
-  color: $color-primary;
+  color: $text-primary;
   text-decoration: none;
-  transition: $transition-base;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $border-radius-md;
+  transition: background-color 0.2s ease;
 
   &:hover {
-    color: $color-primary-dark;
+    background-color: $surface-secondary;
+  }
+
+  &:focus {
+    outline: $focus-ring-width $focus-ring-style $focus-ring-color;
+    outline-offset: $focus-ring-offset;
   }
 }
 
 .menuButton {
-  display: none;
-  @media (max-width: $breakpoint-md) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: $text-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm;
+  color: $text-primary;
+  background: transparent;
+  border: none;
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  @media (min-width: $breakpoint-md) {
+    display: none;
+  }
+
+  &:hover {
+    background-color: $surface-secondary;
+  }
+
+  &:focus {
+    outline: $focus-ring-width $focus-ring-style $focus-ring-color;
+    outline-offset: $focus-ring-offset;
   }
 }
 
 .menuList {
-  display: flex;
-  gap: $spacing-md;
-  list-style: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: $surface-primary;
+  padding: $spacing-md;
   margin: 0;
-  padding: 0;
+  list-style: none;
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
 
-  @media (max-width: $breakpoint-md) {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: $surface-primary;
-    padding: $spacing-md;
-    box-shadow: $shadow-md;
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
-}
 
-.isOpen {
-  @media (max-width: $breakpoint-md) {
+  @media (min-width: $breakpoint-md) {
+    position: static;
     display: flex;
-    flex-direction: column;
+    gap: $spacing-md;
+    padding: 0;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    background: transparent;
+  }
+
+  &.isOpen {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
   }
 }
 
 .menuItem {
-  a {
-    color: $text-primary;
-    text-decoration: none;
-    padding: $spacing-xs $spacing-sm;
-    border-radius: $border-radius-sm;
-    transition: $transition-base;
+  display: block;
+  padding: $spacing-sm;
+  color: $text-primary;
+  text-decoration: none;
+  border-radius: $border-radius-md;
+  transition: background-color 0.2s ease;
+  font-size: $font-size-md;
+  line-height: $line-height-base;
+  letter-spacing: $letter-spacing-wide;
+  word-spacing: $word-spacing-wide;
 
-    &:hover {
-      color: $color-primary;
-      background: $surface-secondary;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 
-    &.active {
-      color: $color-primary;
-      font-weight: $font-weight-medium;
-    }
+  &:hover {
+    background-color: $surface-secondary;
+  }
+
+  &:focus {
+    outline: $focus-ring-width $focus-ring-style $focus-ring-color;
+    outline-offset: $focus-ring-offset;
+    background-color: $surface-secondary;
+  }
+
+  &[aria-current="page"] {
+    font-weight: $font-weight-semibold;
+    background-color: $surface-secondary;
   }
 }

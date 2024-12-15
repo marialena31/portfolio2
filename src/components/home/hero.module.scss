@@ -1,6 +1,13 @@
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
+// Hero-specific button mixin
+@mixin hero-primary-button {
+  font-size: $font-size-lg;
+  padding: $spacing-md $spacing-xl;
+  @include button-primary;
+}
+
 .hero {
   position: relative;
   padding: calc($spacing-xxxl * 2) 0;
@@ -65,7 +72,6 @@
 }
 
 .primaryButton {
-  @include button-primary;
-  font-size: $font-size-lg;
-  padding: $spacing-md $spacing-xl;
+  all: unset; 
+  @include hero-primary-button;
 }

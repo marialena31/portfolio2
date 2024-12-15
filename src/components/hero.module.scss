@@ -3,8 +3,8 @@
 .hero {
   position: relative;
   padding: $spacing-xxxl 0;
-  background: $gradient-primary;
-  color: $surface-primary;
+  background: linear-gradient(135deg, darken($color-primary, 10%) 0%, darken($color-primary-dark, 5%) 100%);
+  color: $color-white;
   overflow: hidden;
 
   &::before {
@@ -33,21 +33,25 @@
 }
 
 .title {
-  font-size: $font-size-xxxl;
+  font-size: $font-size-xxxxl;
   font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
   margin: 0;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   @media (max-width: $breakpoint-md) {
-    font-size: $font-size-xxl;
+    font-size: $font-size-xxxl;
   }
 }
 
 .subtitle {
   font-size: $font-size-xl;
   font-weight: $font-weight-normal;
-  opacity: 0.9;
+  line-height: $line-height-relaxed;
   max-width: 600px;
   margin: 0;
+  color: rgba($color-white, 0.9);
 
   @media (max-width: $breakpoint-md) {
     font-size: $font-size-lg;
@@ -57,19 +61,33 @@
 .cta {
   display: flex;
   gap: $spacing-md;
-  margin-top: $spacing-lg;
+  margin-top: $spacing-xl;
 
   @media (max-width: $breakpoint-sm) {
     flex-direction: column;
     width: 100%;
+    align-items: stretch;
   }
 }
 
 .primaryButton {
   @include button-primary;
-  margin-right: $spacing-md;
+  padding: $spacing-md $spacing-xl;
+  font-size: $font-size-lg;
+  min-width: 200px;
+
+  @media (max-width: $breakpoint-sm) {
+    width: 100%;
+  }
 }
 
 .secondaryButton {
   @include button-secondary;
+  padding: $spacing-md $spacing-xl;
+  font-size: $font-size-lg;
+  min-width: 200px;
+
+  @media (max-width: $breakpoint-sm) {
+    width: 100%;
+  }
 }

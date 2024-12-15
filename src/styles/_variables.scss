@@ -1,22 +1,22 @@
 // Colors
-$color-primary: #007AFF;  // Apple blue
-$color-primary-light: #47A1FF;
-$color-primary-dark: #0055B3;
-$color-background: #FAFAFA;  // Light gray background
+$color-primary: #0056B3;  // Darker blue for better contrast
+$color-primary-light: #0070E0;
+$color-primary-dark: #003B7A;
+$color-background: #FFFFFF;  // Pure white background
 $color-white: #FFFFFF;
 
 // Secondary Colors
-$color-secondary: #00C7BE;  // Modern teal
-$color-secondary-light: #33D4CC;
-$color-secondary-dark: #009E97;
-$color-accent: #FF375F;  // Apple accent red
-$color-accent-light: #FF6B89;
-$color-accent-dark: #D1002F;
+$color-secondary: #008F89;  // Darker teal for better contrast
+$color-secondary-light: #00B3AC;
+$color-secondary-dark: #006661;
+$color-accent: #D1002F;  // Darker red for better contrast
+$color-accent-light: #FF1744;
+$color-accent-dark: #9A0022;
 
 // Text Colors
-$text-primary: #1A1F36;  // Darker text for better readability
-$text-secondary: #4F566B;
-$text-tertiary: #697386;
+$text-primary: #121620;  // Almost black for maximum contrast
+$text-secondary: #2D3748;  // Darker secondary text
+$text-tertiary: #4A5568;  // Darker tertiary text
 
 // Surface Colors
 $surface-primary: $color-white;
@@ -67,13 +67,15 @@ $font-weight-medium: 500;
 $font-weight-semibold: 600;
 $font-weight-bold: 700;
 
-// Line Heights
-$line-height-none: 1;
-$line-height-tight: 1.25;
+$line-height-base: 1.5;      // Minimum for AAA compliance
+$line-height-tight: 1.25;    // For headings
 $line-height-snug: 1.375;
 $line-height-normal: 1.5;
-$line-height-relaxed: 1.625;
+$line-height-relaxed: 1.75;  // For better readability
 $line-height-loose: 2;
+$paragraph-spacing: 2em;     // AAA compliant paragraph spacing
+$letter-spacing-wide: 0.12em; // AAA compliant letter spacing
+$word-spacing-wide: 0.16em;  // AAA compliant word spacing
 
 // Shadows
 $shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -117,3 +119,9 @@ $glass-blur: blur(10px);
 $neumorph-bg: $color-background;
 $neumorph-shadow-light: rgba(255, 255, 255, 0.7);
 $neumorph-shadow-dark: rgba(0, 0, 0, 0.1);
+
+// Focus styles
+$focus-ring-color: $color-primary;
+$focus-ring-width: 3px;
+$focus-ring-offset: 2px;
+$focus-ring-style: solid;

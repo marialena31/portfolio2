@@ -37,4 +37,16 @@ export const services: Service[] = [
       'Performance auditing',
     ],
   },
+  {
+    id: '4',
+    title: 'Développement sur mesure',
+    description: 'Solutions logicielles personnalisées adaptées à vos besoins spécifiques',
+    icon: 'custom',
+    features: [
+      'Analyse des besoins métier',
+      'Développement d\'applications sur mesure',
+      'Intégration avec vos systèmes existants',
+      'Maintenance et support continu',
+    ],
+  },
 ];
