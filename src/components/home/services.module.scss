@@ -3,93 +3,152 @@
 
 .services {
   padding: $spacing-xxxl 0;
+  background: linear-gradient(135deg, rgba($color-primary, 0.03), rgba($color-secondary, 0.03));
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba($color-primary, 0.1), transparent);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba($color-primary, 0.1), transparent);
+  }
 }
 
 .content {
-  max-width: $container-max-width;
+  text-align: center;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 $spacing-lg;
+  @include container;
+}
 
-  @media (min-width: $breakpoint-md) {
-    padding: 0 $spacing-xl;
-  }
+.header {
+  max-width: 800px;
+  margin: 0 auto $spacing-xxxl;
 }
 
 .title {
-  text-align: center;
-  margin-bottom: $spacing-xxl;
-  font-size: $font-size-xxxl;
-  color: $text-primary;
+  font-size: clamp($font-size-xxl, 4vw, $font-size-xxxl);
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-lg;
+  background: $gradient-text;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: $spacing-xl;
-  max-width: 1200px;
+.description {
+  font-size: $font-size-lg;
+  color: $text-secondary;
+  line-height: $line-height-relaxed;
   margin: 0 auto;
-  justify-content: center;
-
-  @media (min-width: $breakpoint-sm) {
-    grid-template-columns: repeat(2, minmax(auto, 450px));
-  }
-
-  @media (min-width: $breakpoint-lg) {
-    grid-template-columns: repeat(3, minmax(auto, 350px));
-  }
+  max-width: 600px;
 }
 
-.serviceCard {
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-xl;
+  margin-top: $spacing-xxl;
+}
+
+.item {
   background: $surface-primary;
-  padding: $spacing-xl;
   border-radius: $border-radius-lg;
-  box-shadow: $shadow-md;
-  text-decoration: none;
+  padding: $spacing-xl;
   transition: $transition-smooth;
+  position: relative;
+  border: 1px solid rgba($color-primary, 0.1);
+  overflow: hidden;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
   gap: $spacing-md;
+  align-items: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: $gradient-primary;
+    opacity: 0;
+    transition: $transition-smooth;
+  }
 
   &:hover {
     transform: translateY(-4px);
     box-shadow: $shadow-lg;
+    border-color: transparent;
+
+    &::before {
+      opacity: 1;
+    }
 
     .icon {
-      transform: scale(1.1);
+      transform: scale(1.1) rotate(5deg);
+      color: $color-primary;
     }
   }
 }
 
 .icon {
-  width: 64px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: $gradient-primary;
-  border-radius: $border-radius-full;
-  margin-bottom: $spacing-md;
+  width: 48px;
+  height: 48px;
+  color: $color-primary;
   transition: $transition-smooth;
-
-  svg {
-    width: 32px;
-    height: 32px;
-    color: $surface-primary;
-  }
+  margin-bottom: $spacing-md;
 }
 
-.cardTitle {
+.itemTitle {
   font-size: $font-size-xl;
-  color: $text-primary;
-  margin: 0;
   font-weight: $font-weight-bold;
+  color: $text-primary;
+  margin-bottom: $spacing-sm;
+  text-align: center;
 }
 
-.description {
-  font-size: $font-size-md;
+.itemDescription {
   color: $text-secondary;
-  margin: 0;
   line-height: $line-height-relaxed;
+  font-size: $font-size-md;
+  text-align: center;
+}
+
+.link {
+  display: inline-block;
+  margin-top: auto;
+  padding: $spacing-sm $spacing-lg;
+  background: #000000;
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: $border-radius-md;
+  font-weight: $font-weight-medium;
+  transition: $transition-base;
+  width: fit-content;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 }

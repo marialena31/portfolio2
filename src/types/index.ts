@@ -1,3 +1,11 @@
+export interface CallToActionButton {
+  text: string;
+  link: string;
+  type: 'primary' | 'secondary';
+  isExternal?: boolean;
+  phoneNumber?: string;
+}
+
 export interface HomeData {
   hero: {
     title: string;
@@ -5,6 +13,7 @@ export interface HomeData {
     cta: {
       text: string;
       link: string;
+      phoneNumber: string;
     };
   };
   needs: {
@@ -34,10 +43,8 @@ export interface HomeData {
   };
   callToAction: {
     title: string;
-    buttons: Array<{
-      text: string;
-      link: string;
-      type: 'primary' | 'secondary';
-    }>;
+    buttons: Array<CallToActionButton>;
   };
 }
+
+export type { Project, Skill, SkillCategory, Service, SocialLink } from './data';

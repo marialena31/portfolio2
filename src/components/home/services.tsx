@@ -1,43 +1,42 @@
 import React from 'react';
-import { Link } from 'gatsby';
 import * as styles from './services.module.scss';
-import { IconWrench, IconArrowUp, IconShield, IconCode } from '../icons';
-
-interface ServicesProps {
-  title: string;
-  items: Array<{
-    title: string;
-    description: string;
-    icon: string;
-    link: string;
-  }>;
-}
+import { homeData } from '../../data/home';
+import { IconWrench, IconArrowUp, IconShield } from '../icons';
 
 const iconMap = {
-  wrench: IconWrench,
-  'arrow-up': IconArrowUp,
-  shield: IconShield,
-  code: IconCode,
+  wrench: <IconWrench />,
+  'arrow-up': <IconArrowUp />,
+  shield: <IconShield />,
 };
 
-const Services: React.FC<ServicesProps> = ({ title, items }) => {
+const Services: React.FC = () => {
   return (
-    <section className={styles.services}>
+    <section className={styles.services} id="services">
       <div className={styles.content}>
-        <h2 className={styles.title}>{title}</h2>
-        <div className={styles.grid}>
-          {items.map((item, index) => {
-            const Icon = iconMap[item.icon as keyof typeof iconMap];
-            return (
-              <Link to={item.link} className={styles.serviceCard} key={index}>
-                <div className={styles.icon}>
-                  <Icon />
-                </div>
-                <h3 className={styles.cardTitle}>{item.title}</h3>
-                <p className={styles.description}>{item.description}</p>
-              </Link>
-            );
-          })}
+        <div className={styles.header}>
+          <h2 className={styles.title}>{homeData.services.title}</h2>
+          <p className={styles.description}>
+            Je propose une gamme complète de services pour répondre à vos besoins en développement Magento.
+            De la maintenance à la sécurité, je vous accompagne dans la réalisation de vos projets.
+          </p>
+        </div>
+
+        <div className={styles.list}>
+          {homeData.services.items.map((service, index) => (
+            <div key={index} className={styles.item}>
+              <div className={styles.icon}>
+                {iconMap[service.icon as keyof typeof iconMap]}
+              </div>
+              <h3 className={styles.itemTitle}>{service.title}</h3>
+              <p className={styles.itemDescription}>{service.description}</p>
+              <a 
+                href={service.link}
+                className={styles.link}
+              >
+                En savoir plus
+              </a>
+            </div>
+          ))}
         </div>
       </div>
     </section>

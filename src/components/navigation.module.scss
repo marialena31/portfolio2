@@ -6,19 +6,18 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: $z-index-sticky;
-  background: rgba($surface-primary, 0.95);
+  z-index: $z-index-fixed;
+  background: rgba($surface-primary, 0.9);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid $surface-secondary;
+  border-bottom: 1px solid rgba($color-primary, 0.1);
 }
 
 .navContent {
-  max-width: $container-max-width;
-  margin: 0 auto;
-  padding: $spacing-md;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+  @include container;
 }
 
 .logo {
@@ -26,110 +25,145 @@
   font-weight: $font-weight-bold;
   color: $text-primary;
   text-decoration: none;
-  padding: $spacing-xs $spacing-sm;
-  border-radius: $border-radius-md;
-  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  transition: $transition-base;
 
   &:hover {
-    background-color: $surface-secondary;
+    color: $color-primary;
   }
 
-  &:focus {
-    outline: $focus-ring-width $focus-ring-style $focus-ring-color;
-    outline-offset: $focus-ring-offset;
-  }
+  @include focus-outline;
 }
 
 .menuButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: $spacing-sm;
-  color: $text-primary;
-  background: transparent;
+  display: none;
+  background: none;
   border: none;
-  border-radius: $border-radius-md;
+  color: $text-primary;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-
-  @media (min-width: $breakpoint-md) {
-    display: none;
-  }
-
-  &:hover {
-    background-color: $surface-secondary;
-  }
-
-  &:focus {
-    outline: $focus-ring-width $focus-ring-style $focus-ring-color;
-    outline-offset: $focus-ring-offset;
+  padding: $spacing-sm;
+  
+  @media (max-width: $breakpoint-md) {
+    display: block;
   }
 }
 
 .menuList {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: $surface-primary;
-  padding: $spacing-md;
-  margin: 0;
+  display: flex;
+  gap: $spacing-lg;
+  align-items: center;
   list-style: none;
-  transform: translateY(-100%);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  @media (min-width: $breakpoint-md) {
-    position: static;
-    display: flex;
-    gap: $spacing-md;
-    padding: 0;
-    transform: none;
-    opacity: 1;
-    visibility: visible;
-    background: transparent;
-  }
-
-  &.isOpen {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
+  margin: 0;
+  padding: 0;
+  
+  @media (max-width: $breakpoint-md) {
+    display: none;
+    
+    &.isOpen {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: $surface-primary;
+      padding: $spacing-lg;
+      box-shadow: $shadow-lg;
+      gap: $spacing-md;
+    }
   }
 }
 
 .menuItem {
-  display: block;
-  padding: $spacing-sm;
-  color: $text-primary;
+  color: $text-secondary;
   text-decoration: none;
-  border-radius: $border-radius-md;
-  transition: background-color 0.2s ease;
   font-size: $font-size-md;
-  line-height: $line-height-base;
-  letter-spacing: $letter-spacing-wide;
-  word-spacing: $word-spacing-wide;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  font-weight: $font-weight-medium;
+  padding: $spacing-sm;
+  transition: $transition-base;
+  display: block;
 
   &:hover {
-    background-color: $surface-secondary;
+    color: $color-primary;
   }
 
-  &:focus {
-    outline: $focus-ring-width $focus-ring-style $focus-ring-color;
-    outline-offset: $focus-ring-offset;
-    background-color: $surface-secondary;
+  &.active {
+    color: $color-primary;
+  }
+}
+
+.menuItem[href="/contact"] {
+  margin-left: $spacing-md;
+  @include button-primary;
+
+  @media (max-width: $breakpoint-md) {
+    margin: $spacing-md 0;
+  }
+}
+
+.menuLink {
+  color: $text-secondary;
+  text-decoration: none;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  padding: $spacing-sm;
+  transition: $transition-base;
+
+  &:hover {
+    color: $color-primary;
   }
 
-  &[aria-current="page"] {
+  &.active {
+    color: $color-primary;
     font-weight: $font-weight-semibold;
-    background-color: $surface-secondary;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: $gradient-primary;
+      border-radius: $border-radius-full;
+    }
+  }
+
+  @include focus-outline;
+}
+
+@media (max-width: $breakpoint-md) {
+  .menuList.isOpen {
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    background: rgba($surface-primary, 0.98);
+    backdrop-filter: blur(10px);
+    padding: $spacing-lg;
+    flex-direction: column;
+    gap: $spacing-md;
+    border-bottom: 1px solid rgba($color-primary, 0.1);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: $transition-smooth;
+
+    &.open {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .menuLink {
+    display: block;
+    padding: $spacing-md;
+    text-align: center;
+    font-size: $font-size-lg;
+
+    &.active::after {
+      bottom: 0;
+    }
   }
 }

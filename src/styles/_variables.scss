@@ -20,71 +20,40 @@ $text-tertiary: #4A5568;  // Darker tertiary text
 
 // Surface Colors
 $surface-primary: $color-white;
-$background-alt: #F8FAFC;  // Light gray background for alternating sections
 $surface-secondary: #F8FAFC;
 $surface-tertiary: #F1F5F9;
+$background-alt: #F8FAFC;
 
-// Gradients
-$gradient-text: linear-gradient(135deg, $color-primary 0%, $color-secondary 100%);
-$gradient-primary: linear-gradient(135deg, $color-primary 0%, #6366F1 100%);
-$gradient-secondary: linear-gradient(135deg, $color-secondary 0%, #00D4FF 100%);
+// Font Weights
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
 
 // Font Families
 $font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 $font-secondary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 $font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
-// Spacing
-$spacing-xs: 0.25rem;  // 4px
-$spacing-sm: 0.5rem;   // 8px
-$spacing-md: 1rem;     // 16px
-$spacing-lg: 1.5rem;   // 24px
-$spacing-xl: 2rem;     // 32px
-$spacing-xxl: 3rem;    // 48px
-$spacing-xxxl: 4rem;   // 64px
-$spacing-xxxxl: 5rem;  // 80px
-$spacing-xxxxxl: 6rem; // 96px
-
-// Border Radius
-$border-radius-sm: 0.25rem;
-$border-radius-md: 0.5rem;
-$border-radius-lg: 1rem;
-$border-radius-xl: 1.5rem;
-$border-radius-full: 9999px;
-
 // Typography
-$font-size-xs: 0.75rem;   // 12px
-$font-size-sm: 0.875rem;  // 14px
-$font-size-md: 1rem;      // 16px
-$font-size-lg: 1.125rem;  // 18px
-$font-size-xl: 1.25rem;   // 20px
-$font-size-xxl: 1.5rem;   // 24px
-$font-size-xxxl: 2rem;    // 32px
-$font-size-xxxxl: 2.5rem; // 40px
-$font-size-xxxxxl: 3rem;  // 48px
+$font-size-xs: 0.75rem;    // 12px
+$font-size-sm: 0.875rem;   // 14px
+$font-size-md: 1rem;       // 16px
+$font-size-lg: 1.125rem;   // 18px
+$font-size-xl: 1.25rem;    // 20px
+$font-size-xxl: 1.5rem;    // 24px
+$font-size-xxxl: 2rem;     // 32px
+$font-size-xxxxl: 2.5rem;  // 40px
+$font-size-xxxxxl: 3rem;   // 48px
 
-$font-weight-normal: 400;
-$font-weight-medium: 500;
-$font-weight-semibold: 600;
-$font-weight-bold: 700;
-
-$line-height-base: 1.5;      // Minimum for AAA compliance
+// Line Heights
 $line-height-tight: 1.25;    // For headings
-$line-height-snug: 1.375;
-$line-height-normal: 1.5;
+$line-height-snug: 1.375;    // For subheadings
+$line-height-normal: 1.5;    // Default body text
 $line-height-relaxed: 1.75;  // For better readability
-$line-height-loose: 2;
-$paragraph-spacing: 2em;     // AAA compliant paragraph spacing
-$letter-spacing-wide: 0.12em; // AAA compliant letter spacing
-$word-spacing-wide: 0.16em;  // AAA compliant word spacing
+$line-height-loose: 2;       // For spacious text
 
-// Shadows
-$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-
-// Z-index
+// Z-indices
 $z-index-dropdown: 1000;
 $z-index-sticky: 1020;
 $z-index-fixed: 1030;
@@ -93,36 +62,60 @@ $z-index-modal: 1050;
 $z-index-popover: 1060;
 $z-index-tooltip: 1070;
 
-// Transitions
-$transition-base: all 0.3s ease;
-$transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-$transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+// Focus Ring
+$focus-ring-color: $color-primary;
+$focus-ring-width: 3px;
+$focus-ring-offset: 2px;
+$focus-ring-style: solid;
 
-// Breakpoints
-$breakpoint-xs: 20rem;      // 320px
-$breakpoint-sm: 40rem;      // 640px
-$breakpoint-md: 48rem;      // 768px
-$breakpoint-lg: 64rem;      // 1024px
-$breakpoint-xl: 80rem;      // 1280px
-$breakpoint-2xl: 96rem;     // 1536px
+// Shadows
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+$shadow-glass: 
+  0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  0 2px 4px -1px rgba(0, 0, 0, 0.06),
+  inset 0 1px 0 rgba(255, 255, 255, 0.6);
 
-// Container
-$container-padding: $spacing-md;
-$container-max-width: $breakpoint-xl;
-$container-blog-max-width: $breakpoint-lg;  // Added for blog container
+// Gradients
+$gradient-primary: linear-gradient(90deg, $color-primary, $color-primary-light);
+$gradient-secondary: linear-gradient(90deg, $color-secondary, $color-secondary-light);
+$gradient-accent: linear-gradient(90deg, $color-accent, $color-accent-light);
+$gradient-border: linear-gradient(90deg, transparent, rgba($color-primary, 0.2), transparent);
+$gradient-text: linear-gradient(135deg, $color-primary 0%, $color-secondary 100%);
 
 // Glass Effect
 $glass-background: rgba(255, 255, 255, 0.1);
 $glass-border: rgba(255, 255, 255, 0.2);
 $glass-blur: blur(10px);
 
-// Neumorphic Effect
-$neumorph-bg: $color-background;
-$neumorph-shadow-light: rgba(255, 255, 255, 0.7);
-$neumorph-shadow-dark: rgba(0, 0, 0, 0.1);
+// Border Radius
+$border-radius-sm: 0.25rem;
+$border-radius-md: 0.5rem;
+$border-radius-lg: 1rem;
+$border-radius-xl: 1.5rem;
+$border-radius-full: 9999px;
 
-// Focus styles
-$focus-ring-color: $color-primary;
-$focus-ring-width: 3px;
-$focus-ring-offset: 2px;
-$focus-ring-style: solid;
+// Spacing
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-xxl: 3rem;
+$spacing-xxxl: 4rem;
+
+// Container
+$container-max-width: 1200px;
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+// Transitions
+$transition-base: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-smooth: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+$transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);

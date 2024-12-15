@@ -5,8 +5,9 @@ export const homeData: HomeData = {
     title: "Expertise Magento pour des Sites Sécurisés, Performants et Maintenus.",
     subtitle: "Freelance spécialisé dans la maintenance, la migration et la sécurité des sites Magento.",
     cta: {
-      text: "Découvrez mes services",
-      link: "/services"
+      text: "Contactez-moi",
+      link: "#contact",
+      phoneNumber: "+33 07 61 81 11 01"
     }
   },
   needs: {
@@ -56,49 +57,121 @@ export const homeData: HomeData = {
     title: "Des marques de renom avec lesquelles j'ai eu le plaisir de collaborer",
     items: [
       {
-        name: "Magento",
-        logo: "magento.png",
-        alt: "Logo Magento"
+        name: "Bonpoint",
+        logo: "bonpoint.png",
+        alt: "Logo Bonpoint"
       },
       {
-        name: "Adobe Commerce",
-        logo: "adobe-commerce.png",
-        alt: "Logo Adobe Commerce"
+        name: "CAC 40",
+        logo: "cac-40.png",
+        alt: "Logo CAC 40"
       },
       {
-        name: "PrestaShop",
-        logo: "prestashop.png",
-        alt: "Logo PrestaShop"
+        name: "Chausson Matériaux",
+        logo: "chausson-materiaux.png",
+        alt: "Logo Chausson Matériaux"
       },
       {
-        name: "WooCommerce",
-        logo: "woocommerce.png",
-        alt: "Logo WooCommerce"
+        name: "Eram Group",
+        logo: "eram-group.png",
+        alt: "Logo Eram Group"
       },
       {
-        name: "Shopify",
-        logo: "shopify.png",
-        alt: "Logo Shopify"
+        name: "France Air",
+        logo: "france-air.png",
+        alt: "Logo France Air"
       },
       {
-        name: "OpenMage",
-        logo: "openmage.png",
-        alt: "Logo OpenMage"
+        name: "Hamilton",
+        logo: "hamilton.png",
+        alt: "Logo Hamilton"
+      },
+      {
+        name: "La Maison du Whisky",
+        logo: "la-maison-du-whisky.png",
+        alt: "Logo La Maison du Whisky"
+      },
+      {
+        name: "Ludilabel",
+        logo: "ludilabel.png",
+        alt: "Logo Ludilabel"
+      },
+      {
+        name: "Maisons du Monde",
+        logo: "maisons-du-monde.png",
+        alt: "Logo Maisons du Monde"
+      },
+      {
+        name: "Maps System",
+        logo: "maps-system.png",
+        alt: "Logo Maps System"
+      },
+      {
+        name: "Marjane Mall",
+        logo: "marjanemall.png",
+        alt: "Logo Marjane Mall"
+      },
+      {
+        name: "Maurice Lacroix",
+        logo: "maurice-lacroix.png",
+        alt: "Logo Maurice Lacroix"
+      },
+      {
+        name: "MountNpass",
+        logo: "mountnpass.png",
+        alt: "Logo MountNpass"
+      },
+      {
+        name: "Nicoll",
+        logo: "nicoll.png",
+        alt: "Logo Nicoll"
+      },
+      {
+        name: "Nutrixo",
+        logo: "nutrixo.png",
+        alt: "Logo Nutrixo"
+      },
+      {
+        name: "OpenClassrooms",
+        logo: "openclassrooms.png",
+        alt: "Logo OpenClassrooms"
+      },
+      {
+        name: "Planet Cards",
+        logo: "planet-cards.png",
+        alt: "Logo Planet Cards"
+      },
+      {
+        name: "Pro à Pro",
+        logo: "pro-a-pro.png",
+        alt: "Logo Pro à Pro"
+      },
+      {
+        name: "Sopra Steria",
+        logo: "sopra-steria.png",
+        alt: "Logo Sopra Steria"
+      },
+      {
+        name: "Valrhona",
+        logo: "valrhona.png",
+        alt: "Logo Valrhona"
       }
     ]
   },
   callToAction: {
-    title: "Prêt à Sécuriser et Optimiser Votre Site Magento ?",
+    title: "Prêt à Démarrer Votre Projet ?",
     buttons: [
       {
         text: "Contactez-moi",
-        link: "/contact",
-        type: "primary"
+        link: "#contact",
+        type: "primary",
+        phoneNumber: "+33 07 61 81 11 01"
       },
       {
-        text: "En savoir plus",
-        link: "/about",
-        type: "secondary"
+        text: "Prendre RDV",
+        link: "https://calendly.com/pietri-marialena/contact-30",
+        type: "secondary",
+        isExternal: true
       }
     ]
   }

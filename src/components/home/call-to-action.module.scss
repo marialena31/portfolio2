@@ -4,60 +4,166 @@
 
 .callToAction {
   padding: $spacing-xxxl 0;
-  background: $gradient-primary;
-  color: $surface-primary;
-}
+  background: linear-gradient(135deg, rgba($color-primary, 0.03), rgba($color-secondary, 0.03));
+  position: relative;
+  overflow: hidden;
 
-.content {
-  max-width: $container-max-width;
-  margin: 0 auto;
-  padding: 0 $spacing-lg;
-  text-align: center;
-
-  @media (min-width: $breakpoint-md) {
-    padding: 0 $spacing-xl;
+  .content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    @include container;
   }
-}
 
-.title {
-  font-size: $font-size-xxxl;
-  margin-bottom: $spacing-xl;
-  font-weight: $font-weight-bold;
-}
+  .title {
+    font-size: clamp($font-size-xxl, 4vw, $font-size-xxxl);
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-lg;
+    background: $gradient-text;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+  }
 
-.buttons {
-  display: flex;
-  gap: $spacing-md;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+  .description {
+    font-size: $font-size-lg;
+    color: $text-secondary;
+    line-height: $line-height-relaxed;
+    margin-bottom: $spacing-xxl;
+  }
 
-.button {
-  padding: $spacing-md $spacing-xl;
-  border-radius: $border-radius-md;
-  font-weight: $font-weight-medium;
-  text-decoration: none;
-  transition: $transition-smooth;
-  font-size: $font-size-lg;
+  .buttons {
+    display: flex;
+    gap: $spacing-lg;
+    justify-content: center;
+    flex-wrap: wrap;
 
-  &.primary {
-    background: $surface-primary;
-    color: $color-primary;
+    .button {
+      position: relative;
+      display: inline-block;
+      font-size: $font-size-md;
+      padding: $spacing-sm $spacing-xl;
+      border-radius: $border-radius-md;
+      text-decoration: none;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      font-weight: 700;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      cursor: pointer;
 
-    &:hover {
-      background: color.scale($surface-primary, $lightness: -5%);
-      transform: translateY(-2px);
+      &.flipped {
+        transform: rotateX(180deg);
+      }
+
+      .buttonFront,
+      .buttonBack {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        backface-visibility: hidden;
+        padding: inherit;
+      }
+
+      .buttonFront {
+        transform: rotateX(0deg);
+        position: relative;
+      }
+
+      .buttonBack {
+        transform: rotateX(180deg);
+      }
+
+      &:focus {
+        outline: 3px solid #000000;
+        outline-offset: 2px;
+      }
+    }
+
+    .primary {
+      background: #000000;
+      color: #FFFFFF;
+      border: none;
+
+      .buttonFront {
+        background: #000000;
+        color: #FFFFFF;
+        width: 100%;
+        height: 100%;
+        font-size: $font-size-md;
+      }
+
+      .buttonBack {
+        background: #FFFFFF;
+        color: #000000;
+        width: 100%;
+        height: 100%;
+        font-size: $font-size-md;
+        border: 2px solid #000000;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+
+        &.flipped {
+          transform: rotateX(180deg) translateY(2px);
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
+        
+        &.flipped {
+          transform: rotateX(180deg) translateY(0);
+        }
+      }
+    }
+
+    .secondary {
+      background: #FFFFFF;
+      color: #000000;
+      border: 2px solid #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        transform: translateY(-2px);
+        background: #f8f8f8;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      &:visited {
+        color: #000000;
+      }
     }
   }
+}
 
-  &.secondary {
-    background: transparent;
-    color: $surface-primary;
-    border: 2px solid $surface-primary;
+@media (max-width: $breakpoint-sm) {
+  .callToAction {
+    .content {
+      padding: $spacing-xxl 0;
+    }
 
-    &:hover {
-      background: rgba($surface-primary, 0.1);
-      transform: translateY(-2px);
+    .title {
+      font-size: $font-size-xl;
+    }
+
+    .description {
+      font-size: $font-size-md;
     }
   }
 }

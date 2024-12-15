@@ -1,19 +1,14 @@
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
-// Hero-specific button mixin
-@mixin hero-primary-button {
-  font-size: $font-size-lg;
-  padding: $spacing-md $spacing-xl;
-  @include button-primary;
-}
-
 .hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
   position: relative;
-  padding: calc($spacing-xxxl * 2) 0;
-  background: $gradient-primary;
-  color: $surface-primary;
   overflow: hidden;
+  background: linear-gradient(135deg, rgba($color-primary, 0.05), rgba($color-secondary, 0.05));
+  padding-top: 4rem;
 
   &::before {
     content: '';
@@ -22,56 +17,94 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    opacity: 0.1;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 }
 
 .content {
-  max-width: $container-max-width;
-  margin: 0 auto;
-  padding: 0 $spacing-lg;
   position: relative;
-  z-index: $z-index-fixed;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: 1;
   text-align: center;
-  gap: $spacing-xl;
-
-  @media (min-width: $breakpoint-md) {
-    padding: 0 $spacing-xl;
-  }
+  padding: $spacing-xxxl 0;
+  @include container;
 }
 
 .title {
-  font-size: $font-size-xxxxxl;
+  font-size: clamp($font-size-xxxl, 5vw, $font-size-xxxxxl);
   font-weight: $font-weight-bold;
-  margin: 0;
-  max-width: 800px;
-
-  @media (max-width: $breakpoint-md) {
-    font-size: $font-size-xxxxl;
-  }
+  margin-bottom: $spacing-lg;
+  background: $gradient-text;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: $line-height-tight;
 }
 
 .subtitle {
-  font-size: $font-size-xl;
-  font-weight: $font-weight-normal;
-  opacity: 0.9;
-  max-width: 600px;
-  margin: 0;
-
-  @media (max-width: $breakpoint-md) {
-    font-size: $font-size-lg;
-  }
-}
-
-.cta {
-  margin-top: $spacing-lg;
+  font-size: clamp($font-size-lg, 2.5vw, $font-size-xxl);
+  margin-bottom: $spacing-xxl;
+  color: $text-secondary;
+  line-height: $line-height-relaxed;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .primaryButton {
-  all: unset; 
-  @include hero-primary-button;
+  display: inline-block;
+  font-size: $font-size-lg;
+  padding: $spacing-md $spacing-xxl;
+  background: #FFFFFF;
+  color: #000000;
+  border-radius: $border-radius-md;
+  text-decoration: none;
+  transition: $transition-base;
+  font-weight: 700;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #000000;
+
+  &:hover {
+    transform: translateY(-2px);
+    background: #FFFFFF;
+    color: #000000;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &:focus {
+    outline: 3px solid #000000;
+    outline-offset: 2px;
+    color: #000000;
+  }
+
+  &:active {
+    transform: translateY(0);
+    background: #FFFFFF;
+    color: #000000;
+  }
+
+  &:visited {
+    color: #000000;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .hero {
+    min-height: 100vh;
+  }
+
+  .content {
+    padding: $spacing-xxl 0;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: $font-size-lg;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
 }

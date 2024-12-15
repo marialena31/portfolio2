@@ -4,12 +4,35 @@
 .brands {
   padding: $spacing-xxxl 0;
   background-color: $background-alt;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba($color-primary, 0.2), transparent);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba($color-primary, 0.2), transparent);
+  }
 }
 
 .content {
   max-width: $container-max-width;
   margin: 0 auto;
   padding: 0 $spacing-lg;
+  position: relative;
 
   @media (min-width: $breakpoint-md) {
     padding: 0 $spacing-xl;
@@ -21,6 +44,20 @@
   margin-bottom: $spacing-xxl;
   font-size: $font-size-xxxl;
   color: $text-primary;
+  position: relative;
+  padding-bottom: $spacing-lg;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, $color-primary, $color-primary-light);
+    border-radius: $border-radius-sm;
+  }
 }
 
 .grid {
@@ -39,13 +76,45 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: $shadow-sm;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba($color-primary, 0.1);
+
+  // Accessible focus state
+  &:focus-within {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+
+  // Modern glass effect with high contrast
+  background: linear-gradient(
+    145deg,
+    rgba($surface-primary, 0.95),
+    rgba($surface-primary, 1)
+  );
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: $shadow-md;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border-color: rgba($color-primary, 0.2);
+
+    .logo {
+      transform: translate(-50%, -50%) scale(0.95);
+      filter: brightness(1.05) contrast(1.05);
+    }
+  }
+
+  // Accessible focus visible state
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
   }
 }
 
@@ -59,6 +128,25 @@
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  filter: brightness(1) contrast(1);
+}
+
+// Ensure animations are disabled for users who prefer reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .brandItem,
+  .logo {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .brandItem:hover {
+    transform: none !important;
+    
+    .logo {
+      transform: translate(-50%, -50%) !important;
+    }
+  }
 }
 
 @media (max-width: $breakpoint-sm) {
@@ -69,5 +157,13 @@
 
   .brandItem {
     padding: $spacing-lg;
+  }
+
+  .title {
+    font-size: $font-size-xxl;
+    
+    &::after {
+      width: 40px;
+    }
   }
 }
