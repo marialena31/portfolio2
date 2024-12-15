@@ -12,6 +12,8 @@ interface BlogPostData {
     content: string;
     excerpt: string;
     tags: string[];
+    id: string;
+    slug: string;
   };
 }
 
@@ -51,12 +53,14 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
 export const query = graphql`
   query BlogPostBySlug($slug: String!) {
     blogPost(slug: { eq: $slug }) {
+      id
       title
       date
       author
       content
       excerpt
       tags
+      slug
     }
   }
 `;

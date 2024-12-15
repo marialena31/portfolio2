@@ -116,6 +116,17 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
   const { createTypes } = actions;
 
   const typeDefs = `
+    type BlogPost implements Node {
+      id: ID!
+      title: String!
+      excerpt: String!
+      content: String!
+      date: String!
+      author: String!
+      tags: [String!]!
+      slug: String!
+    }
+
     type HomeJson implements Node {
       hero: HomeHero!
       needs: HomeNeeds!
@@ -185,6 +196,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({ actions, createNodeId, 
 
   // Load the mock data
   const homeData = require('./src/data/home.json');
+  const blogPosts = require('./src/data/mockBlogPosts').blogPosts;
 
   // Create node for home data
   createNode({
@@ -196,5 +208,19 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({ actions, createNodeId, 
       type: 'HomeJson',
       contentDigest: createContentDigest(homeData),
     },
+  });
+
+  // Create nodes for blog posts
+  blogPosts.forEach((post) => {
+    createNode({
+      ...post,
+      id: createNodeId(`blog-post-${post.id}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: 'BlogPost',
+        contentDigest: createContentDigest(post),
+      },
+    });
   });
 };
