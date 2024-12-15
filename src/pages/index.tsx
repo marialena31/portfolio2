@@ -5,7 +5,7 @@ import SEO from '../components/seo';
 import Hero from '../components/home/hero';
 import Needs from '../components/home/needs';
 import Services from '../components/home/services';
-import Testimonials from '../components/home/testimonials';
+import Brands from '../components/home/brands';
 import CallToAction from '../components/home/call-to-action';
 
 interface HomeData {
@@ -35,13 +35,12 @@ interface HomeData {
         link: string;
       }>;
     };
-    testimonials: {
+    brands: {
       title: string;
       items: Array<{
-        quote: string;
-        author: string;
-        company: string;
-        result: string;
+        name: string;
+        logo: string;
+        alt: string;
       }>;
     };
     callToAction: {
@@ -64,7 +63,7 @@ const IndexPage: React.FC<PageProps<HomeData>> = ({ data }) => {
       <Hero {...homeJson.hero} />
       <Needs {...homeJson.needs} />
       <Services {...homeJson.services} />
-      <Testimonials {...homeJson.testimonials} />
+      <Brands {...homeJson.brands} />
       <CallToAction {...homeJson.callToAction} />
     </Layout>
   );
@@ -98,13 +97,12 @@ export const query = graphql`
           link
         }
       }
-      testimonials {
+      brands {
         title
         items {
-          quote
-          author
-          company
-          result
+          name
+          logo
+          alt
         }
       }
       callToAction {

@@ -52,20 +52,38 @@ export const homeData: HomeData = {
       }
     ]
   },
-  testimonials: {
-    title: "Ce Que Disent Mes Clients",
+  brands: {
+    title: "Des marques de renom avec lesquelles j'ai eu le plaisir de collaborer",
     items: [
       {
-        quote: "Une expertise technique impressionnante et une communication claire tout au long du projet.",
-        author: "Jean Dupont",
-        company: "E-commerce Mode",
-        result: "Migration réussie vers Magento 2"
+        name: "Magento",
+        logo: "magento.png",
+        alt: "Logo Magento"
       },
       {
-        quote: "Réactif et professionnel. A su résoudre rapidement nos problèmes de sécurité.",
-        author: "Marie Martin",
-        company: "Boutique Déco",
-        result: "Site sécurisé et optimisé"
+        name: "Adobe Commerce",
+        logo: "adobe-commerce.png",
+        alt: "Logo Adobe Commerce"
+      },
+      {
+        name: "PrestaShop",
+        logo: "prestashop.png",
+        alt: "Logo PrestaShop"
+      },
+      {
+        name: "WooCommerce",
+        logo: "woocommerce.png",
+        alt: "Logo WooCommerce"
+      },
+      {
+        name: "Shopify",
+        logo: "shopify.png",
+        alt: "Logo Shopify"
+      },
+      {
+        name: "OpenMage",
+        logo: "openmage.png",
+        alt: "Logo OpenMage"
       }
     ]
   },

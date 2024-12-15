@@ -26,13 +26,16 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: $spacing-xl;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: center;
 
   @media (min-width: $breakpoint-sm) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(auto, 450px));
   }
 
   @media (min-width: $breakpoint-lg) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, minmax(auto, 350px));
   }
 }
 

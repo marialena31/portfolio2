@@ -1,7 +1,8 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Navigation from './navigation';
 import { Helmet } from 'react-helmet';
+import Header from './header';
+import Footer from './footer';
 import * as styles from './layout.module.scss';
 
 interface LayoutProps {
@@ -34,11 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </Helmet>
 
       <div className={styles.layout}>
-        <header className={styles.header}>
-          <div className={styles.container}>
-            <Navigation />
-          </div>
-        </header>
+        <Header />
         
         <main className={styles.main}>
           <div className={styles.container}>
@@ -46,16 +43,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </main>
 
-        <footer className={styles.footer}>
-          <div className={styles.container}>
-            <div className={styles.footerContent}>
-              <p className={styles.copyright}>
-                {data.site.siteMetadata.title} &copy; {new Date().getFullYear()}, Built
-                with <a href="https://www.gatsbyjs.com">Gatsby</a>
-              </p>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

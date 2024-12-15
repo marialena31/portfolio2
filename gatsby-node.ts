@@ -24,11 +24,8 @@ interface ProjectQueryResult {
 
 export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
   const { createPage } = actions;
-
-  // Define template
   const projectTemplate = path.resolve('./src/templates/project.tsx');
 
-  // Query for projects using the correct type name
   const result = await graphql<ProjectQueryResult>(`
     query {
       allProject {
@@ -52,61 +49,38 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
     throw result.errors;
   }
 
-  const data = result.data;
-  if (!data) {
-    throw new Error('No data returned from GraphQL query');
-  }
-
-  const projects = data.data?.allProject.edges || [];
-
-  projects.forEach((project: any) => {
-    createPage({
-      path: `/project/${project.node.slug}`,
-      component: projectTemplate,
-      context: {
-        id: project.node.id,
-        slug: project.node.slug,
-      },
+  if (result.data) {
+    result.data.allProject.edges.forEach(({ node }) => {
+      createPage({
+        path: `/portfolio/${node.slug}`,
+        component: projectTemplate,
+        context: {
+          id: node.id,
+        },
+      });
     });
-  });
-};
-
-export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
-  stage,
-  actions,
-  getConfig,
-}) => {
-  const config = getConfig();
-
-  // Add TypeScript support
-  if (stage === 'build-javascript' || stage === 'develop') {
-    config.resolve = {
-      ...config.resolve,
-      extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    };
   }
-
-  // Add path aliases
-  actions.setWebpackConfig({
-    resolve: {
-      alias: {
-        '@components': path.resolve(__dirname, 'src/components'),
-        '@templates': path.resolve(__dirname, 'src/templates'),
-        '@styles': path.resolve(__dirname, 'src/styles'),
-        '@images': path.resolve(__dirname, 'src/images'),
-        '@types': path.resolve(__dirname, 'src/types'),
-        '@utils': path.resolve(__dirname, 'src/utils'),
-      },
-    },
-  });
 };
 
-// For custom server-side functionality during development
+export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({ stage, actions, getConfig }) => {
+  const config = getConfig();
+  
+  if (stage === 'build-javascript' || stage === 'develop') {
+    const miniCssExtractPlugin = config.plugins.find(
+      (plugin: any) => plugin.constructor.name === 'MiniCssExtractPlugin'
+    );
+
+    if (miniCssExtractPlugin) {
+      miniCssExtractPlugin.options.ignoreOrder = true;
+    }
+
+    actions.replaceWebpackConfig(config);
+  }
+};
+
 export const onCreateDevServer: GatsbyNode['onCreateDevServer'] = ({ app }) => {
   app.use((req: Request, res: Response, next: NextFunction) => {
-    // Add custom middleware if needed
     if (req.url.startsWith('/api/')) {
-      // Handle API routes
       res.setHeader('Content-Type', 'application/json');
     }
     next();
@@ -121,7 +95,7 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       hero: HomeHero!
       needs: HomeNeeds!
       services: HomeServices!
-      testimonials: HomeTestimonials!
+      brands: HomeBrands!
       callToAction: HomeCallToAction!
     }
 
@@ -154,16 +128,15 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       link: String!
     }
 
-    type HomeTestimonials {
+    type HomeBrands {
       title: String!
-      items: [HomeTestimonialItem!]!
+      items: [HomeBrandItem!]!
     }
 
-    type HomeTestimonialItem {
-      quote: String!
-      author: String!
-      company: String!
-      result: String!
+    type HomeBrandItem {
+      name: String!
+      logo: String!
+      alt: String!
     }
 
     type HomeCallToAction {
