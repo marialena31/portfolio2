@@ -1,6 +1,7 @@
 import { GatsbyNode } from 'gatsby';
 import path from 'path';
 import { createFilePath } from 'gatsby-source-filesystem';
+import { Request, Response, NextFunction } from 'express';
 
 export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
@@ -32,56 +33,41 @@ interface BlogPostQueryResult {
   };
 }
 
-export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions, reporter }) => {
+export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
   // Define templates
-  const blogPostTemplate = path.resolve('./src/templates/blog-post.tsx');
   const projectTemplate = path.resolve('./src/templates/project.tsx');
+  const blogPostTemplate = path.resolve(__dirname, 'src/templates/blog-post.tsx');
 
-  // Get all markdown blog posts sorted by date
-  const result = await graphql<BlogPostQueryResult>(`
-    {
-      allMarkdownRemark(
-        sort: { frontmatter: { date: DESC } }
-        limit: 1000
-      ) {
-        edges {
-          node {
-            fields {
-              slug
-            }
-            frontmatter {
-              title
-            }
-          }
+  // Query for blog posts
+  const result = await graphql<{
+    allBlogPost: {
+      nodes: Array<{
+        slug: string;
+      }>;
+    };
+  }>(`
+    query {
+      allBlogPost {
+        nodes {
+          slug
         }
       }
     }
   `);
 
   if (result.errors) {
-    reporter.panicOnBuild(
-      'There was an error loading your blog posts',
-      result.errors
-    );
-    return;
+    throw result.errors;
   }
 
-  const posts = result.data?.allMarkdownRemark.edges || [];
-
-  // Create blog posts pages
-  posts.forEach((post, index) => {
-    const previousPostId = index === 0 ? null : posts[index - 1].node;
-    const nextPostId = index === posts.length - 1 ? null : posts[index + 1].node;
-
+  // Create blog post pages
+  result.data?.allBlogPost.nodes.forEach(node => {
     createPage({
-      path: post.node.fields.slug,
+      path: `/blog/${node.slug}`,
       component: blogPostTemplate,
       context: {
-        slug: post.node.fields.slug,
-        previousPostId,
-        nextPostId,
+        slug: node.slug,
       },
     });
   });
@@ -119,12 +105,99 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
 
 // For custom server-side functionality during development
 export const onCreateDevServer: GatsbyNode['onCreateDevServer'] = ({ app }) => {
-  app.use((req, res, next) => {
+  app.use((req: Request, res: Response, next: NextFunction) => {
     // Add custom middleware if needed
     if (req.url.startsWith('/api/')) {
       // Handle API routes
       res.setHeader('Content-Type', 'application/json');
     }
     next();
+  });
+};
+
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
+  const { createTypes } = actions;
+
+  const typeDefs = `
+    type HomeJson implements Node {
+      hero: HomeHero!
+      needs: HomeNeeds!
+      services: HomeServices!
+      testimonials: HomeTestimonials!
+      callToAction: HomeCallToAction!
+    }
+
+    type HomeHero {
+      title: String!
+      subtitle: String!
+      cta: HomeButton!
+    }
+
+    type HomeNeeds {
+      title: String!
+      items: [HomeNeedItem!]!
+    }
+
+    type HomeNeedItem {
+      question: String!
+      solution: String!
+      link: String!
+    }
+
+    type HomeServices {
+      title: String!
+      items: [HomeServiceItem!]!
+    }
+
+    type HomeServiceItem {
+      title: String!
+      description: String!
+      icon: String!
+      link: String!
+    }
+
+    type HomeTestimonials {
+      title: String!
+      items: [HomeTestimonialItem!]!
+    }
+
+    type HomeTestimonialItem {
+      quote: String!
+      author: String!
+      company: String!
+      result: String!
+    }
+
+    type HomeCallToAction {
+      title: String!
+      buttons: [HomeButton!]!
+    }
+
+    type HomeButton {
+      text: String!
+      link: String!
+      type: String
+    }
+  `;
+
+  createTypes(typeDefs);
+};
+
+export const sourceNodes: GatsbyNode['sourceNodes'] = ({ actions, createNodeId, createContentDigest }) => {
+  const { createNode } = actions;
+
+  // Load the mock data
+  const homeData = require('./src/data/home.json');
+
+  // Create node for home data
+  createNode({
+    ...homeData,
+    id: createNodeId('home-data'),
+    parent: null,
+    children: [],
+    internal: {
+      type: 'HomeJson',
+      contentDigest: createContentDigest(homeData),
+    },
   });
 };

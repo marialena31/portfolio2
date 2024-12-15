@@ -1,0 +1,63 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+@use 'sass:color';
+
+.callToAction {
+  padding: $spacing-xxxl 0;
+  background: $gradient-primary;
+  color: $surface-primary;
+}
+
+.content {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+  text-align: center;
+
+  @media (min-width: $breakpoint-md) {
+    padding: 0 $spacing-xl;
+  }
+}
+
+.title {
+  font-size: $font-size-xxxl;
+  margin-bottom: $spacing-xl;
+  font-weight: $font-weight-bold;
+}
+
+.buttons {
+  display: flex;
+  gap: $spacing-md;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: $spacing-md $spacing-xl;
+  border-radius: $border-radius-md;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+  transition: $transition-smooth;
+  font-size: $font-size-lg;
+
+  &.primary {
+    background: $surface-primary;
+    color: $color-primary;
+
+    &:hover {
+      background: color.scale($surface-primary, $lightness: -5%);
+      transform: translateY(-2px);
+    }
+  }
+
+  &.secondary {
+    background: transparent;
+    color: $surface-primary;
+    border: 2px solid $surface-primary;
+
+    &:hover {
+      background: rgba($surface-primary, 0.1);
+      transform: translateY(-2px);
+    }
+  }
+}

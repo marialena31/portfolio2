@@ -1,37 +1,42 @@
-@import '../styles/mixins';
+@use '../styles/variables' as *;
 
 .form {
-  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .formGroup {
-  @include flex-column;
-  margin-bottom: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
 }
 
 .label {
-  font-weight: var(--font-weight-medium);
-  margin-bottom: var(--spacing-2);
-  color: var(--color-text);
+  font-weight: $font-weight-medium;
+  color: $text-primary;
 }
 
 .input,
 .textarea {
-  padding: var(--spacing-3);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-default);
-  font-size: var(--font-size-base);
-  transition: var(--transition-default);
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  border: 2px solid $text-tertiary;
+  border-radius: $border-radius-md;
+  background: $surface-primary;
+  font-size: $font-size-md;
+  transition: $transition-base;
 
   &:focus {
-    @include focus-ring;
-    border-color: var(--color-primary);
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
   }
 
   &::placeholder {
-    color: var(--color-gray-400);
+    color: $text-tertiary;
   }
 }
 
@@ -41,26 +46,45 @@
 }
 
 .submitButton {
-  @include button-primary;
-  width: 100%;
-  padding: var(--spacing-3) var(--spacing-6);
-  
-  @include breakpoint(md) {
-    width: auto;
+  align-self: flex-start;
+  padding: $spacing-sm $spacing-lg;
+  background: $color-primary;
+  color: $surface-primary;
+  border: none;
+  border-radius: $border-radius-md;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-md;
+  cursor: pointer;
+  transition: $transition-base;
+
+  &:hover {
+    background: $color-primary-dark;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    background: $text-tertiary;
+    cursor: not-allowed;
+    transform: none;
   }
 }
 
 .error {
-  color: var(--color-danger);
-  font-size: var(--font-size-sm);
-  margin-top: var(--spacing-1);
+  color: $color-accent;
+  font-size: $font-size-sm;
+  margin-top: $spacing-xs;
 }
 
 .success {
-  color: var(--color-success);
+  color: $color-secondary;
+  font-size: $font-size-md;
   text-align: center;
-  padding: var(--spacing-4);
-  background-color: var(--color-success-light);
-  border-radius: var(--border-radius-default);
-  margin-bottom: var(--spacing-4);
+  padding: $spacing-lg;
+  background: rgba($color-secondary, 0.1);
+  border-radius: $border-radius-md;
+  margin-top: $spacing-lg;
 }

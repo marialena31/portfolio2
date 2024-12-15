@@ -1,0 +1,91 @@
+{
+  "hero": {
+    "title": "Expertise Magento pour des Sites Sécurisés, Performants et Maintenus.",
+    "subtitle": "Freelance spécialisé dans la maintenance, la migration et la sécurité des sites Magento.",
+    "cta": {
+      "text": "Découvrez mes services",
+      "link": "/services"
+    }
+  },
+  "needs": {
+    "title": "Vos Besoins",
+    "items": [
+      {
+        "question": "Votre site Magento manque de mises à jour ?",
+        "solution": "maintenance",
+        "link": "/services#maintenance"
+      },
+      {
+        "question": "Vous préparez une migration ou une mise en ligne ?",
+        "solution": "migration",
+        "link": "/services#migration"
+      },
+      {
+        "question": "Vous avez besoin d'une analyse de sécurité avant un lancement ?",
+        "solution": "security",
+        "link": "/services#security"
+      }
+    ]
+  },
+  "services": {
+    "title": "Mes Services en Un Coup d'Œil",
+    "items": [
+      {
+        "title": "Maintenance Magento",
+        "description": "Gardez votre site à jour et sécurisé avec une maintenance régulière",
+        "icon": "wrench",
+        "link": "/services#maintenance"
+      },
+      {
+        "title": "Migration Magento",
+        "description": "Migrez en toute sérénité vers la dernière version de Magento",
+        "icon": "arrow-up",
+        "link": "/services#migration"
+      },
+      {
+        "title": "Audit de sécurité",
+        "description": "Identifiez et corrigez les failles de sécurité de votre site",
+        "icon": "shield",
+        "link": "/services#security"
+      },
+      {
+        "title": "Développement sur mesure",
+        "description": "Des solutions personnalisées pour répondre à vos besoins spécifiques",
+        "icon": "code",
+        "link": "/services#custom"
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Ils me font confiance",
+    "items": [
+      {
+        "quote": "La migration de notre site s'est déroulée sans accroc, avec une amélioration notable des performances.",
+        "author": "Jean Dupont",
+        "company": "MagentoStore",
+        "result": "Réduction des temps de chargement de 30%"
+      },
+      {
+        "quote": "Un audit de sécurité complet qui nous a permis d'identifier et corriger plusieurs vulnérabilités critiques.",
+        "author": "Marie Martin",
+        "company": "E-Commerce Plus",
+        "result": "100% des failles critiques corrigées"
+      }
+    ]
+  },
+  "callToAction": {
+    "title": "Prêt à améliorer votre site Magento ?",
+    "buttons": [
+      {
+        "text": "Contactez-moi dès maintenant",
+        "link": "/contact",
+        "type": "primary"
+      },
+      {
+        "text": "Planifiez un audit gratuit",
+        "link": "/contact?type=audit",
+        "type": "secondary"
+      }
+    ]
+  }
+}

@@ -1,6 +1,12 @@
 import { Actions } from 'gatsby';
 
-export const createSchemaCustomization = ({ createTypes }: Actions): void => {
+interface SchemaCustomizationArgs {
+  actions: Actions;
+}
+
+export const createSchemaCustomization = ({ actions }: SchemaCustomizationArgs): void => {
+  const { createTypes } = actions;
+  
   const typeDefs = `
     type Project implements Node {
       id: ID!
@@ -30,10 +36,11 @@ export const createSchemaCustomization = ({ createTypes }: Actions): void => {
       id: ID!
       title: String!
       excerpt: String!
-      date: String!
-      slug: String!
-      featuredImage: String
+      content: String!
+      date: Date!
+      author: String!
       tags: [String!]!
+      slug: String!
     }
   `;
 

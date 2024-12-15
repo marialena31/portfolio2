@@ -1,38 +1,119 @@
 import React from 'react';
-import { PageProps, graphql } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import Layout from '../components/layout';
-import { SiteMetadata } from '../types';
+import SEO from '../components/seo';
+import Hero from '../components/home/hero';
+import Needs from '../components/home/needs';
+import Services from '../components/home/services';
+import Testimonials from '../components/home/testimonials';
+import CallToAction from '../components/home/call-to-action';
 
-interface DataProps {
-  site: {
-    siteMetadata: SiteMetadata;
+interface HomeData {
+  homeJson: {
+    hero: {
+      title: string;
+      subtitle: string;
+      cta: {
+        text: string;
+        link: string;
+      };
+    };
+    needs: {
+      title: string;
+      items: Array<{
+        question: string;
+        solution: string;
+        link: string;
+      }>;
+    };
+    services: {
+      title: string;
+      items: Array<{
+        title: string;
+        description: string;
+        icon: string;
+        link: string;
+      }>;
+    };
+    testimonials: {
+      title: string;
+      items: Array<{
+        quote: string;
+        author: string;
+        company: string;
+        result: string;
+      }>;
+    };
+    callToAction: {
+      title: string;
+      buttons: Array<{
+        text: string;
+        link: string;
+        type: 'primary' | 'secondary';
+      }>;
+    };
   };
 }
 
-const IndexPage: React.FC<PageProps<DataProps>> = ({ data }) => {
-  const { title, description } = data.site.siteMetadata;
+const IndexPage: React.FC<PageProps<HomeData>> = ({ data }) => {
+  const { homeJson } = data;
 
   return (
     <Layout>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <section>
-        <h2>Bienvenue sur mon portfolio</h2>
-        <p>
-          Je suis un développeur passionné par la création d'applications web
-          modernes et performantes.
-        </p>
-      </section>
+      <SEO title="Accueil" />
+      <Hero {...homeJson.hero} />
+      <Needs {...homeJson.needs} />
+      <Services {...homeJson.services} />
+      <Testimonials {...homeJson.testimonials} />
+      <CallToAction {...homeJson.callToAction} />
     </Layout>
   );
 };
 
 export const query = graphql`
   query HomePageQuery {
-    site {
-      siteMetadata {
+    homeJson {
+      hero {
         title
-        description
+        subtitle
+        cta {
+          text
+          link
+        }
+      }
+      needs {
+        title
+        items {
+          question
+          solution
+          link
+        }
+      }
+      services {
+        title
+        items {
+          title
+          description
+          icon
+          link
+        }
+      }
+      testimonials {
+        title
+        items {
+          quote
+          author
+          company
+          result
+        }
+      }
+      callToAction {
+        title
+        buttons {
+          text
+          link
+          type
+        }
       }
     }
   }

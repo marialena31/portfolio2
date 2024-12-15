@@ -1,21 +1,22 @@
-@import '../styles/mixins';
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
 
 .section {
-  padding: var(--spacing-16) 0;
+  padding: $spacing-xxl 0;
   
   @include breakpoint(md) {
-    padding: var(--spacing-20) 0;
+    padding: $spacing-xxxl 0;
   }
 
   &:nth-child(even) {
-    background-color: var(--color-gray-50);
+    background: $surface-secondary;
   }
 }
 
 .sectionTitle {
   @include heading-2;
   text-align: center;
-  margin-bottom: var(--spacing-8);
+  margin-bottom: $spacing-xl;
 }
 
 .projectsGrid {

@@ -1,8 +1,9 @@
-@import 'variables';
-@import 'mixins';
+@use 'variables' as *;
 
-// Reset and base styles
-*, *::before, *::after {
+/* Reset and Base Styles */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -14,48 +15,165 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
-  color: var(--color-text);
-  background-color: var(--color-background);
-  line-height: var(--line-height-normal);
+  font-family: $font-secondary;
+  font-size: $font-size-md;
+  line-height: $line-height-normal;
+  color: $text-primary;
+  background-color: $color-background;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-// Typography
+/* Typography */
 h1, h2, h3, h4, h5, h6 {
-  margin-bottom: var(--spacing-4);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
+  font-family: $font-primary;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  margin: 0;
+}
+
+h1 {
+  font-size: $font-size-xxxxxl;
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-size-xxxxl;
+  }
+}
+
+h2 {
+  font-size: $font-size-xxxxl;
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-size-xxxl;
+  }
+}
+
+h3 {
+  font-size: $font-size-xxxl;
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-size-xxl;
+  }
+}
+
+h4 {
+  font-size: $font-size-xxl;
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-size-xl;
+  }
+}
+
+h5 {
+  font-size: $font-size-xl;
+}
+
+h6 {
+  font-size: $font-size-lg;
 }
 
 p {
-  margin-bottom: var(--spacing-4);
+  margin-bottom: $spacing-md;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 a {
-  color: var(--color-primary);
+  color: $color-primary;
   text-decoration: none;
-  transition: var(--transition-default);
-
+  transition: color $transition-base;
+  
   &:hover {
-    color: var(--color-primary-dark);
+    color: $color-primary-dark;
   }
 }
 
-// Layout
+/* Lists */
+ul, ol {
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-lg;
+}
+
+li {
+  margin-bottom: $spacing-sm;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Form Elements */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Focus Styles */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid $color-primary;
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: $color-primary;
+  color: $color-white;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $surface-secondary;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $text-tertiary;
+  border-radius: $border-radius-full;
+  
+  &:hover {
+    background: $text-secondary;
+  }
+}
+
+/* Container */
 .container {
   width: 100%;
-  max-width: var(--container-width);
+  max-width: $container-max-width;
   margin: 0 auto;
-  padding: 0 var(--spacing-4);
+  padding: 0 $spacing-lg;
 
-  @include breakpoint(md) {
-    padding: 0 var(--spacing-6);
+  @media (min-width: $breakpoint-md) {
+    padding: 0 $spacing-xl;
   }
 }
 
-// Utility classes
+/* Utilities */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -68,19 +186,19 @@ a {
   border: 0;
 }
 
-.text-center {
-  text-align: center;
+.text-gradient {
+  background: $gradient-text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.text-right {
-  text-align: right;
+.glass {
+  background: $glass-background;
+  backdrop-filter: $glass-blur;
+  border: 1px solid $glass-border;
 }
 
-.text-left {
-  text-align: left;
-}
-
-// Animations
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -90,6 +208,21 @@ a {
   }
 }
 
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .fade-in {
-  animation: fadeIn 0.3s ease-in;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-in-out;
 }

@@ -1,8 +1,9 @@
-@use '../styles/variables' as *;
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .hero {
   position: relative;
-  padding: $spacing-xxxl 0;
+  padding: calc($spacing-xxxl * 2) 0;
   background: $gradient-primary;
   color: $surface-primary;
   overflow: hidden;
@@ -22,7 +23,7 @@
 .content {
   max-width: $container-max-width;
   margin: 0 auto;
-  padding: 0 $spacing-md;
+  padding: 0 $spacing-lg;
   position: relative;
   z-index: $z-index-fixed;
   display: flex;
@@ -30,15 +31,20 @@
   align-items: center;
   text-align: center;
   gap: $spacing-xl;
+
+  @media (min-width: $breakpoint-md) {
+    padding: 0 $spacing-xl;
+  }
 }
 
 .title {
-  font-size: $font-size-xxxl;
+  font-size: $font-size-xxxxxl;
   font-weight: $font-weight-bold;
   margin: 0;
+  max-width: 800px;
 
   @media (max-width: $breakpoint-md) {
-    font-size: $font-size-xxl;
+    font-size: $font-size-xxxxl;
   }
 }
 
@@ -55,21 +61,11 @@
 }
 
 .cta {
-  display: flex;
-  gap: $spacing-md;
   margin-top: $spacing-lg;
-
-  @media (max-width: $breakpoint-sm) {
-    flex-direction: column;
-    width: 100%;
-  }
 }
 
 .primaryButton {
   @include button-primary;
-  margin-right: $spacing-md;
-}
-
-.secondaryButton {
-  @include button-secondary;
+  font-size: $font-size-lg;
+  padding: $spacing-md $spacing-xl;
 }

@@ -1,11 +1,54 @@
 import { GatsbyNode } from 'gatsby';
-import { createSchemaCustomization } from './schema';
+import * as path from 'path';
 import {
   projects,
   services,
   skills,
   blogPosts,
 } from '../../src/data/mockData';
+
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
+  const { createTypes } = actions;
+
+  const typeDefs = `
+    type Project implements Node {
+      id: ID!
+      title: String!
+      description: String!
+      image: String!
+      tags: [String!]!
+      githubUrl: String
+      liveUrl: String
+    }
+
+    type Service implements Node {
+      id: ID!
+      title: String!
+      description: String!
+      icon: String!
+    }
+
+    type Skill implements Node {
+      id: ID!
+      name: String!
+      level: Int!
+      category: String!
+    }
+
+    type BlogPost implements Node {
+      id: ID!
+      title: String!
+      excerpt: String!
+      content: String!
+      date: String!
+      author: String!
+      tags: [String!]!
+      slug: String!
+    }
+  `;
+
+  createTypes(typeDefs);
+};
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = ({
   actions,
@@ -62,7 +105,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
   // Create nodes for blog posts
   blogPosts.forEach(post => {
     const nodeMeta = {
-      id: createNodeId(`post-${post.id}`),
+      id: createNodeId(`blog-post-${post.id}`),
       parent: null,
       children: [],
       internal: {
@@ -75,8 +118,34 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
   });
 };
 
-export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({
-  actions,
-}) => {
-  createSchemaCustomization(actions);
+export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
+  const { createPage } = actions;
+
+  // Query for blog posts
+  const result = await graphql<{
+    allBlogPost: {
+      nodes: Array<{
+        slug: string;
+      }>;
+    };
+  }>(`
+    query {
+      allBlogPost {
+        nodes {
+          slug
+        }
+      }
+    }
+  `);
+
+  // Create blog post pages
+  result.data?.allBlogPost.nodes.forEach(node => {
+    createPage({
+      path: `/blog/${node.slug}`,
+      component: path.resolve('./src/templates/blog-post.tsx'),
+      context: {
+        slug: node.slug,
+      },
+    });
+  });
 };
