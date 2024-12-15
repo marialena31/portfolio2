@@ -38,6 +38,19 @@ const config: GatsbyConfig = {
       },
     },
     {
+      resolve: 'gatsby-omni-font-loader',
+      options: {
+        enableListener: true,
+        preconnect: ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'],
+        web: [
+          {
+            name: 'Roboto',
+            file: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap',
+          },
+        ],
+      },
+    },
+    {
       resolve: 'gatsby-source-portfolio-data',
       options: {},
     },

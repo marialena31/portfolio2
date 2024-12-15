@@ -55,13 +55,23 @@ interface HomeData {
   };
 }
 
-const IndexPage: React.FC = () => {
+interface IndexPageProps {
+  title: string;
+  items: Array<{
+    title: string;
+    description: string;
+    icon: string;
+    link: string;
+  }>; 
+}
+
+const IndexPage: React.FC<IndexPageProps> = ({ title, items }) => {
   return (
     <Layout>
-      <SEO title="Accueil" />
+      <SEO title={title} />
       <Hero {...homeData.hero} />
       <Needs {...homeData.needs} />
-      <Services {...homeData.services} />
+      <Services title={homeData.services.title} items={homeData.services.items} />
       <Brands {...homeData.brands} />
       <CallToAction {...homeData.callToAction} />
     </Layout>
