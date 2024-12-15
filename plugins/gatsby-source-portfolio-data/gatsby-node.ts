@@ -2,10 +2,16 @@ import { GatsbyNode } from 'gatsby';
 import * as path from 'path';
 import {
   projects,
+} from '../../src/data/projects';
+import {
   services,
+} from '../../src/data/services';
+import {
   skills,
+} from '../../src/data/skills';
+import {
   blogPosts,
-} from '../../src/data/mockData';
+} from '../../src/data/mockBlogPosts';
 
 export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
   const { createTypes } = actions;
@@ -19,6 +25,7 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       tags: [String!]!
       githubUrl: String
       liveUrl: String
+      slug: String!
     }
 
     type Service implements Node {
@@ -59,6 +66,11 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
 
   // Create nodes for projects
   projects.forEach(project => {
+    const slug = project.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+
     const nodeMeta = {
       id: createNodeId(`project-${project.id}`),
       parent: null,
@@ -69,7 +81,11 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
       },
     };
 
-    createNode({ ...project, ...nodeMeta });
+    createNode({ 
+      ...project, 
+      slug,
+      ...nodeMeta 
+    });
   });
 
   // Create nodes for services

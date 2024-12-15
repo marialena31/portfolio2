@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import dotenv from 'dotenv';
+const fs = require('fs');
+const path = require('path');
+const dotenv = require('dotenv');
 
 const REQUIRED_ENV_VARS = [
   'GATSBY_GA_TRACKING_ID',

@@ -21,7 +21,8 @@
     "optimize-images": "ts-node scripts/optimize-images.ts",
     "generate-icons": "ts-node scripts/convert-icons.ts",
     "check-env": "ts-node scripts/check-env.ts",
-    "prebuild": "npm run check-env"
+    "prebuild": "npm run check-env",
+    "contrast-check": "color-contrast-calc"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -52,6 +53,7 @@
     "@types/react-helmet": "^6.1.11",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
+    "color-contrast-calc": "^0.4.1",
     "dotenv": "^16.3.1",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",

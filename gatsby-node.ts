@@ -1,57 +1,47 @@
 import { GatsbyNode } from 'gatsby';
 import path from 'path';
-import { createFilePath } from 'gatsby-source-filesystem';
 import { Request, Response, NextFunction } from 'express';
 
-export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions;
-
-  if (node.internal.type === 'MarkdownRemark') {
-    const value = createFilePath({ node, getNode });
-    createNodeField({
-      name: 'slug',
-      node,
-      value,
-    });
-  }
-};
-
-interface BlogPostQueryResult {
-  data: {
-    allMarkdownRemark: {
+interface ProjectQueryResult {
+  data?: {
+    allProject: {
       edges: Array<{
         node: {
-          fields: {
-            slug: string;
-          };
-          frontmatter: {
-            title: string;
-          };
-        };
-      }>;
-    };
-  };
+          id: string
+          title: string
+          description: string
+          image: string
+          tags: string[]
+          githubUrl: string
+          liveUrl: string
+          slug: string
+        }
+      }>
+    }
+  }
 }
 
 export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  // Define templates
+  // Define template
   const projectTemplate = path.resolve('./src/templates/project.tsx');
-  const blogPostTemplate = path.resolve(__dirname, 'src/templates/blog-post.tsx');
 
-  // Query for blog posts
-  const result = await graphql<{
-    allBlogPost: {
-      nodes: Array<{
-        slug: string;
-      }>;
-    };
-  }>(`
+  // Query for projects using the correct type name
+  const result = await graphql<ProjectQueryResult>(`
     query {
-      allBlogPost {
-        nodes {
-          slug
+      allProject {
+        edges {
+          node {
+            id
+            title
+            description
+            image
+            tags
+            githubUrl
+            liveUrl
+            slug
+          }
         }
       }
     }
@@ -61,13 +51,20 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
     throw result.errors;
   }
 
-  // Create blog post pages
-  result.data?.allBlogPost.nodes.forEach(node => {
+  const data = result.data;
+  if (!data) {
+    throw new Error('No data returned from GraphQL query');
+  }
+
+  const projects = data.data?.allProject.edges || [];
+
+  projects.forEach((project: any) => {
     createPage({
-      path: `/blog/${node.slug}`,
-      component: blogPostTemplate,
+      path: `/project/${project.node.slug}`,
+      component: projectTemplate,
       context: {
-        slug: node.slug,
+        id: project.node.id,
+        slug: project.node.slug,
       },
     });
   });

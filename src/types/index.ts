@@ -38,13 +38,21 @@ export interface Service {
   title: string;
   description: string;
   icon: string;
+  features: string[];
+}
+
+export interface SkillCategory {
+  id: string;
+  name: string;
+  description: string;
 }
 
 export interface Skill {
   id: string;
   name: string;
   level: number;
-  category: 'frontend' | 'backend' | 'tools';
+  category: 'frontend' | 'backend' | 'tools' | 'devops';
+  icon: string;
 }
 
 export interface BlogPost {
