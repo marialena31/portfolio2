@@ -31,33 +31,17 @@ const config: GatsbyConfig = {
         name: `Portfolio`,
         short_name: `Portfolio`,
         start_url: `/`,
-        background_color: `#663399`,
+        background_color: `#ffffff`,
         theme_color: `#663399`,
-        display: `standalone`,
-        icon: `src/images/icons/icon-512x512.png`,
+        display: `minimal-ui`,
+        icon: `src/images/favicon.png`,
       },
     },
     {
-      resolve: 'gatsby-plugin-netlify',
-      options: {
-        headers: {
-          '/*': ['Cache-Control: public, max-age=0, must-revalidate'],
-          '/static/*': ['Cache-Control: public, max-age=31536000, immutable'],
-          '/icons/*': ['Cache-Control: public, max-age=31536000, immutable'],
-        },
-      },
-    },
-    {
-      resolve: `gatsby-plugin-offline`,
-      options: {
-        precachePages: [`/`, `/about`, `/portfolio/*`],
-      },
-    },
-    {
-      resolve: `gatsby-source-portfolio-data`,
+      resolve: 'gatsby-source-portfolio-data',
       options: {},
     },
   ],
-} as GatsbyConfig;
+};
 
-export default config;
+module.exports = config;
