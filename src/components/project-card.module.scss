@@ -1,0 +1,80 @@
+@import '../styles/mixins';
+
+.card {
+  @include card;
+  transition: var(--transition-default);
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  padding-bottom: 56.25%; // 16:9 aspect ratio
+  border-radius: var(--border-radius-default);
+  overflow: hidden;
+  margin-bottom: var(--spacing-4);
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  @include flex-column;
+  gap: var(--spacing-3);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.description {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-4);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-4);
+}
+
+.tag {
+  padding: var(--spacing-1) var(--spacing-2);
+  background-color: var(--color-gray-100);
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}
+
+.links {
+  @include flex-between;
+  margin-top: auto;
+}
+
+.link {
+  @include button-base;
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-2) var(--spacing-3);
+  
+  &:hover {
+    background-color: var(--color-gray-100);
+  }
+
+  svg {
+    margin-right: var(--spacing-2);
+  }
+}

@@ -1,0 +1,53 @@
+@import '../styles/mixins';
+
+.hero {
+  padding: var(--spacing-16) 0;
+  background-color: var(--color-gray-100);
+  
+  @include breakpoint(md) {
+    padding: var(--spacing-20) 0;
+  }
+}
+
+.content {
+  @include container;
+  @include flex-column;
+  gap: var(--spacing-6);
+  text-align: center;
+
+  @include breakpoint(md) {
+    gap: var(--spacing-8);
+  }
+}
+
+.title {
+  @include heading-1;
+  color: var(--color-text);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.subtitle {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-light);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: var(--line-height-relaxed);
+}
+
+.cta {
+  margin-top: var(--spacing-4);
+  
+  @include breakpoint(md) {
+    margin-top: var(--spacing-6);
+  }
+}
+
+.primaryButton {
+  @include button-primary;
+  margin-right: var(--spacing-4);
+}
+
+.secondaryButton {
+  @include button-secondary;
+}

@@ -1,0 +1,16 @@
+{
+  "name": "gatsby-source-portfolio-data",
+  "version": "1.0.0",
+  "description": "Custom source plugin for portfolio data",
+  "main": "gatsby-node.js",
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "portfolio"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": "^5.0.0"
+  }
+}

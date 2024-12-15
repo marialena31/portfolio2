@@ -1,0 +1,43 @@
+@import '../styles/mixins';
+
+.section {
+  padding: var(--spacing-16) 0;
+  
+  @include breakpoint(md) {
+    padding: var(--spacing-20) 0;
+  }
+
+  &:nth-child(even) {
+    background-color: var(--color-gray-50);
+  }
+}
+
+.sectionTitle {
+  @include heading-2;
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+}
+
+.projectsGrid {
+  @include grid-cols(1);
+  
+  @include breakpoint(md) {
+    @include grid-cols(2);
+  }
+  
+  @include breakpoint(lg) {
+    @include grid-cols(3);
+  }
+}
+
+.skillsGrid {
+  @include grid-cols(2);
+  
+  @include breakpoint(md) {
+    @include grid-cols(3);
+  }
+  
+  @include breakpoint(lg) {
+    @include grid-cols(4);
+  }
+}

@@ -1,0 +1,66 @@
+@import '../styles/mixins';
+
+.form {
+  @include card;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.formGroup {
+  @include flex-column;
+  margin-bottom: var(--spacing-4);
+}
+
+.label {
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-2);
+  color: var(--color-text);
+}
+
+.input,
+.textarea {
+  padding: var(--spacing-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-default);
+  font-size: var(--font-size-base);
+  transition: var(--transition-default);
+
+  &:focus {
+    @include focus-ring;
+    border-color: var(--color-primary);
+  }
+
+  &::placeholder {
+    color: var(--color-gray-400);
+  }
+}
+
+.textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.submitButton {
+  @include button-primary;
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-6);
+  
+  @include breakpoint(md) {
+    width: auto;
+  }
+}
+
+.error {
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-1);
+}
+
+.success {
+  color: var(--color-success);
+  text-align: center;
+  padding: var(--spacing-4);
+  background-color: var(--color-success-light);
+  border-radius: var(--border-radius-default);
+  margin-bottom: var(--spacing-4);
+}

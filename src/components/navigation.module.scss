@@ -1,0 +1,79 @@
+@import '../styles/mixins';
+
+.nav {
+  @include container;
+  padding-top: var(--spacing-4);
+  padding-bottom: var(--spacing-4);
+  background-color: var(--color-white);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-index-30);
+  box-shadow: var(--shadow-sm);
+}
+
+.navContent {
+  @include flex-between;
+}
+
+.logo {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition-default);
+
+  &:hover {
+    color: var(--color-primary-dark);
+  }
+}
+
+.menuButton {
+  @include button-base;
+  display: flex;
+  padding: var(--spacing-2);
+  background: transparent;
+  
+  @include breakpoint(md) {
+    display: none;
+  }
+}
+
+.menuList {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--color-white);
+  padding: var(--spacing-4);
+  box-shadow: var(--shadow-md);
+
+  @include breakpoint(md) {
+    display: flex;
+    position: static;
+    padding: 0;
+    box-shadow: none;
+    gap: var(--spacing-6);
+  }
+
+  &.isOpen {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+}
+
+.menuItem {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: var(--transition-default);
+
+  &:hover {
+    color: var(--color-primary);
+  }
+
+  &.active {
+    color: var(--color-primary);
+  }
+}

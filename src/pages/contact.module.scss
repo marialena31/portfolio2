@@ -1,0 +1,92 @@
+@import '../styles/mixins';
+
+.contact {
+  padding: var(--spacing-16) 0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-12);
+}
+
+.title {
+  @include heading-1;
+  margin-bottom: var(--spacing-4);
+}
+
+.description {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.content {
+  @include container;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  gap: var(--spacing-8);
+  
+  @include breakpoint(md) {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.info {
+  @include card;
+}
+
+.infoTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-4);
+}
+
+.infoList {
+  @include flex-column;
+  gap: var(--spacing-4);
+}
+
+.infoItem {
+  @include flex-between;
+  gap: var(--spacing-3);
+
+  svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary);
+  }
+}
+
+.social {
+  margin-top: var(--spacing-6);
+  padding-top: var(--spacing-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.socialTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-4);
+}
+
+.socialLinks {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+.socialLink {
+  @include flex-center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-gray-100);
+  color: var(--color-text);
+  transition: var(--transition-default);
+
+  &:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+}
