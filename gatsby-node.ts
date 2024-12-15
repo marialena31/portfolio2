@@ -1,6 +1,7 @@
 import { GatsbyNode } from 'gatsby';
 import path from 'path';
 import { Request, Response, NextFunction } from 'express';
+import { homeData } from './src/data/home';
 
 interface ProjectQueryResult {
   data?: {
@@ -181,20 +182,5 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
 };
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = ({ actions, createNodeId, createContentDigest }) => {
-  const { createNode } = actions;
-
-  // Load the mock data
-  const homeData = require('./src/data/home.json');
-
-  // Create node for home data
-  createNode({
-    ...homeData,
-    id: createNodeId('home-data'),
-    parent: null,
-    children: [],
-    internal: {
-      type: 'HomeJson',
-      contentDigest: createContentDigest(homeData),
-    },
-  });
+  // Node creation is now handled by gatsby-source-portfolio-data plugin
 };

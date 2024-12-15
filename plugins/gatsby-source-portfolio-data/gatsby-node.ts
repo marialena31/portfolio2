@@ -1,22 +1,86 @@
 import { GatsbyNode } from 'gatsby';
 import * as path from 'path';
-import {
-  projects,
-} from '../../src/data/projects';
-import {
-  services,
-} from '../../src/data/services';
-import {
-  skills,
-} from '../../src/data/skills';
-import {
-  blogPosts,
-} from '../../src/data/mockBlogPosts';
+import { projects } from '../../src/data/projects';
+import { services } from '../../src/data/services';
+import { skills } from '../../src/data/skills';
+import { blogPosts } from '../../src/data/mockBlogPosts';
+import { homeData } from '../../src/data/home';
 
 export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
   const { createTypes } = actions;
 
   const typeDefs = `
+    type BlogPost implements Node {
+      id: ID!
+      title: String!
+      excerpt: String!
+      content: String!
+      date: String!
+      author: String!
+      tags: [String!]!
+      slug: String!
+    }
+
+    type HomeJson implements Node {
+      hero: HomeHero!
+      needs: HomeNeeds!
+      services: HomeServices!
+      testimonials: HomeTestimonials!
+      callToAction: HomeCallToAction!
+    }
+
+    type HomeHero {
+      title: String!
+      subtitle: String!
+      cta: HomeButton!
+    }
+
+    type HomeNeeds {
+      title: String!
+      items: [HomeNeedItem!]!
+    }
+
+    type HomeNeedItem {
+      question: String!
+      solution: String!
+      link: String!
+    }
+
+    type HomeServices {
+      title: String!
+      items: [HomeServiceItem!]!
+    }
+
+    type HomeServiceItem {
+      title: String!
+      description: String!
+      icon: String!
+      link: String!
+    }
+
+    type HomeTestimonials {
+      title: String!
+      items: [HomeTestimonialItem!]!
+    }
+
+    type HomeTestimonialItem {
+      quote: String!
+      author: String!
+      company: String!
+      result: String!
+    }
+
+    type HomeCallToAction {
+      title: String!
+      buttons: [HomeButton!]!
+    }
+
+    type HomeButton {
+      text: String!
+      link: String!
+      type: String
+    }
+
     type Project implements Node {
       id: ID!
       title: String!
@@ -41,17 +105,6 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       level: Int!
       category: String!
     }
-
-    type BlogPost implements Node {
-      id: ID!
-      title: String!
-      excerpt: String!
-      content: String!
-      date: String!
-      author: String!
-      tags: [String!]!
-      slug: String!
-    }
   `;
 
   createTypes(typeDefs);
@@ -64,63 +117,22 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
 }) => {
   const { createNode } = actions;
 
-  // Create nodes for projects
-  projects.forEach(project => {
-    const slug = project.title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
-
-    const nodeMeta = {
-      id: createNodeId(`project-${project.id}`),
-      parent: null,
-      children: [],
-      internal: {
-        type: 'Project',
-        contentDigest: createContentDigest(project),
-      },
-    };
-
-    createNode({ 
-      ...project, 
-      slug,
-      ...nodeMeta 
-    });
-  });
-
-  // Create nodes for services
-  services.forEach(service => {
-    const nodeMeta = {
-      id: createNodeId(`service-${service.id}`),
-      parent: null,
-      children: [],
-      internal: {
-        type: 'Service',
-        contentDigest: createContentDigest(service),
-      },
-    };
-
-    createNode({ ...service, ...nodeMeta });
-  });
-
-  // Create nodes for skills
-  skills.forEach(skill => {
-    const nodeMeta = {
-      id: createNodeId(`skill-${skill.id}`),
-      parent: null,
-      children: [],
-      internal: {
-        type: 'Skill',
-        contentDigest: createContentDigest(skill),
-      },
-    };
-
-    createNode({ ...skill, ...nodeMeta });
+  // Create node for home data
+  createNode({
+    ...homeData,
+    id: createNodeId('home-data'),
+    parent: null,
+    children: [],
+    internal: {
+      type: 'HomeJson',
+      contentDigest: createContentDigest(homeData),
+    },
   });
 
   // Create nodes for blog posts
   blogPosts.forEach(post => {
-    const nodeMeta = {
+    createNode({
+      ...post,
       id: createNodeId(`blog-post-${post.id}`),
       parent: null,
       children: [],
@@ -128,9 +140,55 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
         type: 'BlogPost',
         contentDigest: createContentDigest(post),
       },
-    };
+    });
+  });
 
-    createNode({ ...post, ...nodeMeta });
+  // Create nodes for projects
+  projects.forEach(project => {
+    const slug = project.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+
+    createNode({
+      ...project,
+      slug,
+      id: createNodeId(`project-${project.id}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: 'Project',
+        contentDigest: createContentDigest(project),
+      },
+    });
+  });
+
+  // Create nodes for services
+  services.forEach(service => {
+    createNode({
+      ...service,
+      id: createNodeId(`service-${service.id}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: 'Service',
+        contentDigest: createContentDigest(service),
+      },
+    });
+  });
+
+  // Create nodes for skills
+  skills.forEach(skill => {
+    createNode({
+      ...skill,
+      id: createNodeId(`skill-${skill.id}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: 'Skill',
+        contentDigest: createContentDigest(skill),
+      },
+    });
   });
 };
 

@@ -1,4 +1,4 @@
-@import '../styles/mixins';
+@use '../styles/mixins' as *;
 
 .notFound {
   @include flex-center;
@@ -10,22 +10,33 @@
 .content {
   @include flex-column;
   align-items: center;
-  gap: var(--spacing-6);
+  gap: var(--spacing-4);
 }
 
 .title {
-  @include heading-1;
-  color: var(--color-primary);
+  font-size: var(--font-size-4xl);
+  color: var(--text-primary);
 }
 
 .text {
   font-size: var(--font-size-lg);
-  color: var(--color-text-light);
+  color: var(--text-secondary);
   max-width: 500px;
   margin: 0 auto;
+  margin-bottom: var(--spacing-8);
 }
 
 .homeLink {
   @include button-primary;
   margin-top: var(--spacing-4);
+}
+
+.link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

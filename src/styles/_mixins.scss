@@ -52,6 +52,17 @@
   }
 }
 
+@mixin blog-container {
+  width: 100%;
+  max-width: $container-blog-max-width;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+
+  @include breakpoint(md) {
+    padding: 0 $spacing-xl;
+  }
+}
+
 // Typography
 @mixin heading-1 {
   font-size: $font-size-xxl;
