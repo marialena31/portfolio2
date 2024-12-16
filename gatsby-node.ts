@@ -1,72 +1,22 @@
 import { GatsbyNode } from 'gatsby';
 import path from 'path';
-import { Request, Response, NextFunction } from 'express';
+import { projects } from './src/data/projects';
 
-interface ProjectNode {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-  githubUrl: string;
-  liveUrl: string;
-  slug: string;
-}
-
-interface ProjectEdge {
-  node: ProjectNode;
-}
-
-interface ProjectQueryResult {
-  allProject: unknown;
-  data?: {
-    allProject: {
-      edges: ProjectEdge[];
-    };
-  };
-  errors?: unknown;
-}
-
-export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
+export const createPages: GatsbyNode['createPages'] = async ({ actions }) => {
   const { createPage } = actions;
-  const projectTemplate = path.resolve('./src/templates/project.tsx');
 
-  const result = await graphql<ProjectQueryResult>(`
-    query {
-      allProject {
-        edges {
-          node {
-            id
-            title
-            description
-            image
-            tags
-            githubUrl
-            liveUrl
-            slug
-          }
-        }
-      }
-    }
-  `);
-
-  if (result.errors) {
-    throw result.errors;
-  }
-
-  if (result.data) {
-    const projectData = result.data as { allProject: { edges: ProjectEdge[] } };
-    projectData.allProject.edges.forEach((edge: ProjectEdge) => {
-      const { node } = edge;
-      createPage({
-        path: `/portfolio/${node.slug}`,
-        component: projectTemplate,
-        context: {
-          id: node.id,
-        },
-      });
+  // Create project pages
+  projects.forEach(project => {
+    const slug = project.title.toLowerCase().replace(/\s+/g, '-');
+    createPage({
+      path: `/portfolio/${slug}`,
+      component: path.resolve('./src/templates/project.tsx'),
+      context: {
+        id: project.id,
+        ...project,
+      },
     });
-  }
+  });
 };
 
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
@@ -96,6 +46,32 @@ export const onCreateDevServer: GatsbyNode['onCreateDevServer'] = ({ app }) => {
       res.setHeader('Content-Type', 'application/json');
     }
     next();
+  });
+};
+
+export const sourceNodes: GatsbyNode['sourceNodes'] = ({
+  actions,
+  createNodeId,
+  createContentDigest,
+}) => {
+  const { createNode } = actions;
+
+  // Create nodes for projects
+  projects.forEach(project => {
+    const slug = project.title.toLowerCase().replace(/\s+/g, '-');
+    const nodeContent = { ...project, slug };
+
+    createNode({
+      ...nodeContent,
+      id: createNodeId(`Project-${project.id}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: 'Project',
+        content: JSON.stringify(nodeContent),
+        contentDigest: createContentDigest(nodeContent),
+      },
+    });
   });
 };
 
@@ -161,11 +137,18 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       link: String!
       type: String
     }
+
+    type Project implements Node {
+      id: String!
+      title: String!
+      description: String!
+      image: String!
+      tags: [String!]!
+      githubUrl: String!
+      liveUrl: String!
+      slug: String!
+    }
   `;
 
   createTypes(typeDefs);
-};
-
-export const sourceNodes: GatsbyNode['sourceNodes'] = async () => {
-  // Node creation is now handled by gatsby-source-portfolio-data plugin
 };
