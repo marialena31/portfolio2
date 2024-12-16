@@ -47,4 +47,32 @@ export interface HomeData {
   };
 }
 
+export interface PageMetadata {
+  description: string;
+}
+
+export interface SiteMetadata {
+  title: string;
+  description: string;
+  siteUrl: string;
+  image: string;
+  twitterUsername: string;
+  author: string;
+  pageMetadata: {
+    home: PageMetadata;
+    about: PageMetadata;
+    services: PageMetadata;
+    portfolio: PageMetadata;
+    contact: PageMetadata;
+  };
+}
+
+export interface SEOProps {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  pageName?: 'home' | 'about' | 'services' | 'portfolio' | 'contact';
+}
+
 export type { Project, Skill, SkillCategory, Service, SocialLink } from './data';
