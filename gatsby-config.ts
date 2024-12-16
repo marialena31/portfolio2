@@ -27,6 +27,7 @@ const config: GatsbyConfig = {
     },
   },
   plugins: [
+    `gatsby-plugin-preact`,
     `gatsby-plugin-typescript`,
     {
       resolve: `gatsby-plugin-sass`,
