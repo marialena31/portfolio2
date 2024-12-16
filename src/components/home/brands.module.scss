@@ -41,22 +41,21 @@
 
 .title {
   text-align: center;
-  margin-bottom: $spacing-xxl;
-  font-size: $font-size-xxxl;
+  margin-bottom: $spacing-xxxl;
+  font-size: clamp($font-size-2xl, 4vw, $font-size-3xl);
+  font-weight: $font-weight-bold;
   color: $text-primary;
+  background: $gradient-text;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   position: relative;
-  padding-bottom: $spacing-lg;
+}
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, $color-primary, $color-primary-light);
-    border-radius: $border-radius-sm;
+@media (max-width: $breakpoint-md) {
+  .title {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-xl;
   }
 }
 
@@ -157,13 +156,5 @@
 
   .brandItem {
     padding: $spacing-lg;
-  }
-
-  .title {
-    font-size: $font-size-xxl;
-    
-    &::after {
-      width: 40px;
-    }
   }
 }

@@ -41,7 +41,7 @@ const Navigation: React.FC = () => {
           className={styles.logo}
           aria-label="Go to homepage"
         >
-          <span aria-hidden="true">Portfolio</span>
+          <span aria-hidden="true">ExpertEcom</span>
         </Link>
 
         <button

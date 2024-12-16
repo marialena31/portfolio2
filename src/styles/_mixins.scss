@@ -143,8 +143,9 @@
 // Reduced motion
 @mixin respect-motion-preferences {
   @media (prefers-reduced-motion: reduce) {
-    transition: none !important;
-    transform: none !important;
+    transition: none;
+    transform: none;
+    animation: none;
   }
 }
 

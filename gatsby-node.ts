@@ -51,14 +51,14 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
 
   if (result.data) {
     result.data.allProject.edges.forEach(({ node }) => {
-      createPage({
-        path: `/portfolio/${node.slug}`,
-        component: projectTemplate,
-        context: {
-          id: node.id,
-        },
-      });
+    createPage({
+      path: `/portfolio/${node.slug}`,
+      component: projectTemplate,
+      context: {
+        id: node.id,
+      },
     });
+  });
   }
 };
 

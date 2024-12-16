@@ -16,14 +16,15 @@
   }
 
   .title {
-    font-size: clamp($font-size-xxl, 4vw, $font-size-xxxl);
+    font-size: clamp($font-size-2xl, 4vw, $font-size-3xl);
     font-weight: $font-weight-bold;
-    margin-bottom: $spacing-lg;
+    margin-bottom: $spacing-xxxl;
+    color: $text-primary;
     background: $gradient-text;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .description {

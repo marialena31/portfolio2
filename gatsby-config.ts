@@ -2,7 +2,7 @@ import type { GatsbyConfig } from 'gatsby';
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `Portfolio`,
+    title: `ExpertEcom`,
     description: `Professional portfolio website showcasing skills, services, and projects`,
     author: `@yourusername`,
     siteUrl: `https://your-domain.com`,
@@ -11,7 +11,12 @@ const config: GatsbyConfig = {
   },
   plugins: [
     `gatsby-plugin-typescript`,
-    `gatsby-plugin-sass`,
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        implementation: require('sass'),
+      },
+    },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
@@ -35,15 +40,6 @@ const config: GatsbyConfig = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, 
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-fonts`,
-      options: {
-        fonts: [
-          `roboto\:400,500,600,700`, // Specify the weights you need
-        ],
-        display: 'swap', // This helps with rendering performance
       },
     },
     {

@@ -14,10 +14,10 @@
 }
 
 .title {
-  font-size: $font-size-xxxxl;
-  color: var(--text-primary);
-  margin-bottom: $spacing-xl;
   text-align: center;
+  margin-bottom: $spacing-xxl;
+  font-size: $font-size-4xl;
+  color: var(--text-primary);
 }
 
 .grid {
@@ -95,6 +95,6 @@
   }
 
   .title {
-    font-size: $font-size-xxxl;
+    font-size: $font-size-3xl;
   }
 }

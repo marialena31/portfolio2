@@ -41,7 +41,7 @@
 }
 
 .title {
-  font-size: clamp($font-size-xxl, 4vw, $font-size-xxxl);
+  font-size: clamp($font-size-2xl, 4vw, $font-size-3xl);
   font-weight: $font-weight-bold;
   margin-bottom: $spacing-lg;
   background: $gradient-text;

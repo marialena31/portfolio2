@@ -21,7 +21,7 @@
 
   h1 {
     margin-bottom: $spacing-lg;
-    font-size: $font-size-xxxl;
+    font-size: $font-size-4xl;
     font-weight: $font-weight-bold;
     background: $gradient-text;
     -webkit-background-clip: text;
@@ -91,7 +91,7 @@
   color: $text-primary;
 
   h2 {
-    font-size: $font-size-xxl;
+    font-size: $font-size-2xl;
     font-weight: $font-weight-bold;
     margin: $spacing-xl 0 $spacing-md;
     color: $text-primary;
@@ -99,7 +99,7 @@
 
   h3 {
     font-size: $font-size-xl;
-    font-weight: $font-weight-semibold;
+    font-weight: $font-weight-medium;
     margin: $spacing-lg 0 $spacing-md;
     color: $text-primary;
   }
@@ -179,12 +179,14 @@
   line-height: 1.8;
   
   h2 {
-    font-size: $font-size-xxl;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
     margin: $spacing-xl 0 $spacing-md;
   }
   
   h3 {
     font-size: $font-size-xl;
+    font-weight: $font-weight-medium;
     margin: $spacing-lg 0 $spacing-md;
   }
   
@@ -210,6 +212,7 @@
   color: $text-primary;
   text-decoration: none;
   transition: $transition-base;
+  font-weight: $font-weight-medium;
 
   &:hover {
     background: $surface-tertiary;

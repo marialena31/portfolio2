@@ -2,11 +2,11 @@ import { HomeData } from '../types';
 
 export const homeData: HomeData = {
   hero: {
-    title: "Expertise Magento pour des Sites Sécurisés, Performants et Maintenus.",
+    title: "Votre expert Magento. Simplifiez la maintenance et boostez vos ventes.",
     subtitle: "Freelance spécialisé dans la maintenance, la migration et la sécurité des sites Magento.",
     cta: {
-      text: "Contactez-moi",
-      link: "#contact",
+      text: "Obtenez un audit gratuit",
+      link: "/contact",
       phoneNumber: "+33 07 61 81 11 01"
     }
   },
@@ -163,7 +163,7 @@ export const homeData: HomeData = {
     buttons: [
       {
         text: "Contactez-moi",
-        link: "#contact",
+        link: "/contact",
         type: "primary",
         phoneNumber: "+33 07 61 81 11 01"
       },

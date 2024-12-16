@@ -28,22 +28,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <html lang="en" />
         <title>{data.site.siteMetadata.title}</title>
         <meta name="description" content={data.site.siteMetadata.description} />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
-          rel="stylesheet"
-        />
       </Helmet>
 
       <div className={styles.layout}>
+        <>
         <Header />
-        
         <main className={styles.main}>
           <div className={styles.container}>
             {children}
           </div>
         </main>
-
         <Footer />
+        </>
       </div>
     </>
   );

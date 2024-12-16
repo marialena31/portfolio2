@@ -3,67 +3,91 @@
 
 .needs {
   padding: $spacing-xxxl 0;
-  background: $surface-secondary;
+  background: linear-gradient(to bottom, $surface-primary, $surface-secondary);
 }
 
 .content {
-  max-width: $container-max-width;
-  margin: 0 auto;
-  padding: 0 $spacing-lg;
-
-  @media (min-width: $breakpoint-md) {
-    padding: 0 $spacing-xl;
-  }
+  @include container;
 }
 
 .title {
   text-align: center;
-  margin-bottom: $spacing-xxl;
-  font-size: $font-size-xxxl;
+  margin-bottom: $spacing-xxxl;
+  font-size: clamp($font-size-2xl, 4vw, $font-size-3xl);
+  font-weight: $font-weight-bold;
   color: $text-primary;
+  background: $gradient-text;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: $breakpoint-md) {
+  .title {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-xl;
+  }
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: $spacing-lg;
-
-  @media (min-width: $breakpoint-md) {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-xl;
+  margin-top: $spacing-xl;
 }
 
 .needCard {
   background: $surface-primary;
+  border-radius: $border-radius-md;
   padding: $spacing-xl;
-  border-radius: $border-radius-lg;
-  box-shadow: $shadow-md;
-  text-decoration: none;
-  transition: $transition-smooth;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  gap: $spacing-lg;
-
+  align-items: center;
+  text-decoration: none;
+  border: 1px solid rgba($color-primary, 0.1);
+  transition: $transition-base;
+  
   &:hover {
     transform: translateY(-4px);
-    box-shadow: $shadow-lg;
+    box-shadow: $shadow-md;
+    border-color: $color-primary;
 
     .arrow {
-      transform: translateX(4px);
+      transform: translateX(8px);
+      color: $color-primary;
     }
   }
 }
 
 .question {
   font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
   color: $text-primary;
   margin: 0;
-  font-weight: $font-weight-bold;
+  flex: 1;
+  padding-right: $spacing-lg;
 }
 
 .arrow {
   font-size: $font-size-xl;
-  color: $color-primary;
-  transition: $transition-smooth;
+  color: $text-secondary;
+  transition: $transition-base;
+}
+
+@media (max-width: $breakpoint-md) {
+  .needs {
+    padding: $spacing-xxl 0;
+  }
+
+  .grid {
+    gap: $spacing-lg;
+  }
+
+  .needCard {
+    padding: $spacing-lg;
+  }
+
+  .question {
+    font-size: $font-size-lg;
+  }
 }

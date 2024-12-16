@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { StaticImage } from 'gatsby-plugin-image';
 import * as styles from './hero.module.scss';
 
 interface HeroProps {
@@ -14,6 +15,16 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ title, subtitle, cta }) => {
   return (
     <section className={styles.hero}>
+      <div className={styles.backgroundImage}>
+        <StaticImage
+          src="../../images/banner.png"
+          alt="Background banner"
+          placeholder="blurred"
+          layout="fullWidth"
+          className={styles.bannerImage}
+        />
+        <div className={styles.overlay} />
+      </div>
       <div className={styles.content}>
         <h1 className={styles.title}>{title}</h1>
         <p className={styles.subtitle}>{subtitle}</p>

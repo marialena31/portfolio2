@@ -1,4 +1,5 @@
 @use 'variables' as *;
+@use 'fonts';
 
 /* Reset and Base Styles */
 *,
@@ -15,7 +16,7 @@ html {
 }
 
 body {
-  font-family: $font-secondary;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: $font-size-md;
   line-height: $line-height-normal;
   color: $text-primary;
@@ -26,35 +27,35 @@ body {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  font-family: $font-primary;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: $font-weight-bold;
   line-height: $line-height-tight;
   margin: 0;
 }
 
 h1 {
-  font-size: $font-size-xxxxxl;
+  font-size: $font-size-5xl;
   @media (max-width: $breakpoint-md) {
-    font-size: $font-size-xxxxl;
+    font-size: $font-size-4xl;
   }
 }
 
 h2 {
-  font-size: $font-size-xxxxl;
+  font-size: $font-size-4xl;
   @media (max-width: $breakpoint-md) {
-    font-size: $font-size-xxxl;
+    font-size: $font-size-3xl;
   }
 }
 
 h3 {
-  font-size: $font-size-xxxl;
+  font-size: $font-size-3xl;
   @media (max-width: $breakpoint-md) {
-    font-size: $font-size-xxl;
+    font-size: $font-size-2xl;
   }
 }
 
 h4 {
-  font-size: $font-size-xxl;
+  font-size: $font-size-2xl;
   @media (max-width: $breakpoint-md) {
     font-size: $font-size-xl;
   }

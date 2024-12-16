@@ -1,5 +1,5 @@
-@use '../../styles/variables' as *;
-@use '../../styles/mixins' as *;
+@use '../../styles/variables' as variables;
+@use '../../styles/mixins' as mixins;
 
 .hero {
   min-height: 100vh;
@@ -7,104 +7,115 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba($color-primary, 0.05), rgba($color-secondary, 0.05));
   padding-top: 4rem;
+}
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.bannerImage {
+  width: 100%;
+  height: 100%;
+
+  img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
   }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(variables.$color-primary-dark, 0.95),
+    rgba(variables.$color-primary, 0.85)
+  );
+  z-index: 1;
 }
 
 .content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   text-align: center;
-  padding: $spacing-xxxl 0;
-  @include container;
+  padding: variables.$spacing-xxxl 0;
+  color: variables.$color-white;
+  @include mixins.container;
 }
 
 .title {
-  font-size: clamp($font-size-xxxl, 5vw, $font-size-xxxxxl);
-  font-weight: $font-weight-bold;
-  margin-bottom: $spacing-lg;
-  background: $gradient-text;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: $line-height-tight;
+  font-size: clamp(variables.$font-size-3xl, 5vw, variables.$font-size-5xl);
+  font-weight: variables.$font-weight-bold;
+  margin-bottom: variables.$spacing-lg;
+  color: variables.$color-white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .subtitle {
-  font-size: clamp($font-size-lg, 2.5vw, $font-size-xxl);
-  margin-bottom: $spacing-xxl;
-  color: $text-secondary;
-  line-height: $line-height-relaxed;
+  font-size: clamp(variables.$font-size-lg, 2.5vw, variables.$font-size-2xl);
+  margin-bottom: variables.$spacing-xxl;
+  color: rgba(variables.$color-white, 0.9);
+  line-height: variables.$line-height-relaxed;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.cta {
+  margin-top: variables.$spacing-xl;
 }
 
 .primaryButton {
-  display: inline-block;
-  font-size: $font-size-lg;
-  padding: $spacing-md $spacing-xxl;
-  background: #FFFFFF;
-  color: #000000;
-  border-radius: $border-radius-md;
-  text-decoration: none;
-  transition: $transition-base;
-  font-weight: 700;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #000000;
-
+  @include mixins.button-primary;
+  font-size: variables.$font-size-lg;
+  padding: variables.$spacing-md variables.$spacing-xxl;
+  background: variables.$color-white;
+  color: variables.$color-primary;
+  border: 2px solid variables.$color-white;
+  transition: all 0.3s ease;
+  
   &:hover {
+    background: transparent;
+    color: variables.$color-white;
     transform: translateY(-2px);
-    background: #FFFFFF;
-    color: #000000;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
   }
-
-  &:focus {
-    outline: 3px solid #000000;
-    outline-offset: 2px;
-    color: #000000;
-  }
-
-  &:active {
-    transform: translateY(0);
-    background: #FFFFFF;
-    color: #000000;
-  }
-
-  &:visited {
-    color: #000000;
+  
+  @media (max-width: variables.$breakpoint-md) {
+    width: 100%;
+    max-width: 300px;
   }
 }
 
-@media (max-width: $breakpoint-sm) {
+@media (max-width: variables.$breakpoint-sm) {
   .hero {
     min-height: 100vh;
   }
+}
 
+@media (max-width: variables.$breakpoint-md) {
   .content {
-    padding: $spacing-xxl 0;
+    padding: variables.$spacing-xxl 0;
   }
 
   .title {
-    font-size: 2rem;
+    font-size: variables.$font-size-3xl;
   }
 
   .subtitle {
-    font-size: $font-size-lg;
-  }
-
-  .buttons {
-    justify-content: center;
+    font-size: variables.$font-size-lg;
   }
 }
