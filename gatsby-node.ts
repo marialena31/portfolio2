@@ -1,25 +1,30 @@
 import { GatsbyNode } from 'gatsby';
 import path from 'path';
 import { Request, Response, NextFunction } from 'express';
-import { homeData } from './src/data/home';
+
+interface ProjectNode {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  githubUrl: string;
+  liveUrl: string;
+  slug: string;
+}
+
+interface ProjectEdge {
+  node: ProjectNode;
+}
 
 interface ProjectQueryResult {
+  allProject: unknown;
   data?: {
     allProject: {
-      edges: Array<{
-        node: {
-          id: string
-          title: string
-          description: string
-          image: string
-          tags: string[]
-          githubUrl: string
-          liveUrl: string
-          slug: string
-        }
-      }>
-    }
-  }
+      edges: ProjectEdge[];
+    };
+  };
+  errors?: unknown;
 }
 
 export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
@@ -50,24 +55,31 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
   }
 
   if (result.data) {
-    result.data.allProject.edges.forEach(({ node }) => {
-    createPage({
-      path: `/portfolio/${node.slug}`,
-      component: projectTemplate,
-      context: {
-        id: node.id,
-      },
+    const projectData = result.data as { allProject: { edges: ProjectEdge[] } };
+    projectData.allProject.edges.forEach((edge: ProjectEdge) => {
+      const { node } = edge;
+      createPage({
+        path: `/portfolio/${node.slug}`,
+        component: projectTemplate,
+        context: {
+          id: node.id,
+        },
+      });
     });
-  });
   }
 };
 
-export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({ stage, actions, getConfig }) => {
+export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
+  stage,
+  actions,
+  getConfig,
+}) => {
   const config = getConfig();
-  
+
   if (stage === 'build-javascript' || stage === 'develop') {
     const miniCssExtractPlugin = config.plugins.find(
-      (plugin: any) => plugin.constructor.name === 'MiniCssExtractPlugin'
+      (plugin: { constructor: { name: string } }) =>
+        plugin.constructor.name === 'MiniCssExtractPlugin'
     );
 
     if (miniCssExtractPlugin) {
@@ -154,6 +166,6 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
   createTypes(typeDefs);
 };
 
-export const sourceNodes: GatsbyNode['sourceNodes'] = ({ actions, createNodeId, createContentDigest }) => {
+export const sourceNodes: GatsbyNode['sourceNodes'] = async () => {
   // Node creation is now handled by gatsby-source-portfolio-data plugin
 };

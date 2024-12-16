@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'gatsby';
 import * as styles from './call-to-action.module.scss';
 import { CallToActionButton } from '../../types';
 
 interface CallToActionProps {
   title: string;
+  subtitle?: string;
   buttons: Array<CallToActionButton>;
 }
 
-const CallToAction: React.FC<CallToActionProps> = ({ title, buttons }) => {
+const CallToAction: React.FC<CallToActionProps> = ({ title, subtitle, buttons }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleClick = (e: React.MouseEvent) => {
@@ -20,8 +20,9 @@ const CallToAction: React.FC<CallToActionProps> = ({ title, buttons }) => {
     <section className={styles.callToAction}>
       <div className={styles.content}>
         <h2 className={styles.title}>{title}</h2>
+        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
         <div className={styles.buttons}>
-          {buttons.map((button, index) => (
+          {buttons.map((button, index) =>
             button.type === 'primary' ? (
               <button
                 key={index}
@@ -42,7 +43,7 @@ const CallToAction: React.FC<CallToActionProps> = ({ title, buttons }) => {
                 {button.text}
               </a>
             )
-          ))}
+          )}
         </div>
       </div>
     </section>

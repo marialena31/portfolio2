@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import * as styles from './navigation.module.scss';
 
+/**
+ * Navigation component that provides the main menu functionality.
+ * Features a responsive design with a hamburger menu for mobile devices.
+ * Includes accessibility features like keyboard navigation and reduced motion support.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Navigation />
+ * )
+ */
 const Navigation: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isReducedMotion, setIsReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setIsReducedMotion(mediaQuery.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsReducedMotion(e.matches);
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -30,17 +28,9 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <nav 
-      className={styles.nav} 
-      role="navigation" 
-      aria-label="Main navigation"
-    >
+    <nav className={styles.nav} role="navigation" aria-label="Main navigation">
       <div className={styles.navContent}>
-        <Link 
-          to="/" 
-          className={styles.logo}
-          aria-label="Go to homepage"
-        >
+        <Link to="/" className={styles.logo} aria-label="Go to homepage">
           <span aria-hidden="true">ExpertEcom</span>
         </Link>
 
@@ -81,13 +71,13 @@ const Navigation: React.FC = () => {
           </svg>
         </button>
 
-        <ul 
+        <ul
           id="mainMenu"
           className={`${styles.menuList} ${isMenuOpen ? styles.isOpen : ''}`}
           role="menu"
         >
           <li role="none">
-            <Link 
+            <Link
               to="/"
               className={styles.menuItem}
               role="menuitem"
@@ -98,7 +88,7 @@ const Navigation: React.FC = () => {
             </Link>
           </li>
           <li role="none">
-            <Link 
+            <Link
               to="/about"
               className={styles.menuItem}
               role="menuitem"
@@ -109,7 +99,7 @@ const Navigation: React.FC = () => {
             </Link>
           </li>
           <li role="none">
-            <Link 
+            <Link
               to="/services"
               className={styles.menuItem}
               role="menuitem"
@@ -120,7 +110,7 @@ const Navigation: React.FC = () => {
             </Link>
           </li>
           <li role="none">
-            <Link 
+            <Link
               to="/portfolio"
               className={styles.menuItem}
               role="menuitem"
@@ -131,7 +121,7 @@ const Navigation: React.FC = () => {
             </Link>
           </li>
           <li role="none">
-            <Link 
+            <Link
               to="/blog"
               className={styles.menuItem}
               role="menuitem"
@@ -142,7 +132,7 @@ const Navigation: React.FC = () => {
             </Link>
           </li>
           <li role="none">
-            <Link 
+            <Link
               to="/contact"
               className={styles.menuItem}
               role="menuitem"

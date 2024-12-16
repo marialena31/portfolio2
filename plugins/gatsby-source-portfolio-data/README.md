@@ -9,7 +9,7 @@ A custom Gatsby source plugin that provides data for a portfolio website. This p
   - Services
   - Skills
   - Blog Posts
-  - Home Page Content (Hero, Needs, Services, Testimonials, Call-to-Action sections)
+  - Home Page Content (Hero, Needs, Services, Call-to-Action sections)
 - Provides TypeScript type definitions
 - Implements Gatsby Node APIs for data sourcing and page creation
 
@@ -78,7 +78,6 @@ type HomeJson implements Node {
   hero: HomeHero!
   needs: HomeNeeds!
   services: HomeServices!
-  testimonials: HomeTestimonials!
   callToAction: HomeCallToAction!
 }
 ```

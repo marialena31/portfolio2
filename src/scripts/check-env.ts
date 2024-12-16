@@ -1,4 +1,5 @@
-import { config } from 'dotenv';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { config } = require('dotenv');
 
 const REQUIRED_ENV_VARS = [
   'GATSBY_GA_TRACKING_ID',
@@ -20,15 +21,14 @@ function checkEnvVariables(): void {
   });
 
   if (missingVars.length > 0) {
-    console.error('❌ Missing required environment variables:');
+    console.error('Error: Missing required environment variables:');
     missingVars.forEach(variable => {
-      console.error(`   - ${variable}`);
+      console.error(`- ${variable}`);
     });
-    console.error('\nPlease add these variables to your .env file');
     process.exit(1);
   }
 
-  console.log('✅ All required environment variables are present');
+  console.log('✅ All required environment variables are present.');
 }
 
 checkEnvVariables();

@@ -1,0 +1,33 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "jsx": "react",
+    "allowJs": true,
+    "target": "es5",
+    "module": "commonjs",
+    "emitDeclarationOnly": false,
+    "isolatedModules": false,
+    "esModuleInterop": true,
+    "types": ["node"],
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["../src/*"]
+    }
+  },
+  "include": [
+    "*.ts",
+    "*.tsx",
+    "*.js",
+    "*.jsx",
+    "gatsby.d.ts",
+    "../src/**/*",
+    "./**/*",
+    "../.storybook/**/*"
+  ],
+  "exclude": ["../node_modules", "../public", "../.cache"]
+}

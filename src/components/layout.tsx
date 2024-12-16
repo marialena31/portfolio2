@@ -7,6 +7,7 @@ import * as styles from './layout.module.scss';
 
 interface LayoutProps {
   children: React.ReactNode;
+  currentPage?: string;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
@@ -32,13 +33,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       <div className={styles.layout}>
         <>
-        <Header />
-        <main className={styles.main}>
-          <div className={styles.container}>
-            {children}
-          </div>
-        </main>
-        <Footer />
+          <Header />
+          <main className={styles.main}>
+            <div className={styles.container}>{children}</div>
+          </main>
+          <Footer />
         </>
       </div>
     </>

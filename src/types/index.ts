@@ -75,4 +75,15 @@ export interface SEOProps {
   pageName?: 'home' | 'about' | 'services' | 'portfolio' | 'contact';
 }
 
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  date: string;
+  excerpt: string;
+  tags: string[];
+  content: string;
+  author: string;
+}
+
 export type { Project, Skill, SkillCategory, Service, SocialLink } from './data';

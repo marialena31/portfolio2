@@ -2,14 +2,12 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 import * as styles from './hero.module.scss';
+import { HomeButton } from '../../types/data';
 
 interface HeroProps {
   title: string;
   subtitle: string;
-  cta: {
-    text: string;
-    link: string;
-  };
+  cta: HomeButton;
 }
 
 const Hero: React.FC<HeroProps> = ({ title, subtitle, cta }) => {

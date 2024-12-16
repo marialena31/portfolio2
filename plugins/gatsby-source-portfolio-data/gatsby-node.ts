@@ -131,9 +131,10 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
 
   // Create nodes for blog posts
   blogPosts.forEach(post => {
+    const nodeId = createNodeId(`blog-post-${post.slug}`);
     createNode({
       ...post,
-      id: createNodeId(`blog-post-${post.id}`),
+      id: nodeId,
       parent: null,
       children: [],
       internal: {
