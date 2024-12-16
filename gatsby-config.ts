@@ -73,6 +73,27 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-source-portfolio-data',
       options: {},
     },
+    {
+      resolve: 'gatsby-plugin-graphql-codegen',
+      options: {
+        fileName: `src/types/graphql-types.ts`,
+        documentPaths: [
+          './src/**/*.{ts,tsx}',
+          './src/**/*.{js,jsx}',
+          './gatsby-node.ts',
+          './plugins/**/*.ts',
+        ],
+        codegenConfig: {
+          maybeValue: 'T | undefined',
+          avoidOptionals: true,
+          enumsAsTypes: true,
+          skipTypename: true,
+          namingConvention: {
+            enumValues: 'keep',
+          },
+        },
+      },
+    },
   ],
 };
 

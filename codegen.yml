@@ -1,0 +1,20 @@
+overwrite: true
+schema: "http://localhost:8000/___graphql"
+documents:
+  - "./src/**/*.{ts,tsx}"
+  - "./src/**/*.{js,jsx}"
+generates:
+  ./src/types/graphql-types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+    config:
+      avoidOptionals: true
+      maybeValue: T | undefined
+      enumsAsTypes: true
+      skipTypename: true
+      namingConvention:
+        enumValues: keep
+hooks:
+  afterAllFileWrite:
+    - prettier --write
