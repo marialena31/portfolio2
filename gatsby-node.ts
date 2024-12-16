@@ -1,6 +1,7 @@
 import { GatsbyNode } from 'gatsby';
 import path from 'path';
 import { projects } from './src/data/projects';
+import { NextFunction, Request, Response } from 'express';
 
 export const createPages: GatsbyNode['createPages'] = async ({ actions }) => {
   const { createPage } = actions;
@@ -12,7 +13,6 @@ export const createPages: GatsbyNode['createPages'] = async ({ actions }) => {
       path: `/portfolio/${slug}`,
       component: path.resolve('./src/templates/project.tsx'),
       context: {
-        id: project.id,
         ...project,
       },
     });
