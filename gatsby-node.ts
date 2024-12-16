@@ -3,17 +3,39 @@ import path from 'path';
 import { projects } from './src/data/projects';
 import { NextFunction, Request, Response } from 'express';
 
-export const createPages: GatsbyNode['createPages'] = async ({ actions }) => {
+export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
+  const result = await graphql<{
+    allPortfolioProject: {
+      nodes: Array<{
+        id: string;
+        title: string;
+      }>;
+    };
+  }>(`
+    query {
+      allPortfolioProject {
+        nodes {
+          id
+          title
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    throw result.errors;
+  }
+
   // Create project pages
-  projects.forEach(project => {
+  result.data?.allPortfolioProject.nodes.forEach(project => {
     const slug = project.title.toLowerCase().replace(/\s+/g, '-');
     createPage({
       path: `/portfolio/${slug}`,
       component: path.resolve('./src/templates/project.tsx'),
       context: {
-        ...project,
+        id: project.id,
       },
     });
   });
@@ -58,12 +80,12 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
 
   // Create nodes for projects
   projects.forEach(project => {
-    const slug = project.title.toLowerCase().replace(/\s+/g, '-');
-    const nodeContent = { ...project, slug };
+    const nodeContent = {
+      ...project,
+    };
 
-    createNode({
-      ...nodeContent,
-      id: createNodeId(`PortfolioProject-${project.id}`),
+    const nodeMeta = {
+      id: createNodeId(`project-${project.id}`),
       parent: null,
       children: [],
       internal: {
@@ -71,7 +93,9 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
         content: JSON.stringify(nodeContent),
         contentDigest: createContentDigest(nodeContent),
       },
-    });
+    };
+
+    createNode({ ...nodeContent, ...nodeMeta });
   });
 };
 
