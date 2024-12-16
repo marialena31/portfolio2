@@ -18,15 +18,11 @@ async function optimizeImages(): Promise<void> {
     let totalSaved = 0;
 
     // Find all images
-    const files = EXTENSIONS.map(ext => 
-      glob.sync(`${IMAGES_DIR}/**/*.${ext}`)
-    ).flat();
+    const files = EXTENSIONS.map(ext => glob.sync(`${IMAGES_DIR}/**/*.${ext}`)).flat();
 
     for (const file of files) {
       const originalSize = fs.statSync(file).size;
-      const optimized = await sharp(file)
-        .jpeg({ quality: 85, progressive: true })
-        .toBuffer();
+      const optimized = await sharp(file).jpeg({ quality: 85, progressive: true }).toBuffer();
 
       // Write optimized image back to file
       await fs.promises.writeFile(file, optimized);
@@ -45,7 +41,7 @@ async function optimizeImages(): Promise<void> {
     // Log results
     console.log('\n📊 Optimization Results:\n');
     results.forEach(({ file, originalSize, optimizedSize }) => {
-      const savedPercent = ((originalSize - optimizedSize) / originalSize * 100).toFixed(1);
+      const savedPercent = (((originalSize - optimizedSize) / originalSize) * 100).toFixed(1);
       console.log(`✓ ${file}`);
       console.log(`  Original: ${(originalSize / 1024).toFixed(1)}KB`);
       console.log(`  Optimized: ${(optimizedSize / 1024).toFixed(1)}KB`);

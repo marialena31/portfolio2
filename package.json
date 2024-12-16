@@ -17,10 +17,13 @@
     "clean": "gatsby clean",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
-    "setup": "ts-node scripts/setup-project.ts",
-    "optimize-images": "ts-node scripts/optimize-images.ts",
-    "generate-icons": "ts-node scripts/convert-icons.ts",
-    "check-env": "ts-node scripts/check-env.ts",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "prepare": "husky install",
+    "setup": "ts-node src/scripts/setup-project.ts",
+    "optimize-images": "ts-node src/scripts/optimize-images.ts",
+    "generate-icons": "ts-node src/scripts/convert-icons.ts",
+    "check-env": "ts-node src/scripts/check-env.ts",
     "prebuild": "npm run check-env",
     "contrast-check": "color-contrast-calc"
   },
@@ -49,27 +52,41 @@
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.26.3",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "@types/express": "^5.0.0",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "@types/react-helmet": "^6.1.11",
-    "@typescript-eslint/eslint-plugin": "^6.15.0",
-    "@typescript-eslint/parser": "^6.15.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "autoprefixer": "^10.4.20",
     "color-contrast-calc": "^0.4.1",
     "dotenv": "^16.3.1",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.2",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "glob": "^10.3.10",
     "husky": "^8.0.3",
+    "lint-staged": "^15.2.11",
     "postcss-preset-env": "^10.1.2",
-    "prettier": "^3.1.1",
+    "prettier": "^3.4.2",
     "sharp": "^0.33.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "webpack-bundle-analyzer": "^4.10.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{js,jsx,json,md}": [
+      "prettier --write"
+    ]
   },
   "engines": {
     "node": ">=18.0.0"

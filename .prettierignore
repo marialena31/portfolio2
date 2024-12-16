@@ -1,0 +1,9 @@
+.cache
+public
+node_modules
+.git
+package-lock.json
+*.log
+coverage/
+build/
+dist/

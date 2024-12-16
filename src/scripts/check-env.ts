@@ -1,6 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-const dotenv = require('dotenv');
+import { config } from 'dotenv';
 
 const REQUIRED_ENV_VARS = [
   'GATSBY_GA_TRACKING_ID',
@@ -10,12 +8,12 @@ const REQUIRED_ENV_VARS = [
 
 function checkEnvVariables(): void {
   // Load .env file
-  dotenv.config();
+  config();
 
   const missingVars: string[] = [];
 
   // Check for required variables
-  REQUIRED_ENV_VARS.forEach((envVar) => {
+  REQUIRED_ENV_VARS.forEach(envVar => {
     if (!process.env[envVar]) {
       missingVars.push(envVar);
     }
@@ -23,14 +21,14 @@ function checkEnvVariables(): void {
 
   if (missingVars.length > 0) {
     console.error('❌ Missing required environment variables:');
-    missingVars.forEach((variable) => {
+    missingVars.forEach(variable => {
       console.error(`   - ${variable}`);
     });
     console.error('\nPlease add these variables to your .env file');
     process.exit(1);
   }
 
-  console.log('✓ All required environment variables are present');
+  console.log('✅ All required environment variables are present');
 }
 
 checkEnvVariables();

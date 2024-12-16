@@ -37,7 +37,7 @@ GATSBY_API_KEY=
 
   createDirectories(): void {
     console.log('📁 Creating project directories...');
-    
+
     this.directories.forEach(dir => {
       const fullPath = path.join(process.cwd(), dir);
       if (!fs.existsSync(fullPath)) {
@@ -49,7 +49,7 @@ GATSBY_API_KEY=
 
   createEnvFile(): void {
     console.log('\n📝 Setting up environment files...');
-    
+
     const envPath = path.join(process.cwd(), '.env.development');
     if (!fs.existsSync(envPath)) {
       fs.writeFileSync(envPath, this.envTemplate.trim());
@@ -57,16 +57,13 @@ GATSBY_API_KEY=
     }
 
     // Create .env.development.example
-    fs.writeFileSync(
-      path.join(process.cwd(), '.env.development.example'),
-      this.envTemplate.trim()
-    );
+    fs.writeFileSync(path.join(process.cwd(), '.env.development.example'), this.envTemplate.trim());
     console.log('✓ Created .env.development.example');
   }
 
   setupGitHooks(): void {
     console.log('\n🔧 Setting up Git hooks...');
-    
+
     try {
       execSync('npx husky install', { stdio: 'inherit' });
       execSync('npx husky add .husky/pre-commit "npm run type-check && npm run lint"', {
@@ -80,7 +77,7 @@ GATSBY_API_KEY=
 
   installDependencies(): void {
     console.log('\n📦 Installing dependencies...');
-    
+
     try {
       execSync('npm install', { stdio: 'inherit' });
       console.log('✓ Dependencies installed');

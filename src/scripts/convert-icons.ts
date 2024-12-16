@@ -16,10 +16,8 @@ async function generateIcons(): Promise<void> {
     // Generate icons for each size
     for (const size of ICON_SIZES) {
       const outputPath = path.join(OUTPUT_DIR, `icon-${size}x${size}.png`);
-      await sharp(SOURCE_ICON)
-        .resize(size, size)
-        .toFile(outputPath);
-      
+      await sharp(SOURCE_ICON).resize(size, size).toFile(outputPath);
+
       console.log(`✓ Generated ${size}x${size} icon`);
     }
 
