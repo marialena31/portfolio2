@@ -51,13 +51,22 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Portfolio`,
-        short_name: `Portfolio`,
+        name: `ExpertEcom Portfolio`,
+        short_name: `ExpertEcom`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`,
+        icon: `src/images/gatsby-icon.png`, // Using the existing gatsby-icon.png
+        cache_busting_mode: 'none',
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-offline',
+      options: {
+        workboxConfig: {
+          globPatterns: ['**/*'],
+        },
       },
     },
     {

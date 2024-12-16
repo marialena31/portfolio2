@@ -63,11 +63,11 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
 
     createNode({
       ...nodeContent,
-      id: createNodeId(`Project-${project.id}`),
+      id: createNodeId(`PortfolioProject-${project.id}`),
       parent: null,
       children: [],
       internal: {
-        type: 'Project',
+        type: 'PortfolioProject',
         content: JSON.stringify(nodeContent),
         contentDigest: createContentDigest(nodeContent),
       },
@@ -138,7 +138,7 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       type: String
     }
 
-    type Project implements Node {
+    type PortfolioProject implements Node {
       id: String!
       title: String!
       description: String!

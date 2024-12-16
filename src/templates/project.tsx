@@ -5,7 +5,7 @@ import SEO from '../components/seo';
 import * as styles from './project.module.scss';
 
 interface ProjectData {
-  project: {
+  portfolioProject: {
     id: string;
     title: string;
     description: string;
@@ -17,7 +17,7 @@ interface ProjectData {
 }
 
 const ProjectTemplate: React.FC<PageProps<ProjectData>> = ({ data }) => {
-  const project = data.project;
+  const project = data.portfolioProject;
 
   return (
     <Layout>
@@ -64,7 +64,7 @@ const ProjectTemplate: React.FC<PageProps<ProjectData>> = ({ data }) => {
 
 export const query = graphql`
   query ($id: String!) {
-    project(id: { eq: $id }) {
+    portfolioProject(id: { eq: $id }) {
       id
       title
       description
