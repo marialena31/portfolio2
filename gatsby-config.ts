@@ -76,13 +76,8 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-plugin-graphql-codegen',
       options: {
-        fileName: `src/types/graphql-types.ts`,
-        documentPaths: [
-          './src/**/*.{ts,tsx}',
-          './src/**/*.{js,jsx}',
-          './gatsby-node.ts',
-          './plugins/**/*.ts',
-        ],
+        fileName: `src/types/graphql-types.d.ts`,
+        documentPaths: ['./src/**/*.{ts,tsx}'],
         codegenConfig: {
           maybeValue: 'T | undefined',
           avoidOptionals: true,
@@ -90,6 +85,10 @@ const config: GatsbyConfig = {
           skipTypename: true,
           namingConvention: {
             enumValues: 'keep',
+          },
+          scalars: {
+            Date: 'string',
+            JSON: '{ [key: string]: any }',
           },
         },
       },

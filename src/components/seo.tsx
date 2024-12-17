@@ -1,77 +1,51 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
-import { SEOProps, SiteMetadata } from '../types';
+import { SEOQuery } from '../types/graphql-types';
 
-const SEO: React.FC<SEOProps> = ({ title, description, image, article, pageName }) => {
-  const { site } = useStaticQuery<{ site: { siteMetadata: SiteMetadata } }>(graphql`
-    query {
+interface SEOProps {
+  title?: string;
+  description?: string;
+  image?: string;
+  pageName?: string;
+}
+
+const SEO: React.FC<SEOProps> = ({ title, description, image, pageName }) => {
+  const { site } = useStaticQuery<SEOQuery>(graphql`
+    query SEOQuery {
       site {
         siteMetadata {
           title
           description
-          siteUrl
-          image
-          twitterUsername
           author
-          pageMetadata {
-            home {
-              description
-            }
-            about {
-              description
-            }
-            services {
-              description
-            }
-            portfolio {
-              description
-            }
-            contact {
-              description
-            }
-          }
+          siteUrl
         }
       }
     }
   `);
 
-  const { siteMetadata } = site;
-
   const seo = {
-    title: title || siteMetadata.title,
-    description:
-      description ||
-      (pageName ? siteMetadata.pageMetadata[pageName].description : siteMetadata.description),
-    image: `${siteMetadata.siteUrl}${image || siteMetadata.image}`,
-    url: `${siteMetadata.siteUrl}${typeof window !== 'undefined' ? window.location.pathname : ''}`,
-    twitterUsername: siteMetadata.twitterUsername,
-    author: siteMetadata.author,
+    title: title || site?.siteMetadata?.title || '',
+    description: description || site?.siteMetadata?.description || '',
+    image: image || `${site?.siteMetadata?.siteUrl}/images/og-image.jpg`,
+    url: `${site?.siteMetadata?.siteUrl}${pageName ? `/${pageName}` : ''}`,
   };
 
   return (
-    <Helmet
-      title={seo.title}
-      titleTemplate={`%s | ${siteMetadata.title}`}
-      defaultTitle={siteMetadata.title}
-    >
-      <html lang="fr" />
+    <Helmet>
+      <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       <meta name="image" content={seo.image} />
-      <meta name="author" content={seo.author} />
 
-      {/* OpenGraph tags */}
-      <meta property="og:url" content={seo.url} />
-      <meta property="og:type" content={article ? 'article' : 'website'} />
+      {/* Open Graph */}
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
       <meta property="og:image" content={seo.image} />
-      <meta property="og:site_name" content={siteMetadata.title} />
-      <meta property="og:locale" content="fr_FR" />
+      <meta property="og:url" content={seo.url} />
+      <meta property="og:type" content="website" />
 
-      {/* Twitter Card tags */}
+      {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:creator" content={seo.twitterUsername} />
       <meta name="twitter:title" content={seo.title} />
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image} />

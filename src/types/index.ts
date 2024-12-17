@@ -86,4 +86,11 @@ export interface BlogPost {
   author: string;
 }
 
+export interface Brand {
+  id: string;
+  name: string;
+  logo: string;
+  alt: string;
+}
+
 export type { Project, Skill, SkillCategory, Service, SocialLink } from './data';

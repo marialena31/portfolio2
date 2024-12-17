@@ -14,7 +14,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
       }>;
     };
   }>(`
-    query {
+    query GetPortfolioProjects {
       allPortfolioProject {
         nodes {
           id

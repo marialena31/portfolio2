@@ -196,22 +196,38 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
 export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  // Query for blog posts
+  // Query for blog posts and projects
   const result = await graphql<{
     allBlogPost: {
       nodes: Array<{
         slug: string;
       }>;
     };
+    allProject: {
+      nodes: Array<{
+        id: string;
+        slug: string;
+      }>;
+    };
   }>(`
-    query {
+    query GetPagesData {
       allBlogPost {
         nodes {
           slug
         }
       }
+      allProject {
+        nodes {
+          id
+          slug
+        }
+      }
     }
   `);
+
+  if (result.errors) {
+    throw result.errors;
+  }
 
   // Create blog post pages
   result.data?.allBlogPost.nodes.forEach(node => {
@@ -220,6 +236,17 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
       component: path.resolve('./src/templates/blog-post.tsx'),
       context: {
         slug: node.slug,
+      },
+    });
+  });
+
+  // Create project pages
+  result.data?.allProject.nodes.forEach(node => {
+    createPage({
+      path: `/portfolio/${node.slug}`,
+      component: path.resolve('./src/templates/project.tsx'),
+      context: {
+        id: node.id,
       },
     });
   });

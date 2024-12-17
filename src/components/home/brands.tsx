@@ -1,40 +1,39 @@
 import React from 'react';
-import * as styles from './brands.module.scss';
-import { HomeBrandItem } from '../../types/data';
-import { GatsbyImage } from 'gatsby-plugin-image';
+import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import { graphql, useStaticQuery } from 'gatsby';
+import { brandsData } from '../../data';
+import * as styles from './brands.module.scss';
 
 interface BrandsProps {
   title: string;
-  items: HomeBrandItem[];
 }
 
 interface FileNode {
   relativePath: string;
   childImageSharp: {
-    gatsbyImageData: unknown;
+    gatsbyImageData: IGatsbyImageData;
   };
 }
 
-const Brands: React.FC<BrandsProps> = ({ title, items }) => {
+const Brands: React.FC<BrandsProps> = ({ title }) => {
   const data = useStaticQuery(graphql`
-    query {
+    query BrandsQuery {
       allFile(
         filter: { sourceInstanceName: { eq: "images" }, relativeDirectory: { eq: "brands" } }
       ) {
         nodes {
           relativePath
           childImageSharp {
-            gatsbyImageData(width: 200, placeholder: BLURRED, formats: [AUTO, WEBP], quality: 90)
+            gatsbyImageData(width: 150, placeholder: BLURRED, formats: [AUTO, WEBP], quality: 90)
           }
         }
       }
     }
   `);
 
-  const getImageByPath = (imagePath: string) => {
+  const getImageByName = (imageName: string) => {
     const image = data.allFile.nodes.find(
-      (node: FileNode) => node.relativePath === `brands/${imagePath}`
+      (node: FileNode) => node.relativePath === `brands/${imageName}`
     );
     return image?.childImageSharp?.gatsbyImageData;
   };
@@ -44,19 +43,18 @@ const Brands: React.FC<BrandsProps> = ({ title, items }) => {
       <div className={styles.content}>
         <h2 className={styles.title}>{title}</h2>
         <div className={styles.grid}>
-          {items.map((brand, index) => {
-            const imageData = getImageByPath(brand.logo);
-            return (
-              <div key={index} className={styles.brandItem}>
-                {imageData && (
-                  <GatsbyImage
-                    image={imageData}
-                    alt={brand.alt || `${brand.name} logo`}
-                    className={styles.logo}
-                  />
-                )}
+          {brandsData.map(brand => {
+            const imageName = brand.imagePath.split('/').pop();
+            if (!imageName) return null;
+            const imageData = getImageByName(imageName);
+
+            return imageData ? (
+              <div key={brand.id} className={styles.brandItem}>
+                <div className={styles.brand}>
+                  <GatsbyImage image={imageData} alt={brand.alt} />
+                </div>
               </div>
-            );
+            ) : null;
           })}
         </div>
       </div>

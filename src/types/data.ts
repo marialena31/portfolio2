@@ -76,6 +76,13 @@ export interface SocialLink {
   icon: IconName;
 }
 
+export interface Brand {
+  id: string;
+  name: string;
+  imagePath: string;
+  alt: string;
+}
+
 export interface HomeButton {
   text: string;
   link: string;
@@ -98,12 +105,6 @@ export interface HomeServiceItem {
   link: string;
 }
 
-export interface HomeBrandItem {
-  name: string;
-  logo: string;
-  alt: string;
-}
-
 export interface HomeData {
   hero: {
     title: string;
@@ -124,7 +125,7 @@ export interface HomeData {
   };
   brands: {
     title: string;
-    items: HomeBrandItem[];
+    items: Brand[];
   };
   callToAction: {
     title: string;
@@ -283,22 +284,43 @@ export const validateHomeServiceItem = (item: unknown): item is HomeServiceItem 
   );
 };
 
-export const validateHomeBrandItem = (item: unknown): item is HomeBrandItem => {
-  if (!item || typeof item !== 'object') return false;
+export const validateBrand = (brand: unknown): brand is Brand => {
+  if (!brand || typeof brand !== 'object') return false;
 
-  const i = item as Record<string, unknown>;
-
-  return typeof i.name === 'string' && typeof i.logo === 'string' && typeof i.alt === 'string';
-};
-
-export const validateSkillCategory = (category: unknown): category is SkillCategory => {
-  if (!category || typeof category !== 'object') return false;
-
-  const c = category as Record<string, unknown>;
+  const b = brand as Record<string, unknown>;
 
   return (
-    typeof c.id === 'string' && typeof c.name === 'string' && typeof c.description === 'string'
+    typeof b.id === 'string' &&
+    typeof b.name === 'string' &&
+    typeof b.imagePath === 'string' &&
+    typeof b.alt === 'string'
   );
+};
+
+export const validateHomeData = (data: unknown): data is HomeData => {
+  if (!data || typeof data !== 'object') return false;
+
+  const d = data as Record<string, unknown>;
+
+  // Validate hero section
+  if (!d.hero || typeof d.hero !== 'object') return false;
+  const hero = d.hero as Record<string, unknown>;
+
+  const hasValidHero =
+    typeof hero.title === 'string' &&
+    typeof hero.subtitle === 'string' &&
+    validateHomeDataCTA(hero.cta);
+
+  if (!hasValidHero) return false;
+
+  // Validate sections
+  const hasValidSections =
+    validateHomeDataSection(d.needs, validateHomeNeedItem) &&
+    validateHomeDataSection(d.services, validateHomeServiceItem) &&
+    validateHomeDataSection(d.brands, validateBrand) &&
+    validateHomeDataSection(d.callToAction, validateHomeButton);
+
+  return hasValidSections;
 };
 
 export const validateHomeDataCTA = (cta: unknown): cta is HomeData['hero']['cta'] => {
@@ -329,28 +351,12 @@ export const validateHomeDataSection = <T>(
   );
 };
 
-export const validateHomeData = (data: unknown): data is HomeData => {
-  if (!data || typeof data !== 'object') return false;
+export const validateSkillCategory = (category: unknown): category is SkillCategory => {
+  if (!category || typeof category !== 'object') return false;
 
-  const d = data as Record<string, unknown>;
+  const c = category as Record<string, unknown>;
 
-  // Validate hero section
-  if (!d.hero || typeof d.hero !== 'object') return false;
-  const hero = d.hero as Record<string, unknown>;
-
-  const hasValidHero =
-    typeof hero.title === 'string' &&
-    typeof hero.subtitle === 'string' &&
-    validateHomeDataCTA(hero.cta);
-
-  if (!hasValidHero) return false;
-
-  // Validate sections
-  const hasValidSections =
-    validateHomeDataSection(d.needs, validateHomeNeedItem) &&
-    validateHomeDataSection(d.services, validateHomeServiceItem) &&
-    validateHomeDataSection(d.brands, validateHomeBrandItem) &&
-    validateHomeDataSection(d.callToAction, validateHomeButton);
-
-  return hasValidSections;
+  return (
+    typeof c.id === 'string' && typeof c.name === 'string' && typeof c.description === 'string'
+  );
 };
