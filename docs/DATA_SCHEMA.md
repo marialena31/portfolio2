@@ -62,21 +62,6 @@ type HomeServiceItem {
 }
 ```
 
-### Brands Section
-
-```typescript
-type HomeBrands {
-  title: String!
-  items: [HomeBrandItem!]!
-}
-
-type HomeBrandItem {
-  name: String!
-  logo: String!
-  alt: String!
-}
-```
-
 ### Call to Action Section
 
 ```typescript
@@ -91,6 +76,10 @@ type HomeButton {
   type: String
 }
 ```
+
+## Note on Data Management
+
+For detailed information about data management, types, and best practices, please refer to [data-management.md](./data-management.md). This file contains the source of truth for all data structures and their implementations.
 
 ## Metadata and SEO Types
 
@@ -166,14 +155,6 @@ interface HomeData {
       description: string;
       icon: string;
       link: string;
-    }>;
-  };
-  brands: {
-    title: string;
-    items: Array<{
-      name: string;
-      logo: string;
-      alt: string;
     }>;
   };
   callToAction: {
@@ -358,7 +339,6 @@ The data is organized in the following files:
    - Hero section with title, subtitle, and CTA
    - Needs section addressing visitor pain points
    - Services section showcasing offerings
-   - Brands section displaying partnerships/technologies
    - Call to action section with customizable buttons
 3. **Skills**: Technical skills organized by categories with proficiency levels
 4. **Services**: Detailed service offerings with features
@@ -435,14 +415,6 @@ query {
         description
         icon
         link
-      }
-    }
-    brands {
-      title
-      items {
-        name
-        logo
-        alt
       }
     }
     callToAction {
@@ -603,14 +575,6 @@ query {
         description
         icon
         link
-      }
-    }
-    brands {
-      title
-      items {
-        name
-        logo
-        alt
       }
     }
     callToAction {

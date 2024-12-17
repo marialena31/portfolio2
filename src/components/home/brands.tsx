@@ -19,7 +19,7 @@ const Brands: React.FC<BrandsProps> = ({ title }) => {
   const data = useStaticQuery(graphql`
     query BrandsQuery {
       allFile(
-        filter: { sourceInstanceName: { eq: "images" }, relativeDirectory: { eq: "brands" } }
+        filter: { sourceInstanceName: { eq: "assets" }, relativeDirectory: { eq: "images/brands" } }
       ) {
         nodes {
           relativePath
@@ -33,7 +33,7 @@ const Brands: React.FC<BrandsProps> = ({ title }) => {
 
   const getImageByName = (imageName: string) => {
     const image = data.allFile.nodes.find(
-      (node: FileNode) => node.relativePath === `brands/${imageName}`
+      (node: FileNode) => node.relativePath === `images/brands/${imageName}`
     );
     return image?.childImageSharp?.gatsbyImageData;
   };

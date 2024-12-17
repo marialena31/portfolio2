@@ -62,7 +62,7 @@ export const brandsData: Brand[] = [
     alt: 'Logo Maps System',
   },
   {
-    id: 'marjanemall',
+    id: 'marjane-mall',
     name: 'Marjane Mall',
     imagePath: 'marjanemall.png',
     alt: 'Logo Marjane Mall',
