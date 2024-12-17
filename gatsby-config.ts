@@ -57,7 +57,7 @@ const config: GatsbyConfig = {
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/assets/images/gatsby-icon.png`,
+        icon: `src/assets/images/gatsby-icon.png`, // This is the correct path to the icon
         cache_busting_mode: 'none',
       },
     },
@@ -77,19 +77,27 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-plugin-graphql-codegen',
       options: {
         fileName: `src/types/graphql-types.d.ts`,
-        documentPaths: ['./src/**/*.{ts,tsx}'],
+        documentPaths: ['src/**/*.{ts,tsx}'],
         codegenConfig: {
-          maybeValue: 'T | undefined',
-          avoidOptionals: true,
-          enumsAsTypes: true,
           skipTypename: true,
+          constEnums: true,
           namingConvention: {
+            typeNames: 'pascal-case#pascalCase',
             enumValues: 'keep',
           },
-          scalars: {
-            Date: 'string',
-            JSON: '{ [key: string]: any }',
-          },
+        },
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-netlify',
+      options: {
+        headers: {
+          '/*': [
+            'X-Frame-Options: DENY',
+            'X-XSS-Protection: 1; mode=block',
+            'X-Content-Type-Options: nosniff',
+            'Referrer-Policy: same-origin',
+          ],
         },
       },
     },
