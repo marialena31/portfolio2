@@ -18,9 +18,16 @@ interface RateLimitInfo {
   blockExpires?: Date;
 }
 
+interface RateLimitStore {
+  attempts: number;
+  windowStart: number;
+  blockedUntil?: number;
+  consecutiveViolations?: number;
+}
+
 export class AdvancedRateLimiter {
   private config: AdvancedRateLimitConfig;
-  private store: Map<string, any>;
+  private store: Map<string, RateLimitStore>;
   private readonly DEFAULT_MAX_BLOCK = 24 * 60 * 60 * 1000; // 24 hours
 
   constructor(config: Partial<AdvancedRateLimitConfig> = {}) {
@@ -71,22 +78,18 @@ export class AdvancedRateLimiter {
     const entry = this.store.get(ip) || this.createEntry();
 
     // Check if blocked
-    if (entry.blocked) {
-      if (entry.blockExpires && entry.blockExpires <= Date.now()) {
-        this.store.delete(ip);
-        return this.checkMemoryLimit(ip);
-      }
+    if (entry.blockedUntil && entry.blockedUntil > Date.now()) {
       return {
         allowed: false,
-        nextAttemptAt: entry.blockExpires ? new Date(entry.blockExpires) : undefined,
+        nextAttemptAt: new Date(entry.blockedUntil),
         remainingAttempts: 0,
         isBlocked: true,
-        blockExpires: entry.blockExpires ? new Date(entry.blockExpires) : undefined,
+        blockExpires: new Date(entry.blockedUntil),
       };
     }
 
     // Check window expiration
-    if (Date.now() - entry.firstAttempt >= this.config.windowMs) {
+    if (Date.now() - entry.windowStart >= this.config.windowMs) {
       this.store.set(ip, this.createEntry());
       return {
         allowed: true,
@@ -101,23 +104,22 @@ export class AdvancedRateLimiter {
 
     // Check if should block
     if (entry.attempts > this.config.maxAttempts) {
-      const violations = entry.violations || 0;
+      const violations = entry.consecutiveViolations || 0;
       const blockDuration = Math.min(
         this.config.blockDuration * Math.pow(2, violations),
         this.config.maxBlockDuration
       );
 
-      entry.blocked = true;
-      entry.blockExpires = Date.now() + blockDuration;
-      entry.violations = violations + 1;
+      entry.blockedUntil = Date.now() + blockDuration;
+      entry.consecutiveViolations = violations + 1;
       this.store.set(ip, entry);
 
       return {
         allowed: false,
-        nextAttemptAt: new Date(entry.blockExpires),
+        nextAttemptAt: new Date(entry.blockedUntil),
         remainingAttempts: 0,
         isBlocked: true,
-        blockExpires: new Date(entry.blockExpires),
+        blockExpires: new Date(entry.blockedUntil),
       };
     }
 
@@ -138,13 +140,13 @@ export class AdvancedRateLimiter {
       };
     }
 
-    if (entry.blocked && entry.blockExpires > Date.now()) {
+    if (entry.blockedUntil && entry.blockedUntil > Date.now()) {
       return {
         allowed: false,
-        nextAttemptAt: new Date(entry.blockExpires),
+        nextAttemptAt: new Date(entry.blockedUntil),
         remainingAttempts: 0,
         isBlocked: true,
-        blockExpires: new Date(entry.blockExpires),
+        blockExpires: new Date(entry.blockedUntil),
       };
     }
 
@@ -158,9 +160,9 @@ export class AdvancedRateLimiter {
   private createEntry() {
     return {
       attempts: 1,
-      firstAttempt: Date.now(),
-      blocked: false,
-      violations: 0,
+      windowStart: Date.now(),
+      blockedUntil: undefined,
+      consecutiveViolations: 0,
     };
   }
 
@@ -168,8 +170,8 @@ export class AdvancedRateLimiter {
     const now = Date.now();
     for (const [ip, entry] of this.store.entries()) {
       if (
-        (!entry.blocked && now - entry.firstAttempt >= this.config.windowMs) ||
-        (entry.blocked && entry.blockExpires && entry.blockExpires <= now)
+        (!entry.blockedUntil && now - entry.windowStart >= this.config.windowMs) ||
+        (entry.blockedUntil && entry.blockedUntil <= now)
       ) {
         this.store.delete(ip);
       }

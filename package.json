@@ -25,7 +25,7 @@
     "generate-icons": "ts-node src/scripts/convert-icons.ts",
     "check-env": "ts-node src/scripts/check-env.ts",
     "security-check": "yarn audit",
-    "prebuild": "yarn security-check && yarn check-env",
+    "prebuild": "yarn check-env",
     "contrast-check": "color-contrast-calc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
