@@ -1,11 +1,12 @@
 [build]
-  command = "yarn build"
+  command = "yarn install && yarn build"
   publish = "public/"
 
 [build.environment]
   NODE_VERSION = "18"
   GATSBY_CONCURRENT_DOWNLOAD = "25"
   YARN_VERSION = "1.22.19"
+  NPM_FLAGS = "--no-audit --no-fund"
 
 [[plugins]]
   package = "@netlify/plugin-gatsby"
