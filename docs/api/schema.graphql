@@ -1,0 +1,225 @@
+"""
+Portfolio API Schema
+This schema defines the GraphQL API contract for the portfolio backend.
+"""
+
+type Query {
+  # Projects
+  projects(limit: Int, offset: Int): [Project!]!
+  project(id: ID!, slug: String): Project
+  
+  # Home
+  home: Home!
+  
+  # Services
+  services: [Service!]!
+  service(id: ID!): Service
+  
+  # Skills
+  skills: [Skill!]!
+  skillCategories: [SkillCategory!]!
+  
+  # Brands
+  brands: [Brand!]!
+}
+
+type Project {
+  id: ID!
+  title: String!
+  description: String!
+  image: String!
+  tags: [String!]!
+  githubUrl: String
+  liveUrl: String
+  slug: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Home {
+  hero: HomeHero!
+  needs: HomeNeeds!
+  services: HomeServices!
+  brands: HomeBrands!
+  callToAction: HomeCallToAction!
+}
+
+type HomeHero {
+  title: String!
+  subtitle: String!
+  cta: HomeButton!
+}
+
+type HomeNeeds {
+  title: String!
+  items: [HomeNeedItem!]!
+}
+
+type HomeNeedItem {
+  question: String!
+  solution: String!
+  link: String!
+}
+
+type HomeServices {
+  title: String!
+  items: [HomeServiceItem!]!
+}
+
+type HomeServiceItem {
+  title: String!
+  description: String!
+  icon: String!
+  link: String!
+}
+
+type HomeBrands {
+  title: String!
+  items: [Brand!]!
+}
+
+type HomeCallToAction {
+  title: String!
+  buttons: [HomeButton!]!
+}
+
+type HomeButton {
+  text: String!
+  link: String!
+  type: ButtonType!
+  isExternal: Boolean
+  phoneNumber: String
+  icon: String
+}
+
+type Service {
+  id: ID!
+  title: String!
+  description: String!
+  icon: String!
+  features: [String!]!
+}
+
+type Skill {
+  id: ID!
+  name: String!
+  level: Int!
+  category: String!
+  icon: String!
+}
+
+type SkillCategory {
+  id: ID!
+  name: String!
+  description: String!
+}
+
+type Brand {
+  id: ID!
+  name: String!
+  imagePath: String!
+  alt: String!
+}
+
+enum ButtonType {
+  PRIMARY
+  SECONDARY
+}
+
+# Mutations for future use (e.g., CMS integration)
+type Mutation {
+  # Project mutations
+  createProject(input: ProjectInput!): Project!
+  updateProject(id: ID!, input: ProjectInput!): Project!
+  deleteProject(id: ID!): Boolean!
+  
+  # Content mutations
+  updateHome(input: HomeInput!): Home!
+  updateService(id: ID!, input: ServiceInput!): Service!
+  updateSkill(id: ID!, input: SkillInput!): Skill!
+}
+
+input ProjectInput {
+  title: String!
+  description: String!
+  image: String!
+  tags: [String!]!
+  githubUrl: String
+  liveUrl: String
+}
+
+input HomeInput {
+  hero: HomeHeroInput
+  needs: HomeNeedsInput
+  services: HomeServicesInput
+  brands: HomeBrandsInput
+  callToAction: HomeCallToActionInput
+}
+
+input HomeHeroInput {
+  title: String!
+  subtitle: String!
+  cta: HomeButtonInput!
+}
+
+input HomeNeedsInput {
+  title: String!
+  items: [HomeNeedItemInput!]!
+}
+
+input HomeNeedItemInput {
+  question: String!
+  solution: String!
+  link: String!
+}
+
+input HomeServicesInput {
+  title: String!
+  items: [HomeServiceItemInput!]!
+}
+
+input HomeServiceItemInput {
+  title: String!
+  description: String!
+  icon: String!
+  link: String!
+}
+
+input HomeBrandsInput {
+  title: String!
+  items: [BrandInput!]!
+}
+
+input HomeCallToActionInput {
+  title: String!
+  buttons: [HomeButtonInput!]!
+}
+
+input HomeButtonInput {
+  text: String!
+  link: String!
+  type: ButtonType!
+  isExternal: Boolean
+  phoneNumber: String
+  icon: String
+}
+
+input ServiceInput {
+  title: String!
+  description: String!
+  icon: String!
+  features: [String!]!
+}
+
+input SkillInput {
+  name: String!
+  level: Int!
+  category: String!
+  icon: String!
+}
+
+input BrandInput {
+  name: String!
+  imagePath: String!
+  alt: String!
+}
