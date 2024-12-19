@@ -1,4 +1,5 @@
 import React from 'react';
+import { jest } from '@jest/globals';
 
 interface GatsbyLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   activeClassName?: string;
@@ -30,8 +31,8 @@ const Link = ({
 
 const StaticImage = ({ src, alt, ...props }: { src: string; alt: string; [key: string]: any }) =>
   React.createElement('img', {
-    src: src,
-    alt: alt,
+    src,
+    alt,
     ...props,
   });
 
@@ -39,37 +40,16 @@ const StaticImage = ({ src, alt, ...props }: { src: string; alt: string; [key: s
 const mockSiteMetadata = {
   site: {
     siteMetadata: {
-      title: 'Portfolio Site',
-      description: 'My portfolio site built with Gatsby',
-      author: 'Your Name',
-      siteUrl: 'http://localhost:6007',
-      image: '/images/default.jpg',
-      twitterUsername: '@yourtwitterhandle',
-      pageMetadata: {
-        home: {
-          description: 'Welcome to my portfolio site',
-        },
-        about: {
-          description: 'Learn more about me',
-        },
-        services: {
-          description: 'Services I offer',
-        },
-        portfolio: {
-          description: 'Check out my work',
-        },
-        contact: {
-          description: 'Get in touch with me',
-        },
-      },
+      title: 'ExpertEcom',
+      description: 'Expert en développement e-commerce',
+      author: 'Maria-Lena PIETRI',
+      siteUrl: 'https://example.com',
     },
   },
 };
 
-// Export gatsby mocks using ES modules syntax
-export { Link, StaticImage };
+const useStaticQuery = jest.fn().mockReturnValue(mockSiteMetadata);
+const graphql = jest.fn();
+const StaticQuery = jest.fn();
 
-export const graphql = noop;
-export const StaticQuery = noop;
-export const useStaticQuery = () => mockSiteMetadata;
-export const navigate = noop;
+export { Link, StaticImage, useStaticQuery, graphql, StaticQuery, noop as navigate };

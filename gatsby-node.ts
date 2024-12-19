@@ -2,6 +2,7 @@ import { GatsbyNode } from 'gatsby';
 import path from 'path';
 import { projects } from './src/data/projects';
 import { NextFunction, Request, Response } from 'express';
+import { RateLimiterMiddleware } from './src/middleware/rate-limiter';
 
 export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -63,6 +64,15 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
 };
 
 export const onCreateDevServer: GatsbyNode['onCreateDevServer'] = ({ app }) => {
+  // Apply rate limiting to all API routes
+  const rateLimiter = new RateLimiterMiddleware({
+    windowMs: 60000, // 1 minute
+    maxAttempts: 100, // 100 requests per minute
+    blockDuration: 300000, // 5 minutes
+  });
+
+  app.use('/api/*', rateLimiter.middleware);
+
   app.use((req: Request, res: Response, next: NextFunction) => {
     if (req.url.startsWith('/api/')) {
       res.setHeader('Content-Type', 'application/json');

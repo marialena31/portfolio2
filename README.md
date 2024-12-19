@@ -141,6 +141,106 @@ type ProjectPageProps = PageProps<ProjectQuery>;
 - Use fragments for reusable query parts
 - Name your queries descriptively (e.g., `PortfolioQuery`, `SingleProjectQuery`)
 
+## Testing
+
+This project uses Jest for unit and integration testing. The test suite includes:
+
+### Test Categories
+
+- **Unit Tests**: Testing individual components and utilities
+- **Integration Tests**: Testing component interactions and middleware
+- **API Tests**: Testing Gatsby API endpoints and middleware
+- **Component Tests**: Testing React components with React Testing Library
+
+### Rate Limiting Tests
+
+The rate limiting system is tested at multiple levels:
+
+1. **Unit Tests** (`src/utils/__tests__/advanced-rate-limiter.test.ts`)
+
+   - Core rate limiting logic
+   - Time window management
+   - Attempt counting
+   - IP whitelisting
+
+2. **Integration Tests** (`src/middleware/__tests__/rate-limiter.integration.test.ts`)
+   - Express.js middleware integration
+   - HTTP header handling
+   - Request blocking
+   - Multi-IP scenarios
+
+### Running Tests
+
+```bash
+# Run all tests
+yarn test
+
+# Run tests with coverage
+yarn test:coverage
+
+# Run specific test file
+yarn test path/to/test.ts
+
+# Watch mode for development
+yarn test:watch
+```
+
+### Test Patterns
+
+1. **Component Testing**
+
+   - Use React Testing Library
+   - Focus on user interactions
+   - Test accessibility
+
+2. **API Testing**
+
+   - Use Supertest for HTTP assertions
+   - Mock external services
+   - Test rate limiting and security
+
+3. **Integration Testing**
+   - Test component interactions
+   - Verify middleware chains
+   - Test Gatsby API integration
+
+### Writing Tests
+
+Follow these guidelines when writing tests:
+
+1. **Naming Convention**
+
+   - Test files: `*.test.ts` or `*.test.tsx`
+   - Integration tests: `*.integration.test.ts`
+   - End-to-end tests: `*.e2e.test.ts`
+
+2. **Test Structure**
+
+   - Use descriptive test names
+   - Follow AAA pattern (Arrange, Act, Assert)
+   - Group related tests with `describe`
+
+3. **Mocking**
+
+   - Mock external services
+   - Use Jest mock functions
+   - Reset mocks between tests
+
+4. **Coverage**
+   - Aim for 80% coverage
+   - Focus on critical paths
+   - Document uncovered edge cases
+
+### Continuous Integration
+
+Tests are automatically run in CI/CD pipeline:
+
+- On pull requests
+- Before deployment
+- Nightly for dependency updates
+
+For more details on specific test suites, see the documentation in the `docs/testing/` directory.
+
 ## Development
 
 To start the development server:
