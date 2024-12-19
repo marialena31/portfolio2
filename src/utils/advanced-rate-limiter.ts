@@ -45,7 +45,7 @@ export class AdvancedRateLimiter {
   /**
    * Check rate limit for an IP address
    */
-  public async checkLimit(ip: string): Promise<RateLimitInfo> {
+  public checkLimit(ip: string): RateLimitInfo {
     // Check whitelist
     if (this.config.ipWhitelist?.includes(ip)) {
       return {
@@ -61,21 +61,34 @@ export class AdvancedRateLimiter {
   /**
    * Get detailed rate limit information
    */
-  public async getRateLimitInfo(ip: string): Promise<RateLimitInfo> {
+  public getRateLimitInfo(ip: string): RateLimitInfo {
     return this.getMemoryRateLimitInfo(ip);
   }
 
   /**
    * Reset rate limit for an IP
    */
-  public async reset(ip: string): Promise<void> {
+  public reset(ip: string): void {
     this.store.delete(ip);
+  }
+
+  private createEntry(): RateLimitStore {
+    return {
+      attempts: 0,
+      windowStart: Date.now(),
+      blockedUntil: undefined,
+      consecutiveViolations: 0,
+    };
   }
 
   private checkMemoryLimit(ip: string): RateLimitInfo {
     this.cleanup();
 
-    const entry = this.store.get(ip) || this.createEntry();
+    let entry = this.store.get(ip);
+    if (!entry) {
+      entry = this.createEntry();
+      this.store.set(ip, entry);
+    }
 
     // Check if blocked
     if (entry.blockedUntil && entry.blockedUntil > Date.now()) {
@@ -90,20 +103,12 @@ export class AdvancedRateLimiter {
 
     // Check window expiration
     if (Date.now() - entry.windowStart >= this.config.windowMs) {
-      this.store.set(ip, this.createEntry());
-      return {
-        allowed: true,
-        remainingAttempts: this.config.maxAttempts - 1,
-        isBlocked: false,
-      };
+      entry = this.createEntry();
+      this.store.set(ip, entry);
     }
 
-    // Increment attempts
-    entry.attempts++;
-    this.store.set(ip, entry);
-
     // Check if should block
-    if (entry.attempts > this.config.maxAttempts) {
+    if (entry.attempts >= this.config.maxAttempts) {
       const violations = entry.consecutiveViolations || 0;
       const blockDuration = Math.min(
         this.config.blockDuration * Math.pow(2, violations),
@@ -122,6 +127,10 @@ export class AdvancedRateLimiter {
         blockExpires: new Date(entry.blockedUntil),
       };
     }
+
+    // Increment attempts
+    entry.attempts++;
+    this.store.set(ip, entry);
 
     return {
       allowed: true,
@@ -157,16 +166,7 @@ export class AdvancedRateLimiter {
     };
   }
 
-  private createEntry() {
-    return {
-      attempts: 1,
-      windowStart: Date.now(),
-      blockedUntil: undefined,
-      consecutiveViolations: 0,
-    };
-  }
-
-  private cleanup(): void {
+  public cleanup(): void {
     const now = Date.now();
     for (const [ip, entry] of this.store.entries()) {
       if (
