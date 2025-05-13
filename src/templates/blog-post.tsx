@@ -23,7 +23,7 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
   return (
     <Layout>
       <SEO title={post.title} description={post.excerpt} />
-      <section className="section">
+      <section className={styles.section}>
         <div className={styles.article}>
           <button
             onClick={() => window.history.back()}

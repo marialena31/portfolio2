@@ -2,7 +2,8 @@
 @use '../styles/mixins' as *;
 
 .blogSection {
-  padding: $spacing-xxxl 0;
+  background: linear-gradient(135deg, #0056B3 0%, #003B7A 100%);
+  padding: 80px 0 $spacing-xxxl 0;
   background-color: var(--background);
 }
 
@@ -40,10 +41,10 @@
 }
 
 .post {
-  background: var(--card-background);
-  border-radius: $border-radius-xl;
-  padding: $spacing-xl $spacing-lg;
-  box-shadow: $shadow-lg;
+  background: #fff;
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  box-shadow: 0 8px 48px 0 rgba(58, 46, 77, 0.10);
   transition: $transition-smooth;
   display: flex;
   flex-direction: column;
