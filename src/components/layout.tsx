@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { Helmet } from 'react-helmet';
+
 import Header from './header';
 import Footer from './footer';
 import * as styles from './layout.module.scss';
@@ -11,7 +11,7 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<import('../types/graphql-types').SiteTitleQueryQuery>(graphql`
     query SiteTitleQuery {
       site {
         siteMetadata {
@@ -25,12 +25,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <>
-      <Helmet>
-        <html lang="en" />
-        <title>{data.site.siteMetadata.title}</title>
-        <meta name="description" content={data.site.siteMetadata.description} />
-      </Helmet>
-
       <div className={styles.layout}>
         <>
           <Header />

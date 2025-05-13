@@ -1,0 +1,66 @@
+.servicesPage {
+  min-height: 100vh;
+  background: #f9f9f9;
+  padding: 40px 0;
+}
+.section {
+  padding: 3rem 0;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #3a2e4d;
+  margin-bottom: 2.5rem;
+}
+
+.servicesContainer {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.servicesContainer h1,
+.servicesContainer h2,
+.servicesContainer h3 {
+  text-align: center;
+  font-weight: 700;
+  color: #3a2e4d;
+  margin-bottom: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.servicesContainer p {
+  color: #444;
+  font-size: 1.13rem;
+  margin-bottom: 1.3rem;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.servicesContainer ul, .servicesContainer ol {
+  margin: 1.2em auto 2em 2.2em;
+  padding-left: 1.2em;
+  font-size: 1.08rem;
+  color: #444;
+}
+
+.servicesContainer h1,
+.servicesContainer h2,
+.servicesContainer h3 {
+  margin-top: 0;
+  font-weight: 700;
+}
+.servicesContainer ul {
+  margin: 0 0 1em 1.2em;
+  padding: 0;
+}
+.servicesContainer li {
+  margin-bottom: 0.5em;
+}

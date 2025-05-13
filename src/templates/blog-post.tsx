@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Layout from '../components/layout';
-import SEO from '../components/seo';
+import { SEO } from '../components/seo';
 import * as styles from './blog-post.module.scss';
 
 interface BlogPostData {
@@ -22,10 +22,7 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
 
   return (
     <Layout>
-      <SEO 
-        title={post.title}
-        description={post.excerpt}
-      />
+      <SEO title={post.title} description={post.excerpt} />
       <article className={styles.article}>
         <header className={styles.header}>
           <h1>{post.title}</h1>
@@ -41,10 +38,7 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
             ))}
           </div>
         </header>
-        <div 
-          className={styles.content}
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+        <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.content }} />
       </article>
     </Layout>
   );

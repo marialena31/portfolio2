@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Navigation from './navigation';
 import { pageNameArgType } from '../../.storybook/types';
-import { NavigationItem } from '../types/data';
+// Define NavigationItem locally (since it's not in types/data)
+type NavigationItem = { label: string; path: string; pageName: string };
 
 const meta: Meta<typeof Navigation> = {
   title: 'Components/Navigation',

@@ -1,4 +1,4 @@
-import { Service } from '../types';
+import { Service } from '../types/data';
 
 export const services: Service[] = [
   {
@@ -44,7 +44,7 @@ export const services: Service[] = [
     icon: 'custom',
     features: [
       'Analyse des besoins métier',
-      'Développement d\'applications sur mesure',
+      "Développement d'applications sur mesure",
       'Intégration avec vos systèmes existants',
       'Maintenance et support continu',
     ],

@@ -1,26 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Brands from './brands';
-import { HomeBrandItem } from '../../types/data';
+import { Brand } from '../../types/data';
 
-const defaultBrands: HomeBrandItem[] = [
+const defaultBrands: Brand[] = [
   {
+    id: 'bonpoint',
     name: 'Bonpoint',
-    logo: '../../images/brands/bonpoint.png',
+    imagePath: '../../images/brands/bonpoint.png',
     alt: 'Logo Bonpoint',
   },
   {
+    id: 'cac40',
     name: 'CAC 40',
-    logo: '../../images/brands/cac-40.png',
+    imagePath: '../../images/brands/cac-40.png',
     alt: 'Logo CAC 40',
   },
   {
+    id: 'chausson',
     name: 'Chausson Matériaux',
-    logo: '../../images/brands/chausson-materiaux.png',
+    imagePath: '../../images/brands/chausson-materiaux.png',
     alt: 'Logo Chausson Matériaux',
   },
   {
+    id: 'eram',
     name: 'Eram Group',
-    logo: '../../images/brands/eram-group.png',
+    imagePath: '../../images/brands/eram-group.png',
     alt: 'Logo Eram Group',
   },
 ];

@@ -1,0 +1,65 @@
+@import '../styles/_variables';
+
+.aboutPage {
+  padding: $spacing-xxxl 0 $spacing-xxl 0;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  min-height: 100vh;
+}
+
+.aboutContainer {
+  max-width: 900px;
+  margin: $spacing-xxl auto;
+  background: $surface-primary;
+  border-radius: $border-radius-xl;
+  box-shadow: 0 8px 48px 0 rgba($color-primary, 0.10);
+  padding: $spacing-xxxl $spacing-xl;
+  border: 1.5px solid rgba($color-primary, 0.09);
+  position: relative;
+  z-index: 2;
+}
+
+.about-section {
+  max-width: 900px;
+  margin: 0 auto;
+  background: $surface-primary;
+  border-radius: $border-radius-xl;
+  box-shadow: 0 8px 48px 0 rgba($color-primary, 0.10);
+  padding: $spacing-xxxl $spacing-xl;
+  margin-top: $spacing-xxl;
+  margin-bottom: $spacing-xxl;
+}
+
+.about-section h1 {
+  font-size: clamp($font-size-3xl, 5vw, $font-size-5xl);
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  margin-bottom: $spacing-xl;
+  text-align: center;
+}
+
+.about-section h3 {
+  color: $color-primary-dark;
+  font-size: $font-size-xl;
+  margin-top: $spacing-xl;
+  margin-bottom: $spacing-md;
+  text-align: left;
+}
+
+.about-section p {
+  font-size: 1.12rem;
+  color: $text-secondary;
+  margin-bottom: $spacing-md;
+  line-height: 1.7;
+}
+
+.about-section ul, .about-section ol {
+  margin: $spacing-md 0 $spacing-lg $spacing-lg;
+  padding-left: 1.2em;
+  font-size: 1.08rem;
+  color: $text-secondary;
+}
+
+.about-section li {
+  margin-bottom: $spacing-xs;
+  line-height: 1.5;
+}

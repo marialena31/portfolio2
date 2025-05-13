@@ -1,5 +1,5 @@
 import React from 'react';
-import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import { graphql, useStaticQuery } from 'gatsby';
 import { brandsData } from '../../data';
 import * as styles from './brands.module.scss';
@@ -8,15 +8,8 @@ interface BrandsProps {
   title: string;
 }
 
-interface FileNode {
-  relativePath: string;
-  childImageSharp: {
-    gatsbyImageData: IGatsbyImageData;
-  };
-}
-
 const Brands: React.FC<BrandsProps> = ({ title }) => {
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<import('../../types/graphql-types').BrandsQueryQuery>(graphql`
     query BrandsQuery {
       allFile(
         filter: { sourceInstanceName: { eq: "assets" }, relativeDirectory: { eq: "images/brands" } }
@@ -33,7 +26,7 @@ const Brands: React.FC<BrandsProps> = ({ title }) => {
 
   const getImageByName = (imageName: string) => {
     const image = data.allFile.nodes.find(
-      (node: FileNode) => node.relativePath === `images/brands/${imageName}`
+      node => node.relativePath === `images/brands/${imageName}`
     );
     return image?.childImageSharp?.gatsbyImageData;
   };

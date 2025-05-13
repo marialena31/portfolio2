@@ -105,7 +105,9 @@ export class FormProtection {
    * Close rate limiter connections (important for cleanup)
    */
   public async close(): Promise<void> {
-    await this.rateLimiter.close();
+    if (typeof this.rateLimiter.close === 'function') {
+      await this.rateLimiter.close();
+    }
   }
 
   private validateFormData(data: Record<string, string>): boolean {

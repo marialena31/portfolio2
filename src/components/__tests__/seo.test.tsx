@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import SEO from '../seo';
+import { SEO } from '../seo';
 import { useStaticQuery } from 'gatsby';
 
 // Mock gatsby's useStaticQuery

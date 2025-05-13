@@ -36,6 +36,8 @@ describe('Hero component', () => {
     cta: {
       text: 'View Projects',
       link: '/projects',
+      type: 'primary' as const,
+      phoneNumber: '+33 6 12 34 56 78',
     },
   };
 
@@ -86,6 +88,8 @@ describe('Hero component', () => {
       cta: {
         text: 'Contact Me',
         link: '/contact',
+        type: 'primary' as const,
+        phoneNumber: '+33 6 12 34 56 78',
       },
     };
 

@@ -1,4 +1,4 @@
-import { Skill, SkillCategory } from '../types';
+import { Skill, SkillCategory } from '../types/data';
 
 export const skillCategories: SkillCategory[] = [
   {
@@ -52,13 +52,13 @@ export const skills: Skill[] = [
     name: 'Docker',
     level: 70,
     category: 'devops',
-    icon: 'docker',
+    icon: 'code',
   },
   {
     id: '6',
     name: 'AWS',
     level: 65,
     category: 'devops',
-    icon: 'aws',
+    icon: 'code',
   },
 ];

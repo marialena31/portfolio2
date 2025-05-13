@@ -7,7 +7,7 @@ import { HomeButton } from '../../types/data';
 interface HeroProps {
   title: string;
   subtitle: string;
-  cta: HomeButton;
+  cta: HomeButton; // HomeButton.phoneNumber est maintenant string
 }
 
 const Hero: React.FC<HeroProps> = ({ title, subtitle, cta }) => {

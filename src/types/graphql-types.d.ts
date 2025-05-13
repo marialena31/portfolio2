@@ -707,6 +707,8 @@ export type HomeBrandItem = {
   name: Scalars['String'];
   logo: Scalars['String'];
   alt: Scalars['String'];
+  id?: Maybe<Scalars['String']>;
+  imagePath?: Maybe<Scalars['String']>;
 };
 
 export type PortfolioProject = Node & {
@@ -2769,6 +2771,8 @@ export type HomeBrandItemFilterInput = {
   name?: InputMaybe<StringQueryOperatorInput>;
   logo?: InputMaybe<StringQueryOperatorInput>;
   alt?: InputMaybe<StringQueryOperatorInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  imagePath?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type HomeJsonConnection = {
@@ -2887,6 +2891,8 @@ export type HomeBrandItemFieldSelector = {
   name?: InputMaybe<FieldSelectorEnum>;
   logo?: InputMaybe<FieldSelectorEnum>;
   alt?: InputMaybe<FieldSelectorEnum>;
+  id?: InputMaybe<FieldSelectorEnum>;
+  imagePath?: InputMaybe<FieldSelectorEnum>;
 };
 
 export type HomeJsonGroupConnection = {
@@ -3014,6 +3020,8 @@ export type HomeBrandItemSortInput = {
   name?: InputMaybe<SortOrderEnum>;
   logo?: InputMaybe<SortOrderEnum>;
   alt?: InputMaybe<SortOrderEnum>;
+  id?: InputMaybe<SortOrderEnum>;
+  imagePath?: InputMaybe<SortOrderEnum>;
 };
 
 export type ProjectConnection = {

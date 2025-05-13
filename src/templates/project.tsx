@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Layout from '../components/layout';
-import SEO from '../components/seo';
+import { SEO } from '../components/seo';
 import * as styles from './project.module.scss';
 import { ProjectTemplateQueryQuery } from '../types/graphql-types';
 

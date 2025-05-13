@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery } from 'gatsby';
 import type { WindowLocation } from '@reach/router';
 import { render } from '@testing-library/react';
-import SEO from '../seo';
+import { SEO } from '../seo';
 import Layout from '../layout';
 import Brands from '../home/brands';
 import BlogPage from '../../pages/blog';

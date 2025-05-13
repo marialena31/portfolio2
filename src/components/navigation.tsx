@@ -120,17 +120,7 @@ const Navigation: React.FC = () => {
               Services
             </Link>
           </li>
-          <li role="none">
-            <Link
-              to="/portfolio"
-              className={styles.menuItem}
-              role="menuitem"
-              data-nav-item
-              tabIndex={isMenuOpen ? 0 : -1}
-            >
-              Portfolio
-            </Link>
-          </li>
+
           <li role="none">
             <Link
               to="/blog"

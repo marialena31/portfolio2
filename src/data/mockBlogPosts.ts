@@ -1,4 +1,13 @@
-import { BlogPost } from '../types';
+interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  date: string;
+  author: string;
+  tags: string[];
+  slug: string;
+}
 
 export const blogPosts: BlogPost[] = [
   {
@@ -59,5 +68,5 @@ export const blogPosts: BlogPost[] = [
     author: 'Jane Smith',
     tags: ['TypeScript', 'JavaScript', 'Programming'],
     slug: 'mastering-typescript',
-  }
+  },
 ];

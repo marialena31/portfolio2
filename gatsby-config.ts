@@ -33,9 +33,12 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-sass`,
       options: {
         implementation: require('sass'),
+        cssLoaderOptions: {
+          modules: true,
+        },
       },
     },
-    `gatsby-plugin-react-helmet`,
+
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,

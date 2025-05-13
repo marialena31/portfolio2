@@ -1,25 +1,15 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Layout from '../components/layout';
-import SEO from '../components/seo';
+import { SEO } from '../components/seo';
 import * as styles from './blog.module.scss';
-import { BlogPost } from '../types';
+import { BlogListQueryQuery } from '../types/graphql-types';
 
-interface BlogPageData {
-  allBlogPost: {
-    nodes: BlogPost[];
-  };
-}
-
-const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
+const BlogPage: React.FC<PageProps<BlogListQueryQuery>> = ({ data }) => {
   const posts = data.allBlogPost.nodes;
 
   return (
     <Layout>
-      <SEO 
-        title="Blog"
-        description="Read our latest articles and insights"
-      />
       <section className={styles.blogSection}>
         <div className={styles.container}>
           <h1 className={styles.title}>Blog</h1>
@@ -33,7 +23,9 @@ const BlogPage: React.FC<PageProps<BlogPageData>> = ({ data }) => {
                 <p className={styles.excerpt}>{post.excerpt}</p>
                 <div className={styles.tags}>
                   {post.tags.map(tag => (
-                    <span key={tag} className={styles.tag}>{tag}</span>
+                    <span key={tag} className={styles.tag}>
+                      {tag}
+                    </span>
                   ))}
                 </div>
                 <a href={`/blog/${post.slug}`} className={styles.readMore}>
@@ -65,3 +57,5 @@ export const query = graphql`
 `;
 
 export default BlogPage;
+
+export const Head = () => <SEO title="Blog" description="Read our latest articles and insights" />;

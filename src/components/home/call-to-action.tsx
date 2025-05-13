@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import * as styles from './call-to-action.module.scss';
-import { CallToActionButton } from '../../types';
+import { HomeButton } from '../../types/data';
 
 interface CallToActionProps {
   title: string;
   subtitle?: string;
-  buttons: Array<CallToActionButton>;
+  buttons: Array<HomeButton>;
 }
 
 const CallToAction: React.FC<CallToActionProps> = ({ title, subtitle, buttons }) => {

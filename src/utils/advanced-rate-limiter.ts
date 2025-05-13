@@ -26,6 +26,13 @@ interface RateLimitStore {
 }
 
 export class AdvancedRateLimiter {
+  /**
+   * Dummy close method for compatibility (no-op for in-memory store)
+   */
+  public async close(): Promise<void> {
+    // No resources to clean up in memory
+  }
+
   private config: AdvancedRateLimitConfig;
   private store: Map<string, RateLimitStore>;
   private readonly DEFAULT_MAX_BLOCK = 24 * 60 * 60 * 1000; // 24 hours

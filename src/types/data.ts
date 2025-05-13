@@ -34,7 +34,7 @@ export type IconName =
 
 export type PageName = 'home' | 'about' | 'services' | 'portfolio' | 'contact';
 
-export type PhoneNumber = `+${number} ${number} ${number} ${number} ${number} ${number}`;
+export type PhoneNumber = string;
 
 export interface Project {
   id: string;
@@ -109,11 +109,7 @@ export interface HomeData {
   hero: {
     title: string;
     subtitle: string;
-    cta: {
-      text: string;
-      link: string;
-      phoneNumber: string;
-    };
+    cta: HomeButton;
   };
   needs: {
     title: string;

@@ -1,14 +1,14 @@
 import React from 'react';
 import { PageProps } from 'gatsby';
 import Layout from '../components/layout';
-import SEO from '../components/seo';
+import { SEO } from '../components/seo';
+import ContactForm from '../components/ContactForm';
 
 const ContactPage: React.FC<PageProps> = () => {
   return (
     <Layout>
       <SEO title="Contact" pageName="contact" />
-      <h1>Contact</h1>
-      <p>Contactez-nous pour plus d&apos;informations.</p>
+      <ContactForm />
     </Layout>
   );
 };

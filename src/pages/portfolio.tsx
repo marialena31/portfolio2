@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Layout from '../components/layout';
-import SEO from '../components/seo';
+import { SEO } from '../components/seo';
 import { PortfolioPageQueryQuery } from '../types/graphql-types';
 
 const PortfolioPage: React.FC<PageProps<PortfolioPageQueryQuery>> = ({ data }) => {
@@ -9,7 +9,6 @@ const PortfolioPage: React.FC<PageProps<PortfolioPageQueryQuery>> = ({ data }) =
 
   return (
     <Layout>
-      <SEO title="Portfolio" pageName="portfolio" />
       <h1>Portfolio</h1>
       <div>
         {projects.map(project => (
@@ -41,3 +40,5 @@ export const query = graphql`
 `;
 
 export default PortfolioPage;
+
+export const Head = () => <SEO title="Portfolio" pageName="portfolio" />;
