@@ -10,9 +10,9 @@ const BlogPage: React.FC<PageProps<BlogListQueryQuery>> = ({ data }) => {
 
   return (
     <Layout>
-      <section className={styles.blogSection}>
+      <section className={'section ' + styles.blogSection}>
         <div className={styles.container}>
-          <h1 className={styles.title}>Blog</h1>
+          <h1 className={'sectionTitle ' + styles.title}>Blog</h1>
           <div className={styles.grid}>
             {posts.map(post => (
               <article key={post.id} className={styles.post}>
@@ -29,7 +29,22 @@ const BlogPage: React.FC<PageProps<BlogListQueryQuery>> = ({ data }) => {
                   ))}
                 </div>
                 <a href={`/blog/${post.slug}`} className={styles.readMore}>
-                  Read More
+                  <span>Lire l’article</span>
+                  <svg
+                    width="18"
+                    height="18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ marginLeft: 8, verticalAlign: 'middle' }}
+                  >
+                    <path
+                      d="M5 9h8m0 0-3-3m3 3-3 3"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </a>
               </article>
             ))}

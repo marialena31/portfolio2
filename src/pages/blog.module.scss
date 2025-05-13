@@ -15,9 +15,17 @@
 
 .title {
   text-align: center;
-  margin-bottom: $spacing-xxl;
-  font-size: $font-size-4xl;
+  margin-bottom: $spacing-xl;
+  font-size: $font-size-3xl;
   color: var(--text-primary);
+  font-weight: $font-weight-bold;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-xl;
 }
 
 .grid {
@@ -33,15 +41,22 @@
 
 .post {
   background: var(--card-background);
-  border-radius: $border-radius-lg;
-  padding: $spacing-lg;
-  box-shadow: $shadow-md;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xl $spacing-lg;
+  box-shadow: $shadow-lg;
   transition: $transition-smooth;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+  border: 1px solid var(--border, #e0e0e0);
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 32px 0 rgba(60,60,60,0.12);
+    border-color: var(--primary, #1d72b8);
   }
 }
+
 
 .postTitle {
   font-size: $font-size-xl;
@@ -78,16 +93,27 @@
 }
 
 .readMore {
-  display: inline-block;
-  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary, #1d72b8);
   text-decoration: none;
   font-weight: $font-weight-medium;
-  margin-top: $spacing-md;
+  margin-top: auto;
+  font-size: $font-size-md;
+  gap: $spacing-xs;
+  border-radius: $border-radius-full;
+  padding: $spacing-xs $spacing-md;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background 0.2s, border 0.2s;
 
   &:hover {
-    text-decoration: underline;
+    background: rgba(29, 114, 184, 0.08);
+    border-color: var(--primary, #1d72b8);
+    text-decoration: none;
   }
 }
+
 
 @include breakpoint(sm) {
   .post {
