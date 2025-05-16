@@ -101,3 +101,27 @@
     transform: translateY(0);
   }
 }
+
+@mixin transform-hover {
+  transition: $transition-smooth;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+@mixin tag {
+  background: $color-primary;
+  color: $color-white;
+  padding: $spacing-xxs $spacing-sm;
+  border-radius: $border-radius-full;
+  font-size: $font-size-xs;
+  font-weight: 500;
+  transition: $transition-smooth;
+  cursor: pointer;
+
+  &:hover {
+    background: color.adjust($color-primary, $lightness: -10%);
+  }
+}

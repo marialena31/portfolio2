@@ -1,0 +1,53 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.services {
+  min-height: 100vh;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 120px 0 80px;
+
+  .servicesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: $spacing-md;
+    margin: 0 auto 4rem;
+    max-width: 1200px;
+    padding: 0 24px;
+    width: 100%;
+    box-sizing: border-box;
+
+    @include respond-to('mobile') {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      padding: 0 16px;
+    }
+
+    .serviceCard {
+      max-width: 250px;
+      margin: 0 auto;
+    }
+
+    .serviceCard .card {
+      padding: $spacing-sm;
+    }
+
+    .serviceCard .cardTitle {
+      font-size: $font-size-md;
+      margin-bottom: $spacing-sm;
+    }
+
+    .serviceCard .description {
+      font-size: $font-size-sm;
+    }
+
+    .serviceCard .features {
+      margin-bottom: 0;
+    }
+
+    .serviceCard .featureItem {
+      font-size: $font-size-sm;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import Layout from '../components/layout';
 import { SEO } from '../components/seo';
 import { ServiceCard } from '../components/ServiceCard';
 import { Icon } from '../components/Icon';
-import * as styles from '../components/services-page.module.scss';
+import * as styles from './services.module.scss';
 
 const ServicesPage: React.FC<PageProps> = () => {
   return (

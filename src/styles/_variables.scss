@@ -112,9 +112,14 @@ $spacing-xl: 2rem;      // 32px
 $spacing-2xl: 2.5rem;   // 40px
 $spacing-xxl: 3rem;     // 48px
 $spacing-xxxl: 4rem;    // 64px
+$spacing-5xl: 5rem;    // 80px
+$spacing-6xl: 7.5rem;  // 120px
 
 // Container
 $container-max-width: 1200px;
+$max-width: $container-max-width;
+$navbar-height: 80px;
+$footer-height: 150px;
 
 // Breakpoints
 $breakpoint-sm: 640px;

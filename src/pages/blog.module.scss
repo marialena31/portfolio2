@@ -4,21 +4,11 @@
 
 .blogSection {
   background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
-  padding: 120px 0 80px;
-  min-height: calc(100vh - 80px - 150px); // Hauteur de la page - navbar - footer
+  padding: $spacing-6xl 0 $spacing-5xl;
+  min-height: calc(100vh - $navbar-height - $footer-height);
   
   .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    
-    @include respond-to('tablet') {
-      padding: 0 1.5rem;
-    }
-    
-    @include respond-to('mobile') {
-      padding: 0 1rem;
-    }
+    @include container;
   }
 }
 
@@ -39,7 +29,7 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: $spacing-xl;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: $max-width;
   position: relative;
   z-index: 1;
 
@@ -49,21 +39,13 @@
 }
 
 .post {
-  background: #fff;
-  border-radius: 12px;
-  padding: $spacing-xl;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  @include card;
   border: 1px solid rgba($color-primary, 0.1);
   position: relative;
   z-index: 1;
   
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    @include transform-hover;
     border-color: $color-primary;
   }
 }

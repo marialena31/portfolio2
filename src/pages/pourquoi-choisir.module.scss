@@ -69,6 +69,35 @@
   text-align: center;
   transition: $transition-base;
 
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: $spacing-md 0;
+
+    th, td {
+      padding: $spacing-sm;
+      border: 1px solid $color-gray-light;
+      color: $text-primary;
+      text-align: left;
+    }
+
+    th {
+      background-color: $surface-tertiary;
+      font-weight: bold;
+    }
+  }
+
+  a {
+    color: $color-primary;
+    text-decoration: none;
+    font-weight: bold;
+    transition: $transition-base;
+
+    &:hover {
+      color: $color-primary-dark;
+    }
+  }
+
   &:hover {
     transform: translateY(-2px);
     background: $surface-tertiary;

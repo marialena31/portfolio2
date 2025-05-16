@@ -23,13 +23,11 @@ export const aboutContent: ContentBlock[] = [
       "C'est là que j'interviens : pour remettre du lien, du cadre, de la méthode. Je fais le pont entre les équipes techniques et les parties prenantes métier, en veillant à ce que chaque projet soit mené à bien avec rigueur et professionnalisme.",
   },
   {
-    type: 'divider',
-  },
-  {
     type: 'heading',
     level: 2,
     children: 'Ma mission',
   },
+
   {
     type: 'paragraph',
     children:
@@ -56,13 +54,11 @@ export const aboutContent: ContentBlock[] = [
   },
 
   {
-    type: 'divider',
-  },
-  {
     type: 'heading',
     level: 2,
     children: 'Mon approche',
   },
+
   {
     type: 'paragraph',
     children:
@@ -84,13 +80,11 @@ export const aboutContent: ContentBlock[] = [
       'Je vous accompagne pour que vos projets Magento, WordPress ou PIM externalisés soient plus sûrs, mieux cadrés, et véritablement réussis.',
   },
   {
-    type: 'divider',
-  },
-  {
     type: 'heading',
     level: 2,
     children: 'Localisation & mode de travail',
   },
+
   {
     type: 'paragraph',
     children:

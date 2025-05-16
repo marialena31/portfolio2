@@ -1,0 +1,13 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin: $spacing-sm 0;
+
+  .tag {
+    @include tag;
+  }
+}
