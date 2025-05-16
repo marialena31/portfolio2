@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as styles from './project-form.module.scss';
+import { useFormValidation } from '../hooks/useFormValidation';
+import { ValidationSchema, ValidationErrors } from '../types/validation';
 
 const API_URL = process.env.GATSBY_API_URL || 'http://localhost:3000';
-const TO_EMAIL = process.env.GATSBY_TO_EMAIL_ADDRESS;
+const TO_EMAIL = process.env.GATSBY_TO_EMAIL_ADDRESS || 'contact@example.com'; // Utiliser une valeur par défaut pour le développement
+
+if (!TO_EMAIL || !TO_EMAIL.includes('@')) {
+  console.error("⚠️ Attention: L'adresse email de destination n'est pas correctement configurée");
+  console.error('Veuillez définir GATSBY_TO_EMAIL_ADDRESS dans votre fichier .env');
+  console.error("Utilisation de l'adresse par défaut pour le développement:", TO_EMAIL);
+}
 
 interface FormData {
   name: string;
@@ -19,6 +27,36 @@ interface FormData {
   gdprConsent: boolean;
   file: File | null;
 }
+
+const validationSchema: ValidationSchema = {
+  name: {
+    required: true,
+    minLength: 2,
+    maxLength: 100,
+    message: 'Le nom doit contenir entre 2 et 100 caractères',
+  },
+  email: {
+    required: true,
+    pattern: /^\S+@\S+\.\S+$/,
+    message: 'Veuillez entrer une adresse e-mail valide',
+  },
+  need: {
+    required: true,
+    minLength: 3,
+    maxLength: 100,
+    message: 'Le besoin doit contenir entre 3 et 100 caractères',
+  },
+  details: {
+    required: true,
+    minLength: 50,
+    maxLength: 5000,
+    message: 'Les détails doivent contenir entre 50 et 5000 caractères',
+  },
+  gdprConsent: {
+    required: true,
+    message: 'Vous devez accepter les conditions de confidentialité',
+  },
+};
 
 const initialForm: FormData = {
   name: '',
@@ -37,56 +75,19 @@ const initialForm: FormData = {
 
 const ProjectForm: React.FC = () => {
   const [form, setForm] = useState<FormData>(initialForm);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value, type } = e.target as HTMLInputElement;
-
-    if (type === 'checkbox') {
-      const checked = (e.target as HTMLInputElement).checked;
-      setForm({ ...form, [name]: checked });
-    } else if (type === 'file') {
-      const file = (e.target as HTMLInputElement).files?.[0] || null;
-      setForm({ ...form, [name]: file });
-    } else {
-      setForm({ ...form, [name]: value });
-    }
-  };
-
-  const validate = (): boolean => {
-    if (!form.name.trim() || !form.email.trim() || !form.need.trim() || !form.details.trim()) {
-      setError('Tous les champs obligatoires doivent être remplis.');
-      return false;
-    }
-
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) {
-      setError('Adresse e-mail invalide.');
-      return false;
-    }
-
-    if (!form.gdprConsent) {
-      setError('Veuvez accepter la politique de confidentialité.');
-      return false;
-    }
-
-    return true;
-  };
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const { validate, validateField, resetErrors } = useFormValidation<FormData>(
+    validationSchema,
+    initialForm
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
-    setSuccess(false);
-
-    if (!validate()) return;
-
-    setLoading(true);
+    resetErrors();
 
     try {
-      // Récupération du CSRF token avec les credentials
+      // Récupérer le CSRF token depuis le serveur
       const csrfResponse = await axios.get(`${API_URL}/api/csrf-token`, {
         withCredentials: true,
         headers: {
@@ -95,64 +96,123 @@ const ProjectForm: React.FC = () => {
         },
       });
 
-      const csrfToken = csrfResponse.data?.token ?? '';
+      const csrfToken = csrfResponse.data?.token;
       if (!csrfToken) {
         throw new Error('Impossible de récupérer le token CSRF');
       }
 
-      // Création du formulaire pour le fichier
-      const formData = new FormData();
-      formData.append('to', TO_EMAIL || '');
-      formData.append('subject', `Nouveau brief projet - ${form.need}`);
+      // Validation du formulaire
+      if (!validate(form)) {
+        const validationErrors: ValidationErrors = {};
+        Object.entries(form).forEach(([key, value]) => {
+          const error = validateField(key, value);
+          if (error) {
+            validationErrors[key] = error;
+          }
+        });
+        setErrors(validationErrors);
+        return;
+      }
 
-      // Configuration des en-têtes avec le token CSRF
+      // Préparer les données pour l'envoi
+      const data = {
+        to: TO_EMAIL || '',
+        subject: `Nouveau brief projet - ${form.need}`,
+        text:
+          `Nouveau brief projet reçu :\n\n` +
+          `Nom : ${form.name}\n` +
+          (form.company ? `Entreprise : ${form.company}\n` : '') +
+          `Email : ${form.email}\n` +
+          `\nBesoin : ${form.need}\n` +
+          `\nDétails du projet :\n${form.details}\n` +
+          `\nUrgence : ${form.urgency || 'Non spécifié'}\n` +
+          `Équipe technique : ${form.hasTeam || 'Non spécifié'}` +
+          (form.teamDetails ? ` (${form.teamDetails})` : '') +
+          (form.budget ? `\nBudget indicatif : ${form.budget}` : '') +
+          (form.additionalInfo ? `\n\nInformations supplémentaires :\n${form.additionalInfo}` : ''),
+        fromName: form.name,
+        fromEmail: form.email,
+        company: form.company || '',
+        urgency: form.urgency || '',
+        hasTeam: form.hasTeam || '',
+        teamDetails: form.teamDetails || '',
+        budget: form.budget || '',
+        additionalInfo: form.additionalInfo || '',
+      };
+
+      // Configuration de la requête
       const config = {
-        withCredentials: true,
         headers: {
           'x-csrf-token': csrfToken,
           Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
       };
 
-      // Construction du message texte
-      let messageText = `Nouveau brief projet reçu :\n\n`;
-      messageText += `Nom : ${form.name}\n`;
-      if (form.company) messageText += `Entreprise : ${form.company}\n`;
-      messageText += `Email : ${form.email}\n`;
-      messageText += `\nBesoin : ${form.need}\n`;
-      messageText += `\nDétails du projet :\n${form.details}\n`;
-      messageText += `\nUrgence : ${form.urgency || 'Non spécifié'}\n`;
-      messageText += `Équipe technique : ${form.hasTeam || 'Non spécifié'}`;
-      if (form.teamDetails) messageText += ` (${form.teamDetails})`;
-      if (form.budget) messageText += `\nBudget indicatif : ${form.budget}`;
-      if (form.additionalInfo)
-        messageText += `\n\nInformations supplémentaires :\n${form.additionalInfo}`;
+      // Affichage des logs pour le débogage
+      console.log('Envoi du formulaire:', {
+        data,
+        config,
+      });
 
-      formData.append('text', messageText);
+      // Envoi des données
+      const response = await axios.post(`${API_URL}/api/mail/send`, data, config);
+      console.log('Réponse du serveur:', response.data);
 
-      // Ajout de la pièce jointe si elle existe
-      if (form.file) {
-        formData.append('file', form.file);
-      }
-
-      // Envoi des données avec la configuration
-      await axios.post(`${API_URL}/api/mail/send`, formData, config);
-
-      setSuccess(true);
+      // Réinitialiser le formulaire et afficher le succès
       setForm(initialForm);
+      setSuccess(true);
 
-      // Réinitialiser le champ de fichier
-      const fileInput = document.getElementById('file') as HTMLInputElement;
-      if (fileInput) fileInput.value = '';
-    } catch (err: unknown) {
-      const error = err as { response?: { data?: { error?: string; message?: string } } };
-      setError(
-        error.response?.data?.error ||
-          error.response?.data?.message ||
-          "Erreur lors de l'envoi du projet. Veuillez réessayer plus tard."
-      );
+      // Réinitialiser après 5 secondes
+      setTimeout(() => {
+        setSuccess(false);
+        setErrors({});
+      }, 5000);
+    } catch (err: any) {
+      console.error("Erreur lors de l'envoi:", err);
+      console.error('Réponse du serveur:', err.response?.data);
+
+      // Gestion des erreurs
+      const errorMessage =
+        err.response?.data?.message || "Une erreur est survenue lors de l'envoi du formulaire";
+      setErrors(prev => ({
+        ...prev,
+        general: errorMessage,
+      }));
     } finally {
-      setLoading(false);
+      // Rien à faire ici
+    }
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, type } = e.target as HTMLInputElement;
+    const value = type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value;
+
+    setForm({ ...form, [name]: value });
+
+    // Valider le champ après chaque modification
+    const error = validateField(name, value);
+    if (error) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: error,
+      }));
+      setSuccess(false);
+    } else {
+      // Effacer l'erreur si le champ est valide
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+
+    // Vérifier si le formulaire est valide après chaque changement
+    const formIsValid = validate({ ...form, [name]: value });
+    if (formIsValid) {
+      setSuccess(false);
     }
   };
 
@@ -164,10 +224,22 @@ const ProjectForm: React.FC = () => {
           Expliquez-moi où vous en êtes, ce que vous cherchez, et je vous recontacte sous 48h.
         </p>
 
-        {error && <div className={styles.error}>{error}</div>}
+        {Object.values(errors).length > 0 && (
+          <div className={styles.error}>
+            {Object.entries(errors).map(([field, error]) => (
+              <p key={field}>
+                <strong>
+                  {field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:{' '}
+                </strong>
+                {error}
+              </p>
+            ))}
+          </div>
+        )}
         {success && (
-          <div className={styles.success}>
-            Votre projet a été envoyé avec succès ! Je vous recontacterai sous 24h maximum.
+          <div className={styles.successMessage}>
+            <p>Merci ! Votre demande a été envoyée avec succès.</p>
+            <p>Je vous recontacte dans les plus brefs délais.</p>
           </div>
         )}
 
@@ -184,9 +256,15 @@ const ProjectForm: React.FC = () => {
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                className={styles.input}
+                className={`${styles.input} ${errors.name ? styles.errorInput : ''}`}
                 required
               />
+              {errors.name && (
+                <p className={styles.errorText}>
+                  <strong>Nom: </strong>
+                  {errors.name}
+                </p>
+              )}
             </div>
 
             {/* Entreprise */}
@@ -413,8 +491,8 @@ const ProjectForm: React.FC = () => {
 
             {/* Bouton de soumission */}
             <div className={styles.formGroup}>
-              <button type="submit" className={styles.submitButton} disabled={loading}>
-                {loading ? 'Envoi en cours&hellip;' : 'Envoyer ma demande'}
+              <button type="submit" className={styles.submitButton}>
+                Envoyer ma demande
               </button>
             </div>
           </form>
