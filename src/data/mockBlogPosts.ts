@@ -44,9 +44,8 @@ export const blogPosts: BlogPost[] = [
   <p>Le bon projet Magento n’est pas celui où tout roule.<br>
   C’est celui où tout est prévu pour quand ça déraille.</p>
 </blockquote>
-<p><strong>Vous héritez d’un projet Magento mal embarqué ?</strong><br>
-J’interviens en reprise, cadrage, structuration. Pour remettre du rythme, de la clarté, et du sens. On ne vend pas du rêve ici. On répare les promesses cassées.</p>
-<p><a href="https://expertecom.fr/contact">Contactez-moi sur expertecom.fr</a></p>`,
+<p><strong>Vous héritez d'un projet Magento mal embarqué ?</strong><br>
+J'interviens en reprise, cadrage, structuration. Pour remettre du rythme, de la clarté, et du sens. On ne vend pas du rêve ici. On répare les promesses cassées.</p>`,
     date: '2024-05-13',
     author: 'Maria-Lena Pietri',
     tags: ['Magento', 'E-commerce', 'Pilotage'],

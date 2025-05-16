@@ -43,9 +43,6 @@
   }
 }
 
-
-
-
 .formTitle {
   color: $color-primary;
   font-size: $font-size-3xl;
@@ -71,7 +68,7 @@
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: $spacing-sm;
+  gap: $spacing-xs;
 }
 
 .label {
@@ -80,7 +77,7 @@
   font-size: $font-size-sm;
   
   .required {
-    color: $color-accent;
+    color: $color-accent;  // Utilisation de la couleur d'accent pour les champs requis
     margin-left: 2px;
   }
 }
@@ -126,6 +123,106 @@
   cursor: pointer;
 }
 
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  margin-top: $spacing-xs;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  cursor: pointer;
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  transition: color 0.2s;
+  
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+.radioInput {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: $color-primary;
+  cursor: pointer;
+}
+
+.fileInput {
+  width: 100%;
+  padding: $spacing-sm 0;
+  
+  &::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  
+  &::before {
+    content: 'Parcourir';
+    display: inline-block;
+    background: $color-primary;
+    color: white;
+    border-radius: $border-radius-md;
+    padding: $spacing-xs $spacing-md;
+    outline: none;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    transition: background-color 0.2s;
+    margin-right: $spacing-sm;
+  }
+  
+  &:hover::before {
+    background-color: color.adjust($color-primary, $lightness: -10%);
+  }
+  
+  &:active::before {
+    background-color: color.adjust($color-primary, $lightness: -15%);
+  }
+}
+
+.helpText {
+  display: block;
+  margin-top: 0.25rem;
+  color: $text-tertiary;
+  font-size: $font-size-xs;
+}
+
+.checkboxGroup {
+  margin-top: $spacing-md;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-sm;
+  cursor: pointer;
+  color: $text-secondary;
+  font-size: $font-size-sm;
+  line-height: 1.5;
+}
+
+.checkboxInput {
+  margin-top: 0.2em;
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: $color-primary;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.checkboxCustom {
+  display: none; // On utilise le style natif pour plus de simplicité
+}
+
+.checkboxText {
+  display: inline-block;
+  line-height: 1.5;
+}
+
 .submitButton {
   background-color: $color-primary;
   color: white;
@@ -155,18 +252,46 @@
   }
 }
 
-.error {
-  color: $color-accent;
+.error,
+.success {
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  margin-bottom: $spacing-lg;
   font-size: $font-size-sm;
-  margin-top: $spacing-xs;
+  text-align: center;
+}
+
+.error {
+  background-color: rgba($color-accent, 0.1);
+  color: color.adjust($color-accent, $lightness: -10%);
+  border: 1px solid rgba($color-accent, 0.2);
 }
 
 .success {
-  color: $color-secondary;
-  font-size: $font-size-md;
-  text-align: center;
-  padding: $spacing-lg;
-  background: rgba($color-secondary, 0.1);
-  border-radius: $border-radius-md;
-  margin-top: $spacing-lg;
+  background-color: rgba($color-secondary, 0.1);
+  color: color.adjust($color-secondary, $lightness: -20%);
+  border: 1px solid rgba($color-secondary, 0.2);
+}
+
+// Styles spécifiques pour les petits écrans
+@include respond-to('mobile') {
+  .formContainer {
+    padding: $spacing-md;
+  }
+  
+  .formTitle {
+    font-size: 1.75rem;
+  }
+  
+  .formIntro {
+    font-size: $font-size-md;
+  }
+  
+  .radioGroup {
+    gap: $spacing-xs;
+  }
+  
+  .submitButton {
+    padding: $spacing-sm $spacing-lg;
+  }
 }

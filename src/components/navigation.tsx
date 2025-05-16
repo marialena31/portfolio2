@@ -86,6 +86,11 @@ const Navigation: React.FC = () => {
           id="mainMenu"
           className={`${styles.menuList} ${isMenuOpen ? styles.isOpen : ''}`}
           role="menu"
+          style={{
+            listStyle: 'none',
+            paddingLeft: 0,
+            marginLeft: 0,
+          }}
         >
           <li role="none">
             <Link
@@ -120,6 +125,17 @@ const Navigation: React.FC = () => {
               Services
             </Link>
           </li>
+          <li role="none">
+            <Link
+              to="/pourquoi-choisir"
+              className={styles.menuItem}
+              role="menuitem"
+              data-nav-item
+              tabIndex={isMenuOpen ? 0 : -1}
+            >
+              Pourquoi me choisir ?
+            </Link>
+          </li>
 
           <li role="none">
             <Link
@@ -130,6 +146,17 @@ const Navigation: React.FC = () => {
               tabIndex={isMenuOpen ? 0 : -1}
             >
               Blog
+            </Link>
+          </li>
+          <li role="none">
+            <Link
+              to="/projet"
+              className={styles.menuItem}
+              role="menuitem"
+              data-nav-item
+              tabIndex={isMenuOpen ? 0 : -1}
+            >
+              Déposer un projet
             </Link>
           </li>
           <li role="none">

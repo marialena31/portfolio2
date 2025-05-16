@@ -88,12 +88,14 @@ a {
 }
 
 /* Lists */
-ul, ol {
+ul:not([role="menu"]),
+ol {
   margin-bottom: $spacing-md;
   padding-left: $spacing-lg;
+  list-style-type: disc;
 }
 
-li {
+li:not([role="none"]) {
   margin-bottom: $spacing-sm;
 }
 
@@ -223,4 +225,12 @@ button {
 
 .slide-up {
   animation: slideUp 0.5s ease-in-out;
+}
+
+/* Blog Read More Link */
+.blog-read-more {
+  &:hover {
+    opacity: 0.8;
+    text-decoration: underline !important;
+  }
 }

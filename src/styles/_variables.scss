@@ -2,8 +2,11 @@
 $color-primary: #0056B3;  // Darker blue for better contrast
 $color-primary-light: #0070E0;
 $color-primary-dark: #003B7A;
-$color-background: #FFFFFF;  // Pure white background
-$color-white: #FFFFFF;
+$hero-gradient: linear-gradient(to bottom, rgba(0, 59, 122, 0.95), rgba(0, 86, 179, 0.85));
+$color-white: #FFFFFF;      // Pure white
+$color-background: $color-white;  // Pure white background
+$color-gray-light: #E2E8F0;  // Light gray for borders and backgrounds
+$color-gray-lighter: #F7FAFC;  // Very light gray for backgrounds
 
 // Secondary Colors
 $color-secondary: #008F89;  // Darker teal for better contrast
@@ -14,9 +17,11 @@ $color-accent-light: #FF1744;
 $color-accent-dark: #9A0022;
 
 // Text Colors
-$text-primary: #121620;  // Almost black for maximum contrast
+$color-text: #121620;  // Main text color
+$color-text-light: #4A5568;  // Lighter text color
+$text-primary: $color-text;  // Alias for backward compatibility
 $text-secondary: #2D3748;  // Darker secondary text
-$text-tertiary: #4A5568;  // Darker tertiary text
+$text-tertiary: $color-text-light;  // Alias for backward compatibility
 
 // Surface Colors
 $surface-primary: $color-white;
@@ -98,13 +103,15 @@ $border-radius-xl: 1.5rem;
 $border-radius-full: 9999px;
 
 // Spacing
-$spacing-xs: 0.25rem;
-$spacing-sm: 0.5rem;
-$spacing-md: 1rem;
-$spacing-lg: 1.5rem;
-$spacing-xl: 2rem;
-$spacing-xxl: 3rem;
-$spacing-xxxl: 4rem;
+$spacing-xxs: 0.125rem;  // 2px
+$spacing-xs: 0.25rem;    // 4px
+$spacing-sm: 0.5rem;    // 8px
+$spacing-md: 1rem;      // 16px
+$spacing-lg: 1.5rem;    // 24px
+$spacing-xl: 2rem;      // 32px
+$spacing-2xl: 2.5rem;   // 40px
+$spacing-xxl: 3rem;     // 48px
+$spacing-xxxl: 4rem;    // 64px
 
 // Container
 $container-max-width: 1200px;

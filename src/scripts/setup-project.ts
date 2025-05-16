@@ -25,6 +25,7 @@ class ProjectSetupScript implements ProjectSetup {
   private readonly envTemplate = `
 # Site Configuration
 GATSBY_SITE_URL=http://localhost:8000
+GATSBY_API_URL=http://localhost:8000
 GATSBY_SITE_TITLE=Portfolio
 GATSBY_SITE_DESCRIPTION=My Professional Portfolio
 

@@ -3486,18 +3486,6 @@ export type BrandsQueryQuery = {
   };
 };
 
-export type SiteTitleQueryQueryVariables = Exact<{ [key: string]: never }>;
-
-export type SiteTitleQueryQuery = {
-  site?: {
-    siteMetadata?: {
-      title?: string | null;
-      description?: string | null;
-      author?: string | null;
-    } | null;
-  } | null;
-};
-
 export type SeoQueryQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SeoQueryQuery = {

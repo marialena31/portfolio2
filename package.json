@@ -41,6 +41,10 @@
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "gatsby": "^5.12.12",
     "gatsby-omni-font-loader": "^2.0.2",
     "gatsby-plugin-image": "^3.14.0",
@@ -95,8 +99,8 @@
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "@types/supertest": "^6.0.2",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
+    "@typescript-eslint/eslint-plugin": "^5.63.0",
+    "@typescript-eslint/parser": "^5.63.0",
     "autoprefixer": "^10.4.20",
     "color-contrast-calc": "^0.4.1",
     "css-loader": "^7.1.2",
@@ -124,7 +128,7 @@
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
+    "typescript": "^4.9.5",
     "webpack-bundle-analyzer": "^4.10.2"
   },
   "resolutions": {

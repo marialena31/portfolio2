@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import * as styles from './contact-form.module.scss';
-import * as pageStyles from './contact-page.module.scss';
+// Import non utilisé, supprimé
 
 const API_URL = process.env.GATSBY_API_URL || 'http://localhost:3000';
 const TO_EMAIL = process.env.GATSBY_TO_EMAIL_ADDRESS;
@@ -58,9 +58,29 @@ const ContactForm: React.FC = () => {
     if (!validate()) return;
     setLoading(true);
     try {
-      // Récupération du CSRF token
-      const csrfResponse = await axios.get(`${API_URL}/api/csrf-token`);
-      const csrfToken = csrfResponse.data.token;
+      // Récupération du CSRF token avec les credentials
+      const csrfResponse = await axios.get(`${API_URL}/api/csrf-token`, {
+        withCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const csrfToken = csrfResponse.data?.token ?? '';
+      if (!csrfToken) {
+        throw new Error('Impossible de récupérer le token CSRF');
+      }
+
+      // Configuration des en-têtes avec le token CSRF
+      const config = {
+        withCredentials: true,
+        headers: {
+          'x-csrf-token': csrfToken,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      };
 
       // Envoi du mail
       await axios.post(
@@ -70,19 +90,15 @@ const ContactForm: React.FC = () => {
           subject: `Contact Form: ${form.subject}`,
           text: `Nom: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
         },
-        {
-          headers: {
-            'x-csrf-token': csrfToken,
-            'Content-Type': 'application/json',
-          },
-        }
+        config
       );
       setSuccess(true);
       setForm(initialForm);
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { error?: string; message?: string } } };
       setError(
-        err?.response?.data?.error ||
-          err?.response?.data?.message ||
+        error.response?.data?.error ||
+          error.response?.data?.message ||
           "Erreur lors de l'envoi du message."
       );
     } finally {

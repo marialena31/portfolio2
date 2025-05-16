@@ -12,7 +12,7 @@ interface PageProps {}
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
-    <Layout>
+    <Layout isHomePage>
       <SEO title="Accueil" pageName="home" />
       <Hero {...homeData.hero} />
       <Needs {...homeData.needs} />

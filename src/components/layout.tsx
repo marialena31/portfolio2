@@ -1,40 +1,33 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-
-import Header from './header';
-import Footer from './footer';
+// Imports non utilisés, supprimés
 import * as styles from './layout.module.scss';
+import Navigation from './navigation';
+import Footer from './footer';
 
 interface LayoutProps {
   children: React.ReactNode;
-  currentPage?: string;
+  className?: string;
+  fullWidth?: boolean;
+  isHomePage?: boolean;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const data = useStaticQuery<import('../types/graphql-types').SiteTitleQueryQuery>(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-          description
-          author
-        }
-      }
-    }
-  `);
-
+const Layout: React.FC<LayoutProps> = ({
+  children,
+  className = '',
+  fullWidth = false,
+  isHomePage = false,
+}) => {
   return (
-    <>
-      <div className={styles.layout}>
-        <>
-          <Header />
-          <main className={styles.main}>
-            <div className={styles.container}>{children}</div>
-          </main>
-          <Footer />
-        </>
-      </div>
-    </>
+    <div
+      className={`${styles.layout} ${className} ${isHomePage ? styles.homePage : styles.otherPages}`}
+    >
+      <Navigation />
+      <main className={`${styles.main} ${fullWidth ? styles.fullWidth : ''}`}>
+        {!fullWidth && <div className={styles.container}>{children}</div>}
+        {fullWidth && children}
+      </main>
+      <Footer />
+    </div>
   );
 };
 
