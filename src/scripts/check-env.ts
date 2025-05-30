@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { config } = require('dotenv');
+import { config } from 'dotenv';
 
 const REQUIRED_ENV_VARS = [
   'GATSBY_GA_TRACKING_ID',

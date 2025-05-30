@@ -27,7 +27,7 @@
     "setup": "ts-node src/scripts/setup-project.ts",
     "optimize-images": "ts-node src/scripts/optimize-images.ts",
     "generate-icons": "ts-node src/scripts/convert-icons.ts",
-    "check-env": "ts-node src/scripts/check-env.ts",
+    "check-env": "npx ts-node src/scripts/check-env.ts",
     "security-check": "yarn audit",
     "prebuild": "yarn check-env",
     "contrast-check": "color-contrast-calc",
@@ -92,7 +92,7 @@
     "@testing-library/react": "^16.1.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
-    "@types/node": "^20.10.5",
+    "@types/node": "^22.15.29",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "@types/supertest": "^6.0.2",
@@ -125,7 +125,7 @@
     "tailwindcss": "^3.4.3",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^4.9.5",
+    "typescript": "^5.8.3",
     "webpack-bundle-analyzer": "^4.10.2"
   },
   "resolutions": {
@@ -141,6 +141,6 @@
     ]
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   }
 }
