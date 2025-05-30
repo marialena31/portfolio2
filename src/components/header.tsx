@@ -1,11 +1,10 @@
 import React from 'react';
 import Navigation from './navigation';
-import * as styles from './header.module.scss';
 
 const Header: React.FC = () => {
   return (
-    <header className={styles.header}>
-      <div className={styles.container}>
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4">
         <Navigation />
       </div>
     </header>

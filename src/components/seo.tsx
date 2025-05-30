@@ -15,8 +15,6 @@ export function SEO({ title, description, image, pageName }: SEOProps) {
         siteMetadata {
           title
           description
-          author
-          siteUrl
         }
       }
     }

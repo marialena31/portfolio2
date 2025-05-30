@@ -1,6 +1,4 @@
-import type { GatsbyConfig } from 'gatsby';
-
-const config: GatsbyConfig = {
+module.exports = {
   siteMetadata: {
     title: `ExpertEcom`,
     description: `Découvrez mes services de freelance Magento : maintenance, migrations complexes, sécurisation et développement sur mesure. Contactez-moi pour un audit gratuit et optimisez votre site e-commerce dès aujourd'hui !`,
@@ -27,18 +25,8 @@ const config: GatsbyConfig = {
     },
   },
   plugins: [
-    `gatsby-plugin-preact`,
     `gatsby-plugin-typescript`,
-    {
-      resolve: `gatsby-plugin-sass`,
-      options: {
-        implementation: require('sass'),
-        cssLoaderOptions: {
-          modules: true,
-        },
-      },
-    },
-
+    `gatsby-plugin-postcss`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
@@ -77,21 +65,6 @@ const config: GatsbyConfig = {
       options: {},
     },
     {
-      resolve: 'gatsby-plugin-graphql-codegen',
-      options: {
-        fileName: `src/types/graphql-types.d.ts`,
-        documentPaths: ['src/**/*.{ts,tsx}'],
-        codegenConfig: {
-          skipTypename: true,
-          constEnums: true,
-          namingConvention: {
-            typeNames: 'pascal-case#pascalCase',
-            enumValues: 'keep',
-          },
-        },
-      },
-    },
-    {
       resolve: 'gatsby-plugin-netlify',
       options: {
         headers: {
@@ -106,5 +79,3 @@ const config: GatsbyConfig = {
     },
   ],
 };
-
-module.exports = config;

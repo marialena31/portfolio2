@@ -4,16 +4,15 @@ import Layout from '../components/layout';
 import { SEO } from '../components/seo';
 import { ServiceCard } from '../components/ServiceCard';
 import { Icon } from '../components/Icon';
-import * as styles from './services.module.scss';
 
 const ServicesPage: React.FC<PageProps> = () => {
   return (
     <Layout>
       <SEO title="Services" pageName="services" />
-      <main className={styles.servicesPage}>
-        <div className={styles.pageHeader}>
+      <main className="min-h-screen bg-gradient-to-br from-primary to-primary-dark text-white w-full box-border py-28">
+        <div className="max-w-3xl mx-auto text-center mb-12 px-4">
           <h1>Mes Services</h1>
-          <p className={styles.pageDescription}>
+          <p className="text-lg text-white/90 mb-8">
             Je vous accompagne dans la mise en place de votre boutique en ligne, de l&apos;analyse
             de vos besoins à la livraison du projet clés en main. Je vous aide à reprendre le
             contrôle de votre écosystème digital — site e-commerce, WordPress, PIM, ERP,
@@ -22,11 +21,15 @@ const ServicesPage: React.FC<PageProps> = () => {
           </p>
         </div>
 
-        <div className={styles.servicesGrid}>
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-6xl mx-auto mb-16 px-4">
           <ServiceCard
             title={
               <>
-                <Icon name="wrench" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="wrench"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Maintenance &amp; TMA Magento</span>
               </>
             }
@@ -43,7 +46,11 @@ const ServicesPage: React.FC<PageProps> = () => {
           <ServiceCard
             title={
               <>
-                <Icon name="user-tie" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="user-tie"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Chef de projet Magento à temps partagé</span>
               </>
             }
@@ -61,7 +68,11 @@ const ServicesPage: React.FC<PageProps> = () => {
           <ServiceCard
             title={
               <>
-                <Icon name="rotate" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="rotate"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Reprise de projet Magento en souffrance</span>
               </>
             }
@@ -78,7 +89,11 @@ const ServicesPage: React.FC<PageProps> = () => {
           <ServiceCard
             title={
               <>
-                <Icon name="link" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="link"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Intégration Magento avec ERP, PIM, CRM, marketplaces</span>
               </>
             }
@@ -95,7 +110,11 @@ const ServicesPage: React.FC<PageProps> = () => {
           <ServiceCard
             title={
               <>
-                <Icon name="globe" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="globe"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Externalisation offshore encadrée</span>
               </>
             }
@@ -116,7 +135,11 @@ const ServicesPage: React.FC<PageProps> = () => {
           <ServiceCard
             title={
               <>
-                <Icon name="database" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="database"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Saisie produit & accompagnement PIM</span>
               </>
             }
@@ -133,7 +156,11 @@ const ServicesPage: React.FC<PageProps> = () => {
           <ServiceCard
             title={
               <>
-                <Icon name="server" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="server"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Suivi hébergeur & infogérance</span>
               </>
             }
@@ -150,7 +177,11 @@ const ServicesPage: React.FC<PageProps> = () => {
           <ServiceCard
             title={
               <>
-                <Icon name="compass" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="compass"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Cadrage projet digital — AMOA & stratégie SI</span>
               </>
             }
@@ -168,7 +199,11 @@ const ServicesPage: React.FC<PageProps> = () => {
           <ServiceCard
             title={
               <>
-                <Icon name="cubes" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="cubes"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Reprise de documentation projet & normalisation</span>
               </>
             }
@@ -185,7 +220,11 @@ const ServicesPage: React.FC<PageProps> = () => {
           <ServiceCard
             title={
               <>
-                <Icon name="shield-alt" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="shield-alt"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Audit de sécurité & Pentest piloté</span>
               </>
             }
@@ -203,7 +242,11 @@ const ServicesPage: React.FC<PageProps> = () => {
           <ServiceCard
             title={
               <>
-                <Icon name="fire-extinguisher" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="fire-extinguisher"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Plan de Continuité / Plan de Reprise (PCA/PRA)</span>
               </>
             }
@@ -220,7 +263,11 @@ const ServicesPage: React.FC<PageProps> = () => {
           <ServiceCard
             title={
               <>
-                <Icon name="tools" size="lg" className={styles.serviceIcon} />
+                <Icon
+                  name="tools"
+                  size="lg"
+                  className="inline-block align-middle text-primary bg-white rounded-full p-2 shadow-md mr-2 text-2xl"
+                />
                 <span>Mise en œuvre des recommandations de sécurité</span>
               </>
             }
@@ -235,19 +282,30 @@ const ServicesPage: React.FC<PageProps> = () => {
           />
         </div>
 
-        <div className={styles.bonusSection}>
-          <h2 style={{ color: 'white', margin: '2rem 0' }}>En bonus</h2>
-          <ul className={styles.bonusList}>
+        <div className="max-w-3xl mx-auto mt-16 px-4">
+          <h2 className="bg-gradient-to-tr from-primary to-primary-green bg-clip-text text-transparent text-3xl font-bold my-8">
+            En bonus
+          </h2>
+          <ul className="flex flex-col md:flex-row gap-6 justify-center items-center">
             <li>
-              <Icon name="search-dollar" className={styles.bonusIcon} />
+              <Icon
+                name="search-dollar"
+                className="text-primary bg-white rounded-full p-2 shadow-md mr-2 text-xl inline-block align-middle"
+              />
               <span>Audit 1h gratuit</span>
             </li>
             <li>
-              <Icon name="handshake" className={styles.bonusIcon} />
+              <Icon
+                name="handshake"
+                className="text-primary bg-white rounded-full p-2 shadow-md mr-2 text-xl inline-block align-middle"
+              />
               <span>Abonnement flexible ou engagement 12 mois avec remise</span>
             </li>
             <li>
-              <Icon name="medal" className={styles.bonusIcon} />
+              <Icon
+                name="medal"
+                className="text-primary bg-white rounded-full p-2 shadow-md mr-2 text-xl inline-block align-middle"
+              />
               <span>Satisfait ou remboursé le 1er mois</span>
             </li>
           </ul>

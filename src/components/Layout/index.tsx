@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import * as styles from './layout.module.scss';
+
 import Navigation from '../navigation';
 import Footer from '../footer';
 
@@ -10,9 +10,9 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, className = '' }) => {
   return (
-    <div className={`${styles.layout} ${className}`}>
+    <div className={`min-h-screen flex flex-col bg-white ${className}`}>
       <Navigation />
-      <main className={styles.mainContent}>{children}</main>
+      <main className="flex-1 container mx-auto px-4 py-8">{children}</main>
       <Footer />
     </div>
   );

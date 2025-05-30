@@ -1,5 +1,5 @@
 import React from 'react';
-import * as styles from './service-card.module.scss';
+
 import { Icon } from './Icon';
 
 interface ServiceCardProps {
@@ -20,13 +20,15 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   highlight = false,
 }) => {
   return (
-    <div className={`${styles.serviceCard} ${highlight ? styles.highlight : ''}`}>
-      <div className={`${styles.card} ${highlight ? styles.highlightCard : ''}`}>
-        <h3 className={`${styles.cardTitle} cardTitle`}>
+    <div
+      className={`rounded-xl shadow-md p-6 bg-white flex flex-col gap-4 mb-6 ${highlight ? 'border-2 border-primary bg-primary/5' : ''}`}
+    >
+      <div className={`flex items-center gap-3 mb-2 ${highlight ? 'text-primary' : ''}`}>
+        <h3 className="text-lg font-semibold flex items-center gap-2">
           {typeof title === 'string' ? (
             <>
               {emoji && (
-                <span className={styles.emoji} role="img" aria-hidden="true">
+                <span className="mr-2 text-2xl" role="img" aria-hidden="true">
                   {emoji}
                 </span>
               )}
@@ -36,13 +38,13 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             title
           )}
         </h3>
-        {price && <div className={styles.price}>{price}</div>}
+        {price && <div className="ml-auto text-primary font-bold text-base">{price}</div>}
       </div>
-      <p className={styles.description}>{description}</p>
-      <ul className={styles.features}>
+      <p className="text-gray-700 mb-2">{description}</p>
+      <ul className="flex flex-col gap-2 mt-2">
         {features.map((feature, index) => (
-          <li key={index} className={styles.featureItem}>
-            <Icon name="check" className={styles.checkmark} />
+          <li key={index} className="flex items-center gap-2 text-sm">
+            <Icon name="check" className="text-primary w-4 h-4" />
             {feature}
           </li>
         ))}

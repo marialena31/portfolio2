@@ -1,0 +1,4 @@
+// Backup temporaire du test pour éviter le parsing GraphQL par Gatsby
+// (remettre l'extension .tsx après la migration ou déplacer ce fichier hors de src/)
+
+// Ancien contenu déplacé depuis navigation.test.tsx

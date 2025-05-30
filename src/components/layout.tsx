@@ -1,6 +1,6 @@
 import React from 'react';
 // Imports non utilisés, supprimés
-import * as styles from './layout.module.scss';
+
 import Navigation from './navigation';
 import Footer from './footer';
 
@@ -19,13 +19,10 @@ const Layout: React.FC<LayoutProps> = ({
 }) => {
   return (
     <div
-      className={`${styles.layout} ${className} ${isHomePage ? styles.homePage : styles.otherPages}`}
+      className={`min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${className} ${isHomePage ? 'homePage' : 'otherPages'}`}
     >
       <Navigation />
-      <main className={`${styles.main} ${fullWidth ? styles.fullWidth : ''}`}>
-        {!fullWidth && <div className={styles.container}>{children}</div>}
-        {fullWidth && children}
-      </main>
+      <main className="flex-1 w-full py-8 px-4">{children}</main>
       <Footer />
     </div>
   );

@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import * as styles from './project-form.module.scss';
+
 import { useFormValidation } from '../hooks/useFormValidation';
 import { ValidationSchema, ValidationErrors } from '../types/validation';
+import { EnvConfig, validateEnv } from '../types/env';
+import { FormData, FormProps } from '../types/form';
 
-const API_URL = process.env.GATSBY_API_URL || 'http://localhost:3000';
-const TO_EMAIL = process.env.GATSBY_TO_EMAIL_ADDRESS || 'contact@example.com'; // Utiliser une valeur par défaut pour le développement
+const envConfig: EnvConfig = {
+  GATSBY_API_URL: process.env.GATSBY_API_URL || 'http://localhost:3000',
+  GATSBY_TO_EMAIL_ADDRESS: process.env.GATSBY_TO_EMAIL_ADDRESS || 'contact@example.com',
+};
 
-if (!TO_EMAIL || !TO_EMAIL.includes('@')) {
-  console.error("⚠️ Attention: L'adresse email de destination n'est pas correctement configurée");
-  console.error('Veuillez définir GATSBY_TO_EMAIL_ADDRESS dans votre fichier .env');
-  console.error("Utilisation de l'adresse par défaut pour le développement:", TO_EMAIL);
+if (!validateEnv(envConfig)) {
+  console.error("⚠️ Configuration d'environnement invalide");
+  console.error('Veuillez vérifier votre fichier .env');
+  throw new Error("Configuration d'environnement invalide");
 }
 
-interface FormData {
+const { GATSBY_API_URL, GATSBY_TO_EMAIL_ADDRESS } = envConfig;
+
+interface ProjectFormData {
   name: string;
   company: string;
   email: string;
@@ -58,7 +64,7 @@ const validationSchema: ValidationSchema = {
   },
 };
 
-const initialForm: FormData = {
+const initialForm: FormData<ProjectFormData> = {
   name: '',
   company: '',
   email: '',
@@ -73,11 +79,11 @@ const initialForm: FormData = {
   file: null,
 };
 
-const ProjectForm: React.FC = () => {
-  const [form, setForm] = useState<FormData>(initialForm);
+const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
+  const [form, setForm] = useState<ProjectFormData>(initialForm);
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<ValidationErrors>({});
-  const { validate, validateField, resetErrors } = useFormValidation<FormData>(
+  const { validate, validateField, resetErrors } = useFormValidation<ProjectFormData>(
     validationSchema,
     initialForm
   );
@@ -88,7 +94,7 @@ const ProjectForm: React.FC = () => {
 
     try {
       // Récupérer le CSRF token depuis le serveur
-      const csrfResponse = await axios.get(`${API_URL}/api/csrf-token`, {
+      const csrfResponse = await axios.get(`${GATSBY_API_URL}/api/csrf-token`, {
         withCredentials: true,
         headers: {
           Accept: 'application/json',
@@ -116,7 +122,7 @@ const ProjectForm: React.FC = () => {
 
       // Préparer les données pour l'envoi
       const data = {
-        to: TO_EMAIL || '',
+        to: GATSBY_TO_EMAIL_ADDRESS,
         subject: `Nouveau brief projet - ${form.need}`,
         text:
           `Nouveau brief projet reçu :\n\n` +
@@ -156,7 +162,7 @@ const ProjectForm: React.FC = () => {
       });
 
       // Envoi des données
-      const response = await axios.post(`${API_URL}/api/mail/send`, data, config);
+      const response = await axios.post(`${GATSBY_API_URL}/api/mail/send`, data, config);
       console.log('Réponse du serveur:', response.data);
 
       // Réinitialiser le formulaire et afficher le succès
@@ -217,15 +223,15 @@ const ProjectForm: React.FC = () => {
   };
 
   return (
-    <section className={styles.formSection}>
-      <div className={styles.formContainer}>
-        <h1 className={styles.formTitle}>Déposez votre projet</h1>
-        <p className={styles.formIntro}>
+    <section className="py-12 px-4 md:px-0 flex justify-center bg-gray-50">
+      <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg p-8">
+        <h1 className="text-2xl font-bold mb-2">Déposez votre projet</h1>
+        <p className="mb-6 text-gray-600">
           Expliquez-moi où vous en êtes, ce que vous cherchez, et je vous recontacte sous 48h.
         </p>
 
         {Object.values(errors).length > 0 && (
-          <div className={styles.error}>
+          <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
             {Object.entries(errors).map(([field, error]) => (
               <p key={field}>
                 <strong>
@@ -237,18 +243,18 @@ const ProjectForm: React.FC = () => {
           </div>
         )}
         {success && (
-          <div className={styles.successMessage}>
+          <div className="mb-4 p-4 bg-green-100 text-green-700 rounded">
             <p>Merci ! Votre demande a été envoyée avec succès.</p>
             <p>Je vous recontacte dans les plus brefs délais.</p>
           </div>
         )}
 
         {!success && (
-          <form onSubmit={handleSubmit} className={styles.form} autoComplete="off" noValidate>
+          <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off" noValidate>
             {/* Nom et Prénom */}
-            <div className={styles.formGroup}>
-              <label htmlFor="name" className={styles.label}>
-                Votre prénom / nom <span className={styles.required}>*</span>
+            <div className="mb-4">
+              <label htmlFor="name" className="block font-medium mb-1">
+                Votre prénom / nom <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -256,11 +262,11 @@ const ProjectForm: React.FC = () => {
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                className={`${styles.input} ${errors.name ? styles.errorInput : ''}`}
+                className={`w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
                 required
               />
               {errors.name && (
-                <p className={styles.errorText}>
+                <p className="text-sm text-red-600 mt-1">
                   <strong>Nom: </strong>
                   {errors.name}
                 </p>
@@ -268,8 +274,8 @@ const ProjectForm: React.FC = () => {
             </div>
 
             {/* Entreprise */}
-            <div className={styles.formGroup}>
-              <label htmlFor="company" className={styles.label}>
+            <div className="mb-4">
+              <label htmlFor="company" className="block font-medium mb-1">
                 Nom de votre entreprise / site (facultatif)
               </label>
               <input
@@ -278,14 +284,14 @@ const ProjectForm: React.FC = () => {
                 name="company"
                 value={form.company}
                 onChange={handleChange}
-                className={styles.input}
+                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
               />
             </div>
 
             {/* Email */}
-            <div className={styles.formGroup}>
-              <label htmlFor="email" className={styles.label}>
-                Votre e-mail <span className={styles.required}>*</span>
+            <div className="mb-4">
+              <label htmlFor="email" className="block font-medium mb-1">
+                Votre e-mail <span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
@@ -293,15 +299,15 @@ const ProjectForm: React.FC = () => {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                className={styles.input}
+                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
                 required
               />
             </div>
 
             {/* Besoin */}
-            <div className={styles.formGroup}>
-              <label htmlFor="need" className={styles.label}>
-                Votre besoin en une phrase <span className={styles.required}>*</span>
+            <div className="mb-4">
+              <label htmlFor="need" className="block font-medium mb-1">
+                Votre besoin en une phrase <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -309,24 +315,23 @@ const ProjectForm: React.FC = () => {
                 name="need"
                 value={form.need}
                 onChange={handleChange}
-                className={styles.input}
+                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
                 placeholder="Ex: Site Magento à reprendre, Synchroniser stock avec ERP, etc."
                 required
               />
             </div>
 
             {/* Détails du projet */}
-            <div className={styles.formGroup}>
-              <label htmlFor="details" className={styles.label}>
-                Détail de votre projet ou situation actuelle{' '}
-                <span className={styles.required}>*</span>
+            <div className="mb-4">
+              <label htmlFor="details" className="block font-medium mb-1">
+                Détail de votre projet ou situation actuelle <span className="text-red-500">*</span>
               </label>
               <textarea
                 id="details"
                 name="details"
                 value={form.details}
                 onChange={handleChange}
-                className={styles.textarea}
+                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
                 rows={6}
                 placeholder="Donnez autant ou aussi peu d'info que vous voulez pour commencer."
                 required
@@ -334,8 +339,8 @@ const ProjectForm: React.FC = () => {
             </div>
 
             {/* Urgence */}
-            <div className={styles.formGroup}>
-              <label htmlFor="urgency" className={styles.label}>
+            <div className="mb-4">
+              <label htmlFor="urgency" className="block font-medium mb-1">
                 Urgence du projet
               </label>
               <select
@@ -343,7 +348,7 @@ const ProjectForm: React.FC = () => {
                 name="urgency"
                 value={form.urgency}
                 onChange={handleChange}
-                className={styles.select}
+                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
               >
                 <option value="">Sélectionnez une option</option>
                 <option value="Pas urgent (calendrier libre)">Pas urgent (calendrier libre)</option>
@@ -356,49 +361,49 @@ const ProjectForm: React.FC = () => {
             </div>
 
             {/* Équipe technique */}
-            <div className={styles.formGroup}>
-              <p className={styles.label}>
+            <div className="mb-4">
+              <p className="block font-medium mb-1">
                 Avez-vous déjà un prestataire ou une équipe technique ?
               </p>
-              <div className={styles.radioGroup}>
-                <label className={styles.radioLabel}>
+              <div className="flex flex-col gap-2 mt-2">
+                <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="radio"
                     name="hasTeam"
                     value="Oui (en interne ou externe)"
                     checked={form.hasTeam === 'Oui (en interne ou externe)'}
                     onChange={handleChange}
-                    className={styles.radioInput}
+                    className="accent-primary"
                   />
                   <span>Oui (en interne ou externe)</span>
                 </label>
-                <label className={styles.radioLabel}>
+                <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="radio"
                     name="hasTeam"
                     value="Non"
                     checked={form.hasTeam === 'Non'}
                     onChange={handleChange}
-                    className={styles.radioInput}
+                    className="accent-primary"
                   />
                   <span>Non</span>
                 </label>
-                <label className={styles.radioLabel}>
+                <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="radio"
                     name="hasTeam"
                     value="En cours de changement"
                     checked={form.hasTeam === 'En cours de changement'}
                     onChange={handleChange}
-                    className={styles.radioInput}
+                    className="accent-primary"
                   />
                   <span>En cours de changement</span>
                 </label>
               </div>
 
               {form.hasTeam && (
-                <div className={styles.formGroup} style={{ marginTop: '1rem' }}>
-                  <label htmlFor="teamDetails" className={styles.label}>
+                <div className="mb-4 mt-4">
+                  <label htmlFor="teamDetails" className="block font-medium mb-1">
                     Précisions (facultatif)
                   </label>
                   <input
@@ -407,7 +412,7 @@ const ProjectForm: React.FC = () => {
                     name="teamDetails"
                     value={form.teamDetails}
                     onChange={handleChange}
-                    className={styles.input}
+                    className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
                     placeholder="Qui est impliqué actuellement ?"
                   />
                 </div>
@@ -415,8 +420,8 @@ const ProjectForm: React.FC = () => {
             </div>
 
             {/* Budget */}
-            <div className={styles.formGroup}>
-              <label htmlFor="budget" className={styles.label}>
+            <div className="mb-4">
+              <label htmlFor="budget" className="block font-medium mb-1">
                 Budget indicatif (facultatif)
               </label>
               <select
@@ -424,7 +429,7 @@ const ProjectForm: React.FC = () => {
                 name="budget"
                 value={form.budget}
                 onChange={handleChange}
-                className={styles.select}
+                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
               >
                 <option value="">Sélectionnez une option</option>
                 <option value="< 1 000 €">&lt; 1 000 €</option>
@@ -437,8 +442,8 @@ const ProjectForm: React.FC = () => {
             </div>
 
             {/* Fichier */}
-            <div className={styles.formGroup}>
-              <label htmlFor="file" className={styles.label}>
+            <div className="mb-4">
+              <label htmlFor="file" className="block font-medium mb-1">
                 Pièce jointe (facultative)
               </label>
               <input
@@ -446,17 +451,17 @@ const ProjectForm: React.FC = () => {
                 id="file"
                 name="file"
                 onChange={handleChange}
-                className={styles.fileInput}
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 focus:outline-none"
                 accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
               />
-              <small className={styles.helpText}>
+              <small className="text-xs text-gray-500">
                 Formats acceptés : PDF, DOC, XLS, JPG, PNG (max 5MB)
               </small>
             </div>
 
             {/* Informations supplémentaires */}
-            <div className={styles.formGroup}>
-              <label htmlFor="additionalInfo" className={styles.label}>
+            <div className="mb-4">
+              <label htmlFor="additionalInfo" className="block font-medium mb-1">
                 Autre chose à me dire ? (facultatif)
               </label>
               <textarea
@@ -464,34 +469,37 @@ const ProjectForm: React.FC = () => {
                 name="additionalInfo"
                 value={form.additionalInfo}
                 onChange={handleChange}
-                className={styles.textarea}
+                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
                 rows={4}
               />
             </div>
 
             {/* RGPD */}
-            <div className={`${styles.formGroup} ${styles.checkboxGroup}`}>
-              <label className={styles.checkboxLabel}>
+            <div className="mb-4 flex items-center gap-2">
+              <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   name="gdprConsent"
                   checked={form.gdprConsent}
                   onChange={handleChange}
-                  className={styles.checkboxInput}
+                  className="accent-primary w-4 h-4"
                   required
                 />
-                <span className={styles.checkboxCustom}></span>
-                <span className={styles.checkboxText}>
+
+                <span className="ml-2 text-gray-700">
                   J&apos;accepte que mes données soient utilisées pour me recontacter dans le cadre
                   de ma demande (aucune revente, aucun spam).{' '}
-                  <span className={styles.required}>*</span>
+                  <span className="text-red-500">*</span>
                 </span>
               </label>
             </div>
 
             {/* Bouton de soumission */}
-            <div className={styles.formGroup}>
-              <button type="submit" className={styles.submitButton}>
+            <div className="mt-8">
+              <button
+                type="submit"
+                className="w-full bg-primary text-white font-semibold py-3 rounded hover:bg-primary-dark transition-colors"
+              >
                 Envoyer ma demande
               </button>
             </div>

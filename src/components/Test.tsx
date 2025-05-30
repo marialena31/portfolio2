@@ -1,9 +1,7 @@
 import React from 'react';
-import styles from './Test.module.scss';
 
 const Test: React.FC = () => {
-  console.log('Test module styles:', styles);
-  return <div className={styles.testClass}>Test SCSS module</div>;
+  return <div className="bg-blue-100 p-4 rounded">Test SCSS module migré Tailwind</div>;
 };
 
 export default Test;

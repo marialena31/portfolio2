@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Layout from '../components/layout';
 import { SEO } from '../components/seo';
-import * as styles from './project.module.scss';
+
 import { ProjectTemplateQueryQuery } from '../types/graphql-types';
 
 const ProjectTemplate: React.FC<PageProps<ProjectTemplateQueryQuery>> = ({ data }) => {
@@ -20,31 +20,35 @@ const ProjectTemplate: React.FC<PageProps<ProjectTemplateQueryQuery>> = ({ data 
         image={project.image}
         pageName="project"
       />
-      <article className={styles.project}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>{project.title}</h1>
-          <div className={styles.tags}>
+      <article className="max-w-3xl mx-auto bg-white rounded-xl shadow-md p-8 mb-8">
+        <header className="mb-6">
+          <h1 className="text-3xl font-bold mb-2">{project.title}</h1>
+          <div className="flex flex-wrap gap-2 mb-4">
             {project.tags?.map((tag: string, index: number) => (
-              <span key={index} className={styles.tag}>
+              <span key={index} className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">
                 {tag}
               </span>
             ))}
           </div>
         </header>
 
-        <div className={styles.content}>
+        <div className="prose max-w-none mb-6">
           {project.image && (
-            <img src={project.image} alt={project.title} className={styles.image} />
+            <img
+              src={project.image}
+              alt={project.title}
+              className="rounded-lg w-full object-cover mb-4"
+            />
           )}
-          <p className={styles.description}>{project.description}</p>
+          <p className="text-gray-700 mb-4">{project.description}</p>
 
-          <div className={styles.links}>
+          <div className="flex gap-4 mt-4">
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.link}
+                className="text-primary underline hover:text-primary-dark transition-colors"
               >
                 View on GitHub
               </a>
@@ -54,7 +58,7 @@ const ProjectTemplate: React.FC<PageProps<ProjectTemplateQueryQuery>> = ({ data 
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.link}
+                className="text-primary underline hover:text-primary-dark transition-colors"
               >
                 Live Demo
               </a>

@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`GraphQL Integration Tests Brands Query correctly processes brand images data 1`] = `undefined`;
-
-exports[`GraphQL Integration Tests Layout Query correctly processes layout metadata 1`] = `undefined`;
-
-exports[`GraphQL Integration Tests Portfolio Query correctly processes portfolio project data 1`] = `undefined`;
-
-exports[`GraphQL Integration Tests SEO Query correctly processes SEO metadata 1`] = `undefined`;

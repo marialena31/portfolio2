@@ -3489,14 +3489,7 @@ export type BrandsQueryQuery = {
 export type SeoQueryQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SeoQueryQuery = {
-  site?: {
-    siteMetadata?: {
-      title?: string | null;
-      description?: string | null;
-      author?: string | null;
-      siteUrl?: string | null;
-    } | null;
-  } | null;
+  site?: { siteMetadata?: { title?: string | null; description?: string | null } | null } | null;
 };
 
 export type BlogListQueryQueryVariables = Exact<{ [key: string]: never }>;

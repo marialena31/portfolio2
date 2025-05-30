@@ -2,7 +2,6 @@ import React from 'react';
 import { graphql, PageProps, Link } from 'gatsby';
 import Layout from '../components/layout';
 import { SEO } from '../components/seo';
-import * as styles from './blog-post.module.scss';
 
 interface BlogPostData {
   blogPost: {
@@ -23,11 +22,11 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
   return (
     <Layout className="otherPages">
       <SEO title={post.title} description={post.excerpt} />
-      <section className={styles.section}>
-        <div className={styles.article}>
+      <section className="max-w-3xl mx-auto bg-white rounded-xl shadow-md p-8 mb-8">
+        <div className="prose max-w-none mb-6">
           <button
             onClick={() => window.history.back()}
-            className={styles.backBtn}
+            className="inline-flex items-center text-primary hover:text-primary-dark transition-colors font-medium mb-8"
             aria-label="Retour au blog"
             style={{
               marginBottom: '2rem',
@@ -51,23 +50,26 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
             </svg>
             Retour au blog
           </button>
-          <header className={styles.header}>
+          <header className="mb-6">
             <h1>{post.title}</h1>
-            <div className={styles.meta}>
+            <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
               <time>{post.date}</time>
-              <span className={styles.author}>par {post.author}</span>
+              <span className="ml-2">par {post.author}</span>
             </div>
-            <div className={styles.tags}>
+            <div className="flex flex-wrap gap-2 mb-4">
               {post.tags.map(tag => (
-                <span key={tag} className={styles.tag}>
+                <span key={tag} className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">
                   {tag}
                 </span>
               ))}
             </div>
           </header>
           <div className="blog-post-content" dangerouslySetInnerHTML={{ __html: post.content }} />
-          <div className={styles.contactCta}>
-            <Link to="/contact" className={styles.contactLink}>
+          <div className="mt-8 flex justify-center">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark transition-colors"
+            >
               Contactez-moi
               <svg
                 width="18"

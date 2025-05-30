@@ -1,5 +1,4 @@
 import React from 'react';
-import * as aboutStyles from './about-page.module.scss';
 
 export interface ContentBlock {
   type: string;
@@ -74,7 +73,7 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
         return (
           <p
             key={key}
-            className={aboutStyles.paragraph}
+            className="text-gray-700 text-base leading-relaxed mb-6"
             dangerouslySetInnerHTML={{
               __html: typeof block.children === 'string' ? block.children : '',
             }}
@@ -84,9 +83,9 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
       case 'list':
         if (block.ordered) {
           return (
-            <ol key={key} className={aboutStyles.list}>
+            <ol key={key} className="list-decimal pl-6 my-6">
               {block.items?.map((item, i) => (
-                <li key={`${key}-${i}`} className={aboutStyles.listItem}>
+                <li key={`${key}-${i}`} className="mb-2">
                   {renderContent(item)}
                 </li>
               ))}
@@ -94,9 +93,9 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
           );
         }
         return (
-          <ul key={key} className={aboutStyles.list}>
+          <ul key={key} className="list-disc pl-6 my-6">
             {block.items?.map((item, i) => (
-              <li key={`${key}-${i}`} className={aboutStyles.listItem}>
+              <li key={`${key}-${i}`} className="mb-2">
                 {renderContent(item)}
               </li>
             ))}
@@ -106,8 +105,8 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
       case 'table':
         if (!block.header || !block.rows) return null;
         return (
-          <div key={key} className={aboutStyles.tableWrapper}>
-            <table className={aboutStyles.table}>
+          <div key={key} className="overflow-x-auto my-8">
+            <table className="min-w-full bg-white border border-gray-200 rounded-lg text-sm">
               <thead>
                 <tr>
                   {block.header.map((cell, i) => (
@@ -130,12 +129,12 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
 
       case 'image':
         return (
-          <figure key={key} className={aboutStyles.figure}>
+          <figure key={key} className="my-6 flex flex-col items-center">
             <img
               src={block.src}
               alt={block.alt || ''}
               loading="lazy"
-              className={aboutStyles.image}
+              className="rounded shadow max-w-full h-auto"
             />
             {block.caption && <figcaption>{renderContent(block.caption)}</figcaption>}
           </figure>
@@ -143,14 +142,17 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
 
       case 'quote':
         return (
-          <blockquote key={key} className={aboutStyles.blockquote}>
+          <blockquote
+            key={key}
+            className="border-l-4 border-blue-500 pl-4 italic text-gray-600 my-4"
+          >
             <p>{renderContent(block.children)}</p>
             {block.cite && <footer>{renderContent(block.cite)}</footer>}
           </blockquote>
         );
 
       case 'divider':
-        return <hr key={key} className={aboutStyles.divider} />;
+        return <hr key={key} className="my-8 border-t border-gray-200" />;
 
       default:
         return null;
@@ -158,12 +160,14 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
   };
 
   return (
-    <main className={`${aboutStyles.aboutPage} ${className}`}>
-      <div className={aboutStyles.aboutContainer}>
+    <section
+      className={`pt-16 px-4 w-full bg-gradient-to-b from-primary-dark/95 to-primary/85 ${className}`}
+    >
+      <div className="bg-white rounded-lg shadow-md pt-8 pb-0 p-6 mx-auto max-w-[75rem] flex flex-col items-center text-center">
         {sections.length > 0 ? (
-          <div className={aboutStyles.content}>
+          <div className="space-y-8 w-full">
             {sections.map((section, index) => (
-              <div key={index} className={aboutStyles.section}>
+              <div key={index} className="mb-8 w-full">
                 {section.title && <h2>{renderContent(section.title)}</h2>}
                 {section.content.map((block, blockIndex) =>
                   renderBlock(block, `${index}-${blockIndex}`)
@@ -172,11 +176,11 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
             ))}
           </div>
         ) : (
-          <div className={aboutStyles.noContent}>
+          <div className="text-center text-gray-400 py-8">
             <p>Aucun contenu disponible.</p>
           </div>
         )}
       </div>
-    </main>
+    </section>
   );
 };
