@@ -7,7 +7,9 @@ import ProjectForm from '../components/ProjectForm';
 const ProjectPage: React.FC<PageProps> = () => {
   return (
     <Layout>
-      <ProjectForm />
+      <section className="pt-6 pb-6 bg-transparent">
+        <ProjectForm />
+      </section>
     </Layout>
   );
 };

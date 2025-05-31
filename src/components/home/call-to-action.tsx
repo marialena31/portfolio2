@@ -23,7 +23,7 @@ const RevealPhoneButton: React.FC<{ label: string }> = ({ label }) => {
   return (
     <button
       type="button"
-      className="flex items-center gap-2 font-bold px-8 py-3 rounded-md shadow-md bg-black text-white text-base transition-all duration-200 border-2 border-black hover:bg-white hover:text-black hover:border-primary focus:outline-black focus:outline-2 focus:outline-offset-2"
+      className="flex items-center gap-2 font-bold px-8 py-3 rounded-md shadow-md bg-black text-white text-base transition-all duration-200 border-2 border-black hover:bg-white hover:text-black hover:border-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       onClick={handleClick}
       aria-label={revealed ? 'Numéro affiché' : 'Afficher le numéro de téléphone'}
     >

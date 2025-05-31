@@ -6,12 +6,12 @@ const MentionsLegalesPage: React.FC = () => {
   return (
     <Layout>
       <SEO title="Mentions Légales" />
-      <main className="py-28 min-h-screen bg-gradient-to-br from-primary to-primary-dark w-full box-border">
-        <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 md:p-12 my-12 text-gray-800">
+      <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
+        <div className="max-w-[64rem] mx-auto bg-white rounded-lg shadow-md p-20 flex flex-col items-start text-left text-gray-800">
           <h1>Mentions légales</h1>
 
           <section>
-            <h2>Éditeur du site</h2>
+            <h2 className="transition-colors duration-200">Éditeur du site</h2>
             <p>Le site expertecom.fr est édité par :</p>
             <address>
               Maria-Lena PIETRI
@@ -27,7 +27,7 @@ const MentionsLegalesPage: React.FC = () => {
           </section>
 
           <section>
-            <h2>Hébergement</h2>
+            <h2 className="transition-colors duration-200">Hébergement</h2>
             <p>Le site est hébergé par :</p>
             <address>
               Netlify Inc.
@@ -36,14 +36,19 @@ const MentionsLegalesPage: React.FC = () => {
               <br />
               San Francisco, California 94107
               <br />
-              <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.netlify.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              >
                 www.netlify.com
               </a>
             </address>
           </section>
 
           <section>
-            <h2>Responsabilité</h2>
+            <h2 className="transition-colors duration-200">Responsabilité</h2>
             <p>
               Maria-Lena PIETRI s&#39;efforce de fournir sur ce site des informations aussi précises
               que possible. &quot;Les présentes conditions générales d&#39;utilisation (CGU)
@@ -55,7 +60,7 @@ const MentionsLegalesPage: React.FC = () => {
           </section>
 
           <section>
-            <h2>Données personnelles</h2>
+            <h2 className="transition-colors duration-200">Données personnelles</h2>
             <p>
               Le site ne collecte aucune donnée personnelle à des fins commerciales. Les données
               éventuellement transmises via le formulaire de contact sont exclusivement utilisées
@@ -64,7 +69,7 @@ const MentionsLegalesPage: React.FC = () => {
           </section>
 
           <section>
-            <h2>Propriété intellectuelle</h2>
+            <h2 className="transition-colors duration-200">Propriété intellectuelle</h2>
             <p>
               &quot;En cas de litige, les tribunaux de Paris sont seuls compétents.&quot; Tous les
               contenus présents sur ce site (textes, images, codes, logos) sont protégés par les
@@ -73,7 +78,7 @@ const MentionsLegalesPage: React.FC = () => {
             </p>
           </section>
         </div>
-      </main>
+      </section>
     </Layout>
   );
 };

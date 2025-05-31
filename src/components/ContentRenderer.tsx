@@ -14,12 +14,17 @@ export interface ContentBlock {
   rows?: string[][];
 }
 
-interface ContentRendererProps {
+export interface ContentRendererProps {
   content: ContentBlock[];
   className?: string;
+  containerClassName?: string;
 }
 
-export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, className = '' }) => {
+export const ContentRenderer: React.FC<ContentRendererProps> = ({
+  content,
+  className = '',
+  containerClassName,
+}) => {
   const renderContent = (content: string | React.ReactNode) => {
     if (typeof content === 'string') {
       // Convertir les sauts de ligne en balises <br />
@@ -64,16 +69,37 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
   const renderBlock = (block: ContentBlock, key: string) => {
     switch (block.type) {
       case 'heading':
-        if (block.level === 1) return <h1 key={key}>{renderContent(block.children)}</h1>;
-        if (block.level === 2) return <h2 key={key}>{renderContent(block.children)}</h2>;
-        if (block.level === 3) return <h3 key={key}>{renderContent(block.children)}</h3>;
+        if (block.level === 1)
+          return (
+            <h1
+              key={key}
+              className="text-3xl md:text-4xl font-bold bg-gradient-to-tr from-primary to-primary-green bg-clip-text text-transparent mb-6 leading-tight text-left"
+            >
+              {renderContent(block.children)}
+            </h1>
+          );
+        if (block.level === 2)
+          return (
+            <h2
+              key={key}
+              className="text-2xl md:text-3xl font-bold mb-4 mt-8 text-primary leading-tight transition-colors duration-200 text-left"
+            >
+              {renderContent(block.children)}
+            </h2>
+          );
+        if (block.level === 3)
+          return (
+            <h3 key={key} className="transition-colors duration-200 text-left">
+              {renderContent(block.children)}
+            </h3>
+          );
         return <h4 key={key}>{renderContent(block.children)}</h4>;
 
       case 'paragraph':
         return (
           <p
             key={key}
-            className="text-gray-700 text-base leading-relaxed mb-6"
+            className="text-gray-700 text-base leading-relaxed mb-6 text-left"
             dangerouslySetInnerHTML={{
               __html: typeof block.children === 'string' ? block.children : '',
             }}
@@ -83,7 +109,7 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
       case 'list':
         if (block.ordered) {
           return (
-            <ol key={key} className="list-decimal pl-6 my-6">
+            <ol key={key} className="list-decimal pl-6 my-6 text-left">
               {block.items?.map((item, i) => (
                 <li key={`${key}-${i}`} className="mb-2">
                   {renderContent(item)}
@@ -93,7 +119,7 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
           );
         }
         return (
-          <ul key={key} className="list-disc pl-6 my-6">
+          <ul key={key} className="list-disc pl-6 my-6 text-left">
             {block.items?.map((item, i) => (
               <li key={`${key}-${i}`} className="mb-2">
                 {renderContent(item)}
@@ -144,7 +170,7 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
         return (
           <blockquote
             key={key}
-            className="border-l-4 border-blue-500 pl-4 italic text-gray-600 my-4"
+            className="border-l-4 border-blue-500 pl-4 italic text-gray-600 my-4 text-left"
           >
             <p>{renderContent(block.children)}</p>
             {block.cite && <footer>{renderContent(block.cite)}</footer>}
@@ -160,27 +186,29 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({ content, class
   };
 
   return (
-    <section
-      className={`pt-16 px-4 w-full bg-gradient-to-b from-primary-dark/95 to-primary/85 ${className}`}
+    <div
+      className={
+        containerClassName
+          ? containerClassName
+          : 'bg-white rounded-lg shadow-md pt-8 pb-16 p-6 mx-auto max-w-[75rem] flex flex-col items-start text-left'
+      }
     >
-      <div className="bg-white rounded-lg shadow-md pt-8 pb-0 p-6 mx-auto max-w-[75rem] flex flex-col items-center text-center">
-        {sections.length > 0 ? (
-          <div className="space-y-8 w-full">
-            {sections.map((section, index) => (
-              <div key={index} className="mb-8 w-full">
-                {section.title && <h2>{renderContent(section.title)}</h2>}
-                {section.content.map((block, blockIndex) =>
-                  renderBlock(block, `${index}-${blockIndex}`)
-                )}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center text-gray-400 py-8">
-            <p>Aucun contenu disponible.</p>
-          </div>
-        )}
-      </div>
-    </section>
+      {sections.length > 0 ? (
+        <div className="space-y-8 w-full text-left">
+          {sections.map((section, index) => (
+            <div key={index} className="mb-8 w-full text-left">
+              {section.title && <h2>{renderContent(section.title)}</h2>}
+              {section.content.map((block, blockIndex) =>
+                renderBlock(block, `${index}-${blockIndex}`)
+              )}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center text-gray-400 py-8">
+          <p>Aucun contenu disponible.</p>
+        </div>
+      )}
+    </div>
   );
 };

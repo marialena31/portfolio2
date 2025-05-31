@@ -22,8 +22,8 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
   return (
     <Layout className="otherPages">
       <SEO title={post.title} description={post.excerpt} />
-      <section className="max-w-3xl mx-auto bg-white rounded-xl shadow-md p-8 mb-8">
-        <div className="prose max-w-none mb-6">
+      <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
+        <div className="max-w-[64rem] mx-auto bg-white rounded-lg shadow-md p-20 flex flex-col items-start text-left">
           <button
             onClick={() => window.history.back()}
             className="inline-flex items-center text-primary hover:text-primary-dark transition-colors font-medium mb-8"
@@ -51,7 +51,9 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
             Retour au blog
           </button>
           <header className="mb-6">
-            <h1>{post.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-tr from-primary to-primary-green bg-clip-text text-transparent mb-6 leading-tight">
+              {post.title}
+            </h1>
             <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
               <time>{post.date}</time>
               <span className="ml-2">par {post.author}</span>
@@ -64,7 +66,10 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
               ))}
             </div>
           </header>
-          <div className="blog-post-content" dangerouslySetInnerHTML={{ __html: post.content }} />
+          <div
+            className="blog-post-content prose prose-primary max-w-none"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
           <div className="mt-8 flex justify-center">
             <Link
               to="/contact"

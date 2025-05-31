@@ -43,19 +43,19 @@ const Navigation: React.FC = () => {
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="flex items-center justify-between h-16 max-w-5xl mx-auto px-4">
-        <Link
-          to="/"
-          className="text-xl font-bold text-gray-900 no-underline whitespace-nowrap mr-4 transition-colors hover:text-primary flex-shrink-0"
-          aria-label="Go to homepage"
-        >
-          <span aria-hidden="true">ExpertEcom</span>
+      <div className="flex items-center justify-between h-16 max-w-5xl mx-auto">
+        <Link to="/" className="flex items-center" aria-label="Go to homepage">
+          <img
+            src="/images/expertecom-logo.png"
+            alt=""
+            style={{ height: 50, width: 'auto', display: 'block' }}
+          />
         </Link>
 
         <button
-          className="md:hidden bg-transparent border-none text-gray-900 cursor-pointer p-2"
+          className="md:hidden bg-transparent border-none text-gray-900 cursor-pointer p-2 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
           onClick={toggleMenu}
-          aria-label="Toggle navigation menu"
+          aria-label="Ouvrir ou fermer le menu de navigation"
           aria-expanded={isMenuOpen}
           aria-controls="mainMenu"
         >
@@ -92,14 +92,14 @@ const Navigation: React.FC = () => {
         <ul
           id="mainMenu"
           className={`flex items-center gap-4 md:static md:flex-row md:bg-transparent md:p-0 md:h-auto md:w-auto transition-all duration-200 ease-in-out
-            fixed top-16 left-0 right-0 bottom-0 bg-white p-8 flex-col items-stretch z-40 shadow-lg md:shadow-none md:gap-4
-            ${isMenuOpen ? 'flex' : 'hidden'} md:flex`}
+            fixed top-16 left-0 right-0 bottom-0 bg-white p-8 flex-col z-40 shadow-lg md:shadow-none md:gap-4
+            ${isMenuOpen ? 'flex animate-fade-in' : 'hidden'} md:flex`}
           role="menu"
         >
           <li role="none">
             <Link
               to="/"
-              className="text-gray-900 hover:text-primary text-base no-underline transition-colors py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               role="menuitem"
               data-nav-item
               tabIndex={isMenuOpen ? 0 : -1}
@@ -110,7 +110,7 @@ const Navigation: React.FC = () => {
           <li role="none">
             <Link
               to="/about"
-              className="text-gray-900 hover:text-primary text-base no-underline transition-colors py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               role="menuitem"
               data-nav-item
               tabIndex={isMenuOpen ? 0 : -1}
@@ -121,7 +121,7 @@ const Navigation: React.FC = () => {
           <li role="none">
             <Link
               to="/services"
-              className="text-gray-900 hover:text-primary text-base no-underline transition-colors py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               role="menuitem"
               data-nav-item
               tabIndex={isMenuOpen ? 0 : -1}
@@ -132,7 +132,7 @@ const Navigation: React.FC = () => {
           <li role="none">
             <Link
               to="/pourquoi-choisir"
-              className="text-gray-900 hover:text-primary text-base no-underline transition-colors py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               role="menuitem"
               data-nav-item
               tabIndex={isMenuOpen ? 0 : -1}
@@ -144,7 +144,7 @@ const Navigation: React.FC = () => {
           <li role="none">
             <Link
               to="/blog"
-              className="text-gray-900 hover:text-primary text-base no-underline transition-colors py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               role="menuitem"
               data-nav-item
               tabIndex={isMenuOpen ? 0 : -1}
@@ -155,7 +155,7 @@ const Navigation: React.FC = () => {
           <li role="none">
             <Link
               to="/projet"
-              className="text-gray-900 hover:text-primary text-base no-underline transition-colors py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               role="menuitem"
               data-nav-item
               tabIndex={isMenuOpen ? 0 : -1}
@@ -166,7 +166,7 @@ const Navigation: React.FC = () => {
           <li role="none">
             <Link
               to="/contact"
-              className="text-gray-900 hover:text-primary text-base no-underline transition-colors py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               role="menuitem"
               data-nav-item
               tabIndex={isMenuOpen ? 0 : -1}

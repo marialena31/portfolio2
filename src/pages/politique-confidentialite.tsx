@@ -6,8 +6,8 @@ const PolitiqueConfidentialitePage: React.FC = () => {
   return (
     <Layout>
       <SEO title="Politique de Confidentialité" />
-      <main className="py-28 min-h-screen bg-gradient-to-br from-primary to-primary-dark w-full box-border">
-        <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 md:p-12 my-12 text-gray-800">
+      <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
+        <div className="max-w-[64rem] mx-auto bg-white rounded-lg shadow-md p-20 flex flex-col items-start text-left text-gray-800">
           <h1>Politique de confidentialité</h1>
 
           <section>
@@ -44,7 +44,7 @@ const PolitiqueConfidentialitePage: React.FC = () => {
             </p>
           </section>
         </div>
-      </main>
+      </section>
     </Layout>
   );
 };

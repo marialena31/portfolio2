@@ -39,7 +39,7 @@ Voici la liste des tickets pour migrer tout le projet Gatsby/React de SCSS vers 
 
 - [x] Supprimer tous les fichiers SCSS inutiles (global.scss, variables.scss, mixins.scss, tous les .module.scss)
 - [x] Supprimer les dépendances SCSS de package.json (gatsby-plugin-sass, node-sass, sass-loader, etc.)
-- [ ] Supprimer les dépendances SCSS de `package.json` (gatsby-plugin-sass, node-sass, sass-loader, etc.)
+- [x] Supprimer les dépendances SCSS de `package.json` (gatsby-plugin-sass, node-sass, sass-loader, etc.)
 - [x] Nettoyer le code des imports obsolètes
 - [x] S'assurer qu'aucun composant n'utilise encore de SCSS
 

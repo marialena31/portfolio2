@@ -223,13 +223,12 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
   };
 
   return (
-    <section className="py-12 px-4 md:px-0 flex justify-center bg-gray-50">
-      <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg p-8">
-        <h1 className="text-2xl font-bold mb-2">Déposez votre projet</h1>
-        <p className="mb-6 text-gray-600">
+    <div className="px-4 md:px-0 flex justify-center bg-gradient-to-b from-primary-dark/95 to-primary/85">
+      <div className="bg-white max-w-4xl mx-auto p-8 shadow rounded-lg my-12">
+        <h1 className="text-primary text-3xl font-bold text-center mb-4">Déposez votre projet</h1>
+        <p className="text-gray-500 text-center mb-8 text-base leading-relaxed">
           Expliquez-moi où vous en êtes, ce que vous cherchez, et je vous recontacte sous 48h.
         </p>
-
         {Object.values(errors).length > 0 && (
           <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
             {Object.entries(errors).map(([field, error]) => (
@@ -243,112 +242,101 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
           </div>
         )}
         {success && (
-          <div className="mb-4 p-4 bg-green-100 text-green-700 rounded">
-            <p>Merci ! Votre demande a été envoyée avec succès.</p>
-            <p>Je vous recontacte dans les plus brefs délais.</p>
+          <div className="text-green-600 font-medium text-sm mt-2 mb-2 text-center">
+            Votre demande a bien été envoyée !
           </div>
         )}
-
         {!success && (
-          <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off" noValidate>
-            {/* Nom et Prénom */}
-            <div className="mb-4">
-              <label htmlFor="name" className="block font-medium mb-1">
-                Votre prénom / nom <span className="text-red-500">*</span>
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-6"
+            autoComplete="off"
+            noValidate
+          >
+            <div className="flex flex-col gap-2">
+              <label htmlFor="name" className="font-medium text-primary text-sm">
+                Prénom / nom <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
+                className="w-full px-3 py-2 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-400"
                 value={form.name}
                 onChange={handleChange}
-                className={`w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
                 required
+                placeholder="Votre nom"
               />
-              {errors.name && (
-                <p className="text-sm text-red-600 mt-1">
-                  <strong>Nom: </strong>
-                  {errors.name}
-                </p>
-              )}
             </div>
-
-            {/* Entreprise */}
-            <div className="mb-4">
-              <label htmlFor="company" className="block font-medium mb-1">
-                Nom de votre entreprise / site (facultatif)
+            <div className="flex flex-col gap-2">
+              <label htmlFor="company" className="font-medium text-primary text-sm">
+                Entreprise / site (facultatif)
               </label>
               <input
                 type="text"
                 id="company"
                 name="company"
+                className="w-full px-3 py-2 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-400"
                 value={form.company}
                 onChange={handleChange}
-                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
+                placeholder="Nom de votre entreprise"
               />
             </div>
-
-            {/* Email */}
-            <div className="mb-4">
-              <label htmlFor="email" className="block font-medium mb-1">
-                Votre e-mail <span className="text-red-500">*</span>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="email" className="font-medium text-primary text-sm">
+                Email <span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
+                className="w-full px-3 py-2 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-400"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
                 required
+                placeholder="Votre adresse email"
               />
             </div>
-
-            {/* Besoin */}
-            <div className="mb-4">
-              <label htmlFor="need" className="block font-medium mb-1">
-                Votre besoin en une phrase <span className="text-red-500">*</span>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="need" className="font-medium text-primary text-sm">
+                Besoin en une phrase <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 id="need"
                 name="need"
+                className="w-full px-3 py-2 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-400"
                 value={form.need}
                 onChange={handleChange}
-                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
-                placeholder="Ex: Site Magento à reprendre, Synchroniser stock avec ERP, etc."
                 required
+                placeholder="Ex: Site Magento à reprendre, synchroniser stock avec ERP..."
               />
             </div>
-
-            {/* Détails du projet */}
-            <div className="mb-4">
-              <label htmlFor="details" className="block font-medium mb-1">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="details" className="font-medium text-primary text-sm">
                 Détail de votre projet ou situation actuelle <span className="text-red-500">*</span>
               </label>
               <textarea
                 id="details"
                 name="details"
+                className="w-full px-3 py-3 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 min-h-[120px] resize-vertical placeholder:text-gray-400"
                 value={form.details}
                 onChange={handleChange}
-                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
+                required
                 rows={6}
                 placeholder="Donnez autant ou aussi peu d'info que vous voulez pour commencer."
-                required
               />
             </div>
-
-            {/* Urgence */}
-            <div className="mb-4">
-              <label htmlFor="urgency" className="block font-medium mb-1">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="urgency" className="font-medium text-primary text-sm">
                 Urgence du projet
               </label>
               <select
                 id="urgency"
                 name="urgency"
+                className="w-full px-3 py-2 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-400"
                 value={form.urgency}
                 onChange={handleChange}
-                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
               >
                 <option value="">Sélectionnez une option</option>
                 <option value="Pas urgent (calendrier libre)">Pas urgent (calendrier libre)</option>
@@ -359,12 +347,10 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
                 <option value="Je ne sais pas encore">Je ne sais pas encore</option>
               </select>
             </div>
-
-            {/* Équipe technique */}
-            <div className="mb-4">
-              <p className="block font-medium mb-1">
+            <div className="flex flex-col gap-2">
+              <label className="font-medium text-primary text-sm">
                 Avez-vous déjà un prestataire ou une équipe technique ?
-              </p>
+              </label>
               <div className="flex flex-col gap-2 mt-2">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
@@ -400,36 +386,33 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
                   <span>En cours de changement</span>
                 </label>
               </div>
-
               {form.hasTeam && (
-                <div className="mb-4 mt-4">
-                  <label htmlFor="teamDetails" className="block font-medium mb-1">
+                <div className="flex flex-col gap-2 mt-2">
+                  <label htmlFor="teamDetails" className="font-medium text-primary text-sm">
                     Précisions (facultatif)
                   </label>
                   <input
                     type="text"
                     id="teamDetails"
                     name="teamDetails"
+                    className="w-full px-3 py-2 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-400"
                     value={form.teamDetails}
                     onChange={handleChange}
-                    className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
                     placeholder="Qui est impliqué actuellement ?"
                   />
                 </div>
               )}
             </div>
-
-            {/* Budget */}
-            <div className="mb-4">
-              <label htmlFor="budget" className="block font-medium mb-1">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="budget" className="font-medium text-primary text-sm">
                 Budget indicatif (facultatif)
               </label>
               <select
                 id="budget"
                 name="budget"
+                className="w-full px-3 py-2 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-400"
                 value={form.budget}
                 onChange={handleChange}
-                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
               >
                 <option value="">Sélectionnez une option</option>
                 <option value="< 1 000 €">&lt; 1 000 €</option>
@@ -440,10 +423,8 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
                 <option value="Je ne sais pas">Je ne sais pas</option>
               </select>
             </div>
-
-            {/* Fichier */}
-            <div className="mb-4">
-              <label htmlFor="file" className="block font-medium mb-1">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="file" className="font-medium text-primary text-sm">
                 Pièce jointe (facultative)
               </label>
               <input
@@ -451,62 +432,52 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
                 id="file"
                 name="file"
                 onChange={handleChange}
-                className="block w-full text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 focus:outline-none"
+                className="block w-full text-sm text-primary border border-primary/20 rounded-md cursor-pointer bg-surface-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                 accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
               />
               <small className="text-xs text-gray-500">
                 Formats acceptés : PDF, DOC, XLS, JPG, PNG (max 5MB)
               </small>
             </div>
-
-            {/* Informations supplémentaires */}
-            <div className="mb-4">
-              <label htmlFor="additionalInfo" className="block font-medium mb-1">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="additionalInfo" className="font-medium text-primary text-sm">
                 Autre chose à me dire ? (facultatif)
               </label>
               <textarea
                 id="additionalInfo"
                 name="additionalInfo"
+                className="w-full px-3 py-3 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 min-h-[80px] resize-vertical placeholder:text-gray-400"
                 value={form.additionalInfo}
                 onChange={handleChange}
-                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary border-gray-300"
                 rows={4}
+                placeholder="Votre message complémentaire"
               />
             </div>
-
-            {/* RGPD */}
-            <div className="mb-4 flex items-center gap-2">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  name="gdprConsent"
-                  checked={form.gdprConsent}
-                  onChange={handleChange}
-                  className="accent-primary w-4 h-4"
-                  required
-                />
-
-                <span className="ml-2 text-gray-700">
-                  J&apos;accepte que mes données soient utilisées pour me recontacter dans le cadre
-                  de ma demande (aucune revente, aucun spam).{' '}
-                  <span className="text-red-500">*</span>
-                </span>
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                name="gdprConsent"
+                checked={form.gdprConsent}
+                onChange={handleChange}
+                className="accent-primary w-4 h-4"
+                required
+              />
+              <label htmlFor="gdprConsent" className="text-gray-700 text-sm">
+                J&apos;accepte que mes données soient utilisées pour me recontacter dans le cadre de
+                ma demande (aucune revente, aucun spam). <span className="text-red-500">*</span>
               </label>
             </div>
-
-            {/* Bouton de soumission */}
-            <div className="mt-8">
-              <button
-                type="submit"
-                className="w-full bg-primary text-white font-semibold py-3 rounded hover:bg-primary-dark transition-colors"
-              >
-                Envoyer ma demande
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="w-full py-3 px-6 rounded-md bg-primary text-white font-semibold text-lg shadow-md hover:bg-primary-dark transition-all disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+              disabled={false}
+            >
+              Envoyer ma demande
+            </button>
           </form>
         )}
       </div>
-    </section>
+    </div>
   );
 };
 
