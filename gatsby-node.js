@@ -5,6 +5,7 @@ const { RateLimiterMiddleware } = require('./src/middleware/rate-limiter');
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
+  // Portfolio projects (conserve)
   const result = await graphql(`
     query GetPortfolioProjects {
       allPortfolioProject {
@@ -20,7 +21,6 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors;
   }
 
-  // Create project pages
   result.data?.allPortfolioProject.nodes.forEach(project => {
     const slug = project.title.toLowerCase().replace(/\s+/g, '-');
     createPage({
@@ -28,6 +28,40 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve('./src/templates/project.tsx'),
       context: {
         id: project.id,
+      },
+    });
+  });
+
+  // Blog Markdown
+  const blogResult = await graphql(`
+    {
+      allMarkdownRemark(
+        filter: { fileAbsolutePath: { regex: "/blog/" } }
+        sort: { frontmatter: { date: DESC } }
+      ) {
+        edges {
+          node {
+            frontmatter {
+              slug
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  if (blogResult.errors) {
+    throw blogResult.errors;
+  }
+
+  const blogPostTemplate = path.resolve(`./src/templates/blog-post.tsx`);
+
+  blogResult.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    createPage({
+      path: `/blog/${node.frontmatter.slug}`,
+      component: blogPostTemplate,
+      context: {
+        slug: node.frontmatter.slug,
       },
     });
   });

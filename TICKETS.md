@@ -1,5 +1,53 @@
 # 📋 Ticket List: FrontGatsby Portfolio
 
+## 🟥 PRIORITÉ 1 : Migration Blog vers Markdown & Gatsby Best Practices
+
+- [ ] **Migrer le blog vers une structure Markdown**
+  - [x] Créer `/content/blog/` et y migrer chaque article sous forme de dossier avec `index.md` (frontmatter complet)
+  - [x] Supprimer l'usage de `mockBlogPosts.ts` pour le contenu du blog
+  - [x] Installer/configurer les plugins : `gatsby-source-filesystem`, `gatsby-transformer-remark` ou `gatsby-plugin-mdx`
+  - [x] Adapter `gatsby-node.js` pour générer les pages à partir des fichiers markdown
+  - [x] Utiliser le template `blog-post.tsx` pour le rendu
+  - [x] Ajouter le champ `description`, `readingTime`, SEO dans le frontmatter
+  - [x] Ajouter RSS avec `gatsby-plugin-feed`
+
+## 🟥 PRIORITÉ 2 : Navbar & Logo
+
+- [x] Afficher le logo `/images/expertecom-logo.png` à gauche dans la navbar, sans texte ni image cassée
+- [x] Mettre la hauteur du logo à 50px
+
+## 🟥 PRIORITÉ 3 : Design page Projet
+
+- [x] Supprimer la barre bleue sous la navbar sur la page projet
+- [x] Réduire l'écart entre la navbar et la section formulaire projet
+
+## 🟧 PRIORITÉ 4 : Audit & Checklist
+
+- [x] Réaliser un audit des bonnes pratiques Gatsby pour le blog
+- [ ] Générer un exemple d'article markdown et la config de base si besoin
+
+---
+
+## Tickets terminés récemment
+
+- Navbar/logo corrigés (logo unique, 50px, suppression images/textes en trop)
+- Design page projet corrigé (plus de barre bleue, espacement réduit)
+- Audit des bonnes pratiques blog Gatsby effectué
+
+---
+
+## Prochain ticket à exécuter
+
+**Migration du blog vers une structure Markdown + configuration Gatsby**
+
+### Étape 1 : Créer la structure `/content/blog/` et migrer un article
+
+- Créer le dossier `content/blog/magento-envers-du-decor/`
+- Créer un fichier `index.md` avec le frontmatter et le contenu de l'article "Le Magento qu’on ne vous montre jamais"
+- Adapter le contenu depuis `mockBlogPosts.ts`
+
+---
+
 ## 🟥 High Priority
 
 ### 1. Style Management Fix

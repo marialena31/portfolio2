@@ -5,10 +5,8 @@ import { SEO } from '../components/seo';
 
 import { BlogListQueryQuery } from '../types/graphql-types';
 
-type BlogPageProps = PageProps<BlogListQueryQuery>;
-
-const BlogPage: React.FC<BlogPageProps> = ({ data }) => {
-  const posts = data.allBlogPost.nodes;
+const BlogPage: React.FC<PageProps<any>> = ({ data }) => {
+  const posts = data.allMarkdownRemark.nodes;
 
   return (
     <Layout>
@@ -17,26 +15,26 @@ const BlogPage: React.FC<BlogPageProps> = ({ data }) => {
         <div className="max-w-5xl mx-auto px-4">
           <h1 className="text-white text-center text-3xl font-bold mb-10 drop-shadow">Blog</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto max-w-5xl">
-            {posts.map(post => (
+            {posts.map((post: any) => (
               <article
                 className="bg-white rounded-lg shadow-md border border-primary/10 p-6 relative transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-primary flex flex-col h-full"
                 key={post.id}
               >
                 <Link
-                  to={`/blog/${post.slug}`}
+                  to={`/blog/${post.frontmatter.slug}`}
                   className="text-xl font-bold bg-gradient-to-tr from-primary to-primary-green bg-clip-text text-transparent mb-2 leading-snug transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                  aria-label={`Lire l'article : ${post.title}`}
+                  aria-label={`Lire l'article : ${post.frontmatter.title}`}
                 >
-                  {post.title}
+                  {post.frontmatter.title}
                 </Link>
                 <p className="text-gray-500 text-sm mb-2 flex gap-2 items-center">
-                  <time>{post.date}</time>
-                  <span>{post.author}</span>
+                  <time>{post.frontmatter.date}</time>
+                  <span>{post.frontmatter.author}</span>
                 </p>
-                <p className="text-gray-700 mb-4">{post.excerpt}</p>
+                <p className="text-gray-700 mb-4">{post.frontmatter.description || post.excerpt}</p>
                 <div className="flex flex-col grow justify-end gap-3 mt-4">
                   <div className="flex flex-wrap gap-2">
-                    {post.tags.map((tag: string) => (
+                    {(post.frontmatter.tags || []).map((tag: string) => (
                       <span
                         key={tag}
                         className="inline-block bg-primary/10 text-primary text-xs font-semibold px-3 py-1 rounded-full"
@@ -46,7 +44,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ data }) => {
                     ))}
                   </div>
                   <Link
-                    to={`/blog/${post.slug}`}
+                    to={`/blog/${post.frontmatter.slug}`}
                     className="inline-flex items-center text-primary font-semibold hover:underline group transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   >
                     Lire l&apos;article
@@ -79,15 +77,21 @@ const BlogPage: React.FC<BlogPageProps> = ({ data }) => {
 
 export const query = graphql`
   query BlogListQuery {
-    allBlogPost {
+    allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/blog/" } }
+      sort: { frontmatter: { date: DESC } }
+    ) {
       nodes {
         id
-        title
-        excerpt
-        date
-        author
-        tags
-        slug
+        frontmatter {
+          title
+          slug
+          author
+          date(formatString: "YYYY-MM-DD")
+          tags
+          description
+        }
+        excerpt(pruneLength: 180)
       }
     }
   }

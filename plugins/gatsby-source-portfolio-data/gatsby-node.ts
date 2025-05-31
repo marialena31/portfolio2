@@ -3,7 +3,7 @@ import * as path from 'path';
 import { projects } from '../../src/data/projects';
 import { services } from '../../src/data/services';
 import { skills } from '../../src/data/skills';
-import { blogPosts } from '../../src/data/mockBlogPosts';
+
 import { homeData } from '../../src/data/home';
 
 export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
@@ -127,21 +127,6 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
       type: 'HomeJson',
       contentDigest: createContentDigest(homeData),
     },
-  });
-
-  // Create nodes for blog posts
-  blogPosts.forEach(post => {
-    const nodeId = createNodeId(`blog-post-${post.slug}`);
-    createNode({
-      ...post,
-      id: nodeId,
-      parent: null,
-      children: [],
-      internal: {
-        type: 'BlogPost',
-        contentDigest: createContentDigest(post),
-      },
-    });
   });
 
   // Create nodes for projects
