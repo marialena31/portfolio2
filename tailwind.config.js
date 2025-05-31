@@ -3,6 +3,32 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}', './gatsby-browser.js', './src/**/*.html'],
   theme: {
     extend: {
+      typography: ({ theme }) => ({
+        primary: {
+          css: {
+            h2: {
+              fontSize: '1.5rem',
+              fontWeight: '700',
+              marginTop: '3rem',
+              marginBottom: '2rem',
+              color: '#0056b3', // primary
+              borderLeftWidth: '4px',
+              borderLeftColor: '#0056b3',
+              paddingLeft: '1rem',
+              backgroundColor: '#e9f2fd', // un bleu très clair
+              boxShadow: '0 1px 4px 0 rgba(0,86,179,0.04)',
+              lineHeight: '1.2',
+            },
+            h3: {
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              marginTop: '2rem',
+              marginBottom: '1rem',
+              color: '#003b7a', // primary-dark
+            },
+          },
+        },
+      }),
       colors: {
         primary: '#0056b3',
         'primary-dark': '#003b7a',
@@ -58,5 +84,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

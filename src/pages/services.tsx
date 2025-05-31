@@ -10,7 +10,7 @@ const ServicesPage: React.FC<PageProps> = () => {
     <Layout>
       <SEO title="Services" pageName="services" />
       <main className="min-h-screen bg-gradient-to-br from-primary to-primary-dark text-white w-full box-border py-28">
-        <div className="max-w-3xl mx-auto text-center mb-12 px-4">
+        <div className="max-w-[64rem] mx-auto text-center mb-12 px-4">
           <h1>Mes Services</h1>
           <p className="text-lg text-white/90 mb-8">
             Je vous accompagne dans la mise en place de votre boutique en ligne, de l&apos;analyse
@@ -21,7 +21,7 @@ const ServicesPage: React.FC<PageProps> = () => {
           </p>
         </div>
 
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-6xl mx-auto mb-16 px-4">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-[64rem] mx-auto mb-16 px-4">
           <ServiceCard
             title={
               <>
@@ -282,7 +282,7 @@ const ServicesPage: React.FC<PageProps> = () => {
           />
         </div>
 
-        <div className="max-w-3xl mx-auto mt-16 px-4">
+        <div className="max-w-[64rem] mx-auto mt-16 px-4">
           <h2 className="bg-gradient-to-tr from-primary to-primary-green bg-clip-text text-transparent text-3xl font-bold my-8">
             En bonus
           </h2>

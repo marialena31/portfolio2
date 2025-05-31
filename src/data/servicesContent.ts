@@ -3,68 +3,56 @@ export const servicesContent = [
   {
     type: 'paragraph',
     children:
-      'J’accompagne les entreprises et agences dans la réussite de leurs projets web externalisés, en apportant coordination, expertise fonctionnelle et pilotage de qualité.',
+      'J’accompagne les entreprises et agences dans la réussite de leurs projets Magento et WordPress, en apportant cadrage, structuration, pilotage et coordination technique. En direct ou via prestataires offshore, je construis des solutions solides, agiles et pérennes.',
   },
 
-  { type: 'heading', level: 2, children: 'Accompagnement & expertise' },
+  { type: 'heading', level: 2, children: 'Cadrage & Coordination projet' },
   {
     type: 'list',
     ordered: false,
     items: [
-      'Pilotage ou reprise de projets Magento, WordPress, PIM',
-      'Proxy Product Owner / Coordinatrice de projets offshore',
-      'Supervision qualité, recettage, code review',
-      'Lien avec infogérance et coordination technique',
-      'Interface fiable entre équipes internes et prestataires offshore',
+      'Reprise ou pilotage de projets Magento B2B/B2C',
+      'Cadrage fonctionnel, rédaction de specs et user stories',
+      'Interface client / prestataires / infogérance',
+      'Suivi de backlog, arbitrages, coordination transverse',
+      'Revue de code, recette, pilotage qualité',
     ],
   },
 
-  { type: 'heading', level: 2, children: 'Packs projets sur-mesure' },
+  { type: 'heading', level: 2, children: 'Packages Magento externalisé' },
 
-  { type: 'heading', level: 3, children: 'Magento externalisé (Inde / Pologne)' },
+  { type: 'heading', level: 3, children: 'Magento B2B/B2C (Inde / Pologne)' },
   {
     type: 'list',
     ordered: false,
     items: [
-      'Cadrage fonctionnel, rédaction de tickets',
-      'Supervision des développements Magento 2',
-      'Code review, recettage, suivi TMA',
-      'Relation clientèle / offshore',
-      'Option : coordination infogérance France',
+      'Reprise de projets Magento en tension',
+      'Supervision des devs offshore, gestion des tickets',
+      'Sprints coordonnés, reporting régulier',
+      'Gestion qualité, recette et priorisation',
     ],
   },
 
-  { type: 'heading', level: 3, children: 'WordPress associé à Magento (Maroc / Panama)' },
+  { type: 'heading', level: 3, children: 'WordPress + Magento (Maroc / Panama)' },
   {
     type: 'list',
     ordered: false,
     items: [
-      'Déploiement de site corporate/vitrine lié à Magento',
-      'Gestion de projet, recettes, gestion des flux',
+      'Déploiement de sites vitrine connectés à Magento',
+      'Back-office centralisé, gestion des flux',
+      'Gestion de projet, coordination prestataires',
     ],
   },
 
-  { type: 'heading', level: 3, children: 'WordPress premium (Maroc / Panama / Philippines)' },
-  {
-    type: 'list',
-    ordered: false,
-    items: [
-      'Site vitrine haut de gamme',
-      'Structure personnalisée, pilotage offshore, QA',
-      'Options : SEO, optimisation performance',
-    ],
-  },
-
-  { type: 'heading', level: 3, children: 'PIM / Fiches produit (Akeneo / Pimcore)' },
+  { type: 'heading', level: 3, children: 'Contenu produit & PIM (Akeneo / Pimcore)' },
   { type: 'paragraph', children: 'Technique (Inde / Pologne)' },
   {
     type: 'list',
     ordered: false,
     items: [
-      'Audit du catalogue',
-      'Structuration du PIM',
-      'Mise en place des flux ERP/Magento/PIM',
-      'Spécifications fonctionnelles, mapping technique',
+      'Audit du PIM ou du catalogue',
+      'Spécifications, flux ERP / Magento / PIM',
+      'Structuration, mapping et priorisation',
     ],
   },
   { type: 'paragraph', children: 'Contenu (Madagascar / Maroc / Philippines)' },
@@ -72,43 +60,29 @@ export const servicesContent = [
     type: 'list',
     ordered: false,
     items: [
-      'Saisie structurée de fiches produit',
-      'Traduction, enrichissement, nettoyage',
-      'Contrôle qualité de la donnée',
+      'Saisie produit multilingue, nettoyage, structuration',
+      'Traduction et enrichissement à la demande',
+      'Contrôle qualité des fiches',
     ],
   },
 
-  { type: 'heading', level: 2, children: 'Optimisation & pilotage existant' },
-
-  { type: 'heading', level: 3, children: 'Pack "Huile dans les rouages"' },
+  { type: 'heading', level: 2, children: 'Sécurité & conformité' },
   {
     type: 'list',
     ordered: false,
     items: [
-      'Analyse de la situation',
-      'Reprise du lien fonctionnel avec le prestataire',
-      'Alignement des tickets, suivi des versions',
-      'Recettage, reporting, correction des incompréhensions',
+      'Audit de configuration Magento',
+      'Recommandations RGPD / PCI-DSS / NIS2',
+      'Coordination sécurité entre devs et infogérance',
+      'Remontées de failles, analyse de risques',
     ],
   },
 
-  { type: 'heading', level: 3, children: 'Pilotage pour agence' },
+  { type: 'heading', level: 2, children: 'Accompagnement pour agences' },
   {
     type: 'paragraph',
     children:
-      'Vous êtes une agence avec des développeurs offshore mais sans pilotage fonctionnel ? J’interviens en marque blanche ou en freelance pour structurer la relation client/dev.',
-  },
-
-  { type: 'heading', level: 2, children: 'Infogérance & hébergement' },
-  {
-    type: 'list',
-    ordered: false,
-    items: [
-      'Mise en relation avec des infogérants Magento/WordPress en France',
-      'Supervision des tickets, vérification des interventions',
-      'Coordination entre développeurs offshore et infogérance',
-      'Intervention possible même si hébergeur déjà choisi',
-    ],
+      'Vous êtes une agence Magento ou WordPress ? Je vous aide à piloter vos projets client : interface projet, gestion offshore, relecture specs, reporting, QA.',
   },
 
   { type: 'heading', level: 2, children: 'Zones d’intervention' },
@@ -116,18 +90,18 @@ export const servicesContent = [
     type: 'list',
     ordered: false,
     items: [
-      'Inde : Magento, PIM, saisie structurée',
+      'Inde : Magento, PIM, QA technique',
       'Pologne : Magento premium',
       'Maroc : WordPress, saisie produit',
-      'Madagascar : saisie de fiches produit',
-      'Philippines : WordPress, traduction/saisie EN',
-      'Panama : WordPress premium / LATAM',
+      'Madagascar : saisie produit structurée',
+      'Philippines : WordPress, traduction EN',
+      'Panama : WordPress / Magento LATAM',
     ],
   },
   {
     type: 'paragraph',
     children:
-      'Besoin de plus d’infos ou d’un package sur mesure ? Intervention possible en forfait, mission freelance ou partenariat.',
+      'Intervention possible en freelance, forfait projet ou renfort ponctuel. Premier contact gratuit pour cadrer votre besoin.',
   },
-  { type: 'link', href: '/contact', children: 'Me contacter ➔' },
+  { type: 'link', href: '/contact', children: 'Discutons ensemble ➔' },
 ];

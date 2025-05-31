@@ -1,90 +1,83 @@
-import React from 'react';
-import { graphql, PageProps } from 'gatsby';
+import React, { useState } from 'react';
 import Layout from '../components/layout';
 import { SEO } from '../components/seo';
-import { PortfolioPageQueryQuery } from '../types/graphql-types';
+import Tabs from '../components/Tabs';
 
-const PortfolioPage: React.FC<PageProps<PortfolioPageQueryQuery>> = ({ data }) => {
-  const projects = data.allPortfolioProject.nodes;
+import CaseStudyCard from '../components/CaseStudyCard';
+import ProjectCard from '../components/ProjectCard';
+import { caseStudies } from '../data/caseStudies';
+import { portfolio } from '../data/projects';
+
+const PDF_URL = '/portfolio.pdf'; // Place ton PDF dans /static/portfolio.pdf
+
+const CASES_PER_PAGE = 6;
+
+const PortfolioPage: React.FC = () => {
+  const [visible, setVisible] = useState(CASES_PER_PAGE);
+  const showMore = () => setVisible(v => v + CASES_PER_PAGE);
 
   return (
     <Layout>
-      <h1 className="text-4xl font-bold text-primary text-center mb-12 mt-8">Portfolio</h1>
-      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto px-4">
-        {projects.map(project => (
-          <div
-            key={project.id}
-            className="bg-white rounded-xl shadow-md p-6 flex flex-col gap-4 hover:shadow-xl transition-shadow"
-          >
-            {project.image && (
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-48 object-cover rounded-lg mb-2"
-              />
-            )}
-            <h2 className="text-xl font-semibold bg-gradient-to-tr from-primary to-primary-green bg-clip-text text-transparent mb-2">
-              {project.title}
-            </h2>
-            <p className="text-gray-700 mb-2">{project.description}</p>
-            {project.tags && Array.isArray(project.tags) && project.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-2">
-                {project.tags.map((tag: string) => (
-                  <span
-                    key={tag}
-                    className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-            <div className="flex gap-4 mt-auto">
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-500 hover:text-primary underline text-sm"
-                >
-                  GitHub
-                </a>
-              )}
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-500 hover:text-primary underline text-sm"
-                >
-                  Voir le site
-                </a>
-              )}
-            </div>
-          </div>
-        ))}
+      <SEO title="Portfolio & Études de cas" pageName="portfolio" />
+      <h1 className="text-4xl font-bold text-primary text-center mb-12 mt-8 pt-16 md:pt-24">
+        Portfolio & Études de cas
+      </h1>
+      <div className="max-w-[64rem] mx-auto px-4">
+        <Tabs
+          tabs={[
+            {
+              label: 'Portfolio',
+              content: (
+                <div className="py-8">
+                  <p className="text-lg text-gray-700 text-center max-w-2xl mb-6 mx-auto">
+                    Découvrez un aperçu de mes réalisations, missions et preuves de livrables.
+                  </p>
+                  <div className="flex justify-center mb-8">
+                    <a
+                      href={PDF_URL}
+                      download
+                      className="inline-block px-6 py-3 bg-primary text-white rounded font-semibold hover:bg-primary-dark transition-colors"
+                    >
+                      Télécharger le portfolio
+                    </a>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {portfolio.map(project => (
+                      <ProjectCard key={project.id} project={project} />
+                    ))}
+                  </div>
+                </div>
+              ),
+            },
+            {
+              label: 'Études de cas',
+              content: (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {caseStudies.slice(0, visible).map(study => (
+                      <CaseStudyCard key={study.id} study={study} />
+                    ))}
+                  </div>
+                  {visible < caseStudies.length && (
+                    <div className="flex justify-center mt-8">
+                      <button
+                        onClick={showMore}
+                        className="px-6 py-3 bg-primary text-white rounded font-semibold hover:bg-primary-dark transition-colors"
+                      >
+                        Charger plus d’études de cas
+                      </button>
+                    </div>
+                  )}
+                </>
+              ),
+            },
+          ]}
+        />
       </div>
     </Layout>
   );
 };
 
-export const query = graphql`
-  query PortfolioPageQuery {
-    allPortfolioProject {
-      nodes {
-        id
-        title
-        description
-        image
-        tags
-        githubUrl
-        liveUrl
-        slug
-      }
-    }
-  }
-`;
-
 export default PortfolioPage;
 
-export const Head = () => <SEO title="Portfolio" pageName="portfolio" />;
+export const Head = () => <SEO title="Portfolio & Études de cas" pageName="portfolio" />;

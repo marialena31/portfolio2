@@ -1,12 +1,40 @@
 import { GatsbyNode } from 'gatsby';
 import path from 'path';
 import { projects } from './src/data/projects';
+import { caseStudies } from './src/data/caseStudies';
 import { NextFunction, Request, Response } from 'express';
 import { RateLimiterMiddleware } from './src/middleware/rate-limiter';
 
 export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
+  // Types
+
+  type BlogResult = {
+    allMarkdownRemark: {
+      edges: Array<{
+        node: {
+          frontmatter: {
+            slug: string;
+          };
+        };
+      }>;
+    };
+  };
+
+  // Études de cas (Case Studies)
+  const caseStudyTemplate = path.resolve('./src/templates/case-study.tsx');
+  caseStudies.forEach(cs => {
+    createPage({
+      path: `/portfolio/${cs.slug}`,
+      component: caseStudyTemplate,
+      context: {
+        slug: cs.slug,
+      },
+    });
+  });
+
+  // Portfolio projects
   const result = await graphql<{
     allPortfolioProject: {
       nodes: Array<{
@@ -29,7 +57,6 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
     throw result.errors;
   }
 
-  // Create project pages
   result.data?.allPortfolioProject.nodes.forEach(project => {
     const slug = project.title.toLowerCase().replace(/\s+/g, '-');
     createPage({
@@ -37,6 +64,40 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
       component: path.resolve('./src/templates/project.tsx'),
       context: {
         id: project.id,
+      },
+    });
+  });
+
+  // Blog Markdown
+  const blogResult = await graphql<{ allMarkdownRemark: BlogResult['allMarkdownRemark'] }>(`
+    {
+      allMarkdownRemark(
+        filter: { fileAbsolutePath: { regex: "/blog/" } }
+        sort: { frontmatter: { date: DESC } }
+      ) {
+        edges {
+          node {
+            frontmatter {
+              slug
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  if (blogResult.errors) {
+    throw blogResult.errors;
+  }
+
+  const blogPostTemplate = path.resolve(`./src/templates/blog-post.tsx`);
+
+  (blogResult.data?.allMarkdownRemark.edges ?? []).forEach(({ node }) => {
+    createPage({
+      path: `/blog/${node.frontmatter.slug}`,
+      component: blogPostTemplate,
+      context: {
+        slug: node.frontmatter.slug,
       },
     });
   });

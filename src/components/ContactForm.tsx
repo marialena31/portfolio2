@@ -107,7 +107,7 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <div className="bg-white max-w-4xl mx-auto p-8 shadow rounded-lg">
+    <div className="bg-white max-w-[64rem] mx-auto px-[10rem] py-[5rem] shadow rounded-lg">
       <h1 className="text-primary text-3xl font-bold text-center mb-4">Contact</h1>
       <p className="text-gray-500 text-center mb-8 text-base leading-relaxed">
         Contactez-moi pour plus d&apos;informations.

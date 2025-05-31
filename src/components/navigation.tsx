@@ -96,6 +96,7 @@ const Navigation: React.FC = () => {
             ${isMenuOpen ? 'flex animate-fade-in' : 'hidden'} md:flex`}
           role="menu"
         >
+          {/* Accueil */}
           <li role="none">
             <Link
               to="/"
@@ -107,6 +108,116 @@ const Navigation: React.FC = () => {
               Accueil
             </Link>
           </li>
+
+          {/* Offre & services (méga menu) */}
+          <li className="relative group" role="none">
+            <button
+              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white flex items-center gap-1"
+              aria-haspopup="true"
+              aria-expanded="false"
+              tabIndex={isMenuOpen ? 0 : -1}
+              type="button"
+            >
+              Offre & services
+              <svg
+                className="ml-1 w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div className="absolute left-0 top-full mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none transition-opacity duration-200 z-50 hidden md:block">
+              <ul className="py-3">
+                <li>
+                  <Link to="/services" className="block px-6 py-2 hover:bg-primary/10">
+                    Présentation des services
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/pourquoi-choisir" className="block px-6 py-2 hover:bg-primary/10">
+                    Pourquoi me choisir ?
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/conseils" className="block px-6 py-2 hover:bg-primary/10">
+                    Conseils de pro
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            {/* Mobile sous-menu */}
+            <ul className="md:hidden pl-4 mt-2">
+              <li>
+                <Link to="/services" className="block py-1">
+                  Présentation des services
+                </Link>
+              </li>
+              <li>
+                <Link to="/pourquoi-choisir" className="block py-1">
+                  Pourquoi me choisir ?
+                </Link>
+              </li>
+              <li>
+                <Link to="/conseils" className="block py-1">
+                  Conseils de pro
+                </Link>
+              </li>
+            </ul>
+          </li>
+
+          {/* Portfolio & Réalisations (méga menu) */}
+          <li className="relative group" role="none">
+            <button
+              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white flex items-center gap-1"
+              aria-haspopup="true"
+              aria-expanded="false"
+              tabIndex={isMenuOpen ? 0 : -1}
+              type="button"
+            >
+              Portfolio & Réalisations
+              <svg
+                className="ml-1 w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div className="absolute left-0 top-full mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none transition-opacity duration-200 z-50 hidden md:block">
+              <ul className="py-3">
+                <li>
+                  <Link to="/portfolio#portfolio" className="block px-6 py-2 hover:bg-primary/10">
+                    Slides & preuves
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/portfolio#etudes" className="block px-6 py-2 hover:bg-primary/10">
+                    Études de cas détaillées
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            {/* Mobile sous-menu */}
+            <ul className="md:hidden pl-4 mt-2">
+              <li>
+                <Link to="/portfolio#portfolio" className="block py-1">
+                  Slides & preuves
+                </Link>
+              </li>
+              <li>
+                <Link to="/portfolio#etudes" className="block py-1">
+                  Études de cas détaillées
+                </Link>
+              </li>
+            </ul>
+          </li>
+
+          {/* À propos */}
           <li role="none">
             <Link
               to="/about"
@@ -118,29 +229,8 @@ const Navigation: React.FC = () => {
               À propos
             </Link>
           </li>
-          <li role="none">
-            <Link
-              to="/services"
-              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              role="menuitem"
-              data-nav-item
-              tabIndex={isMenuOpen ? 0 : -1}
-            >
-              Services
-            </Link>
-          </li>
-          <li role="none">
-            <Link
-              to="/pourquoi-choisir"
-              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              role="menuitem"
-              data-nav-item
-              tabIndex={isMenuOpen ? 0 : -1}
-            >
-              Pourquoi me choisir ?
-            </Link>
-          </li>
 
+          {/* Blog */}
           <li role="none">
             <Link
               to="/blog"
@@ -152,27 +242,54 @@ const Navigation: React.FC = () => {
               Blog
             </Link>
           </li>
-          <li role="none">
-            <Link
-              to="/projet"
-              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              role="menuitem"
-              data-nav-item
+
+          {/* Contact (méga menu) */}
+          <li className="relative group" role="none">
+            <button
+              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white flex items-center gap-1"
+              aria-haspopup="true"
+              aria-expanded="false"
               tabIndex={isMenuOpen ? 0 : -1}
-            >
-              Déposer un projet
-            </Link>
-          </li>
-          <li role="none">
-            <Link
-              to="/contact"
-              className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              role="menuitem"
-              data-nav-item
-              tabIndex={isMenuOpen ? 0 : -1}
+              type="button"
             >
               Contact
-            </Link>
+              <svg
+                className="ml-1 w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div className="absolute left-0 top-full mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none transition-opacity duration-200 z-50 hidden md:block">
+              <ul className="py-3">
+                <li>
+                  <Link to="/projet" className="block px-6 py-2 hover:bg-primary/10">
+                    Déposer un projet
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/contact#rdv" className="block px-6 py-2 hover:bg-primary/10">
+                    Prendre rendez-vous
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            {/* Mobile sous-menu */}
+            <ul className="md:hidden pl-4 mt-2">
+              <li>
+                <Link to="/projet" className="block py-1">
+                  Déposer un projet
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact#rdv" className="block py-1">
+                  Prendre rendez-vous
+                </Link>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

@@ -126,6 +126,14 @@ export const pourquoiChoisirContent: ContentBlock[] = [
         '❌ Non inclus',
         '❌ Inexistant',
       ],
+      [
+        'Conformité RGPD / PCI / NIS2',
+        '✅ Intégrée dans la démarche projet',
+        '⚠️ En option, souvent tardif',
+        '❌ Peu maîtrisée',
+        '❌ Hors périmètre',
+        '❌ Inexistante',
+      ],
     ],
   },
   {

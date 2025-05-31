@@ -23,161 +23,75 @@ export const conseilsProContent: ContentBlock[] = [
   {
     type: 'heading',
     level: 2,
-    children: '💨 Mon site est lent et je ne sais pas pourquoi',
+    children: '💥 Mon projet Magento tourne au ralenti',
   },
   {
     type: 'paragraph',
     children:
-      "C'est peut-être Magento. Ou l'hébergeur. Ou un plugin WordPress. Tant qu'on n'a pas de mesures, ce ne sont que des hypothèses.",
+      "Backlog gelé, développeurs qui ne répondent plus, tickets non priorisés : ce n'est pas une fatalité.",
   },
   {
     type: 'list',
     items: [
-      'Benchmarks simples : GTmetrix, New Relic, logs serveur',
-      'Audit de surcharge (images, JS, appels API, cron Magento)',
-      "Vérifier l'infogérance (souvent le maillon faible)",
-      'Prioriser les actions à impact visible',
+      'Reprendre la main sur le backlog (tri, priorisation, planification)',
+      'Vérifier les process de versioning et de déploiement',
+      'Identifier les points de blocage humains ou techniques',
+      'Instaurer un reporting simple et transparent',
     ],
   },
   {
     type: 'heading',
     level: 2,
-    children: '💰 Mon budget est limité mais je veux un site performant',
-  },
-  {
-    type: 'paragraph',
-    children: "Le meilleur n'est pas toujours le plus cher. Concentrez-vous sur l'essentiel.",
-  },
-  {
-    type: 'list',
-    items: [
-      'Audit technique préalable',
-      'Solution adaptée à votre volume',
-      'Budget de maintenance inclus',
-      'Équipe réduite mais qualifiée',
-    ],
-  },
-  {
-    type: 'heading',
-    level: 2,
-    children: '🎯 Je veux augmenter mes ventes mais je ne sais pas par où commencer',
-  },
-  {
-    type: 'paragraph',
-    children: "Les conversions ne viennent pas du hasard. Il faut d'abord comprendre votre client.",
-  },
-  {
-    type: 'list',
-    items: [
-      'Analyse des parcours clients',
-      'Tests A/B sur les pages clés',
-      'Optimisation des formulaires',
-      'Personnalisation des offres',
-    ],
-  },
-  {
-    type: 'heading',
-    level: 2,
-    children: '🛠️ Mon site est en maintenance constante',
+    children: '🔐 Je crains pour la sécurité de mon site',
   },
   {
     type: 'paragraph',
     children:
-      "Une maintenance réactive n'est pas une solution à long terme. Il faut identifier les causes profondes.",
+      'Les failles ne sont pas toujours visibles. Un chmod mal placé, une extension mal maintenue, un backup inexistant… Et tout peut s’écrouler.',
   },
   {
     type: 'list',
     items: [
-      'Audit des plugins et extensions',
-      'Nettoyage du code',
-      'Documentation des process',
-      "Formation de l'équipe",
+      'Audit de configuration et des droits serveur',
+      'Contrôle des modules installés (officiels ou non)',
+      'Mise en place d’un plan de sauvegarde fiable',
+      'Vérification des accès et des comptes obsolètes',
     ],
   },
   {
     type: 'heading',
     level: 2,
-    children: '📊 Je ne sais pas mesurer la performance de mon site',
+    children: '📦 Mon projet est offshore, mais je n’ai plus de visibilité',
   },
   {
     type: 'paragraph',
-    children: 'Sans indicateurs clairs, impossible de prendre des décisions éclairées.',
+    children: 'Le décalage horaire n’est pas une excuse. Il faut du pilotage, pas du miracle.',
   },
   {
     type: 'list',
     items: [
-      'KPIs clés à suivre',
-      'Tableaux de bord automatisés',
-      'Alertes en cas de baisse',
-      'Rapports mensuels détaillés',
+      'Mise en place de points quotidiens ou hebdo',
+      'Centralisation des infos dans un outil partagé (Jira, Notion…)',
+      'Règles claires de QA, recette, livrables',
+      'Un interlocuteur unique, dédié au projet',
     ],
   },
   {
     type: 'heading',
     level: 2,
-    children: "👥 J'ai besoin d'une équipe mais je ne peux pas tout recruter",
+    children: '💡 Je n’ai pas de specs, mais j’ai une idée claire',
   },
   {
     type: 'paragraph',
-    children:
-      "Une équipe polyvalente et bien organisée vaut mieux qu'une équipe nombreuse mais inefficace.",
+    children: 'Un bon cadrage ne tue pas la créativité. Il la rend viable.',
   },
   {
     type: 'list',
     items: [
-      'Cartographie des compétences',
-      'Matrice RACI',
-      'Process de travail clairs',
-      'Outils de collaboration',
-    ],
-  },
-  {
-    type: 'heading',
-    level: 2,
-    children: '🎯 Je veux lancer une nouvelle fonctionnalité',
-  },
-  {
-    type: 'paragraph',
-    children: "L'innovation ne doit pas se faire au détriment de la stabilité.",
-  },
-  {
-    type: 'list',
-    items: ['Test de concept', 'Plan de migration', 'Budget de recul', 'Suivi des impacts'],
-  },
-  {
-    type: 'heading',
-    level: 2,
-    children: '🎯 Je veux moderniser mon site mais je ne sais pas par où commencer',
-  },
-  {
-    type: 'paragraph',
-    children: "Une refonte totale n'est pas toujours nécessaire. Identifiez les points critiques.",
-  },
-  {
-    type: 'list',
-    items: [
-      'Audit UX/UI',
-      'Priorisation des améliorations',
-      'Plan de migration',
-      'Budget de recul',
-    ],
-  },
-  {
-    type: 'heading',
-    level: 2,
-    children: '🎯 Je veux améliorer mon SEO mais je ne sais pas par où commencer',
-  },
-  {
-    type: 'paragraph',
-    children: "Le SEO n'est pas une baguette magique. Il faut une stratégie claire et mesurable.",
-  },
-  {
-    type: 'list',
-    items: [
-      'Audit technique',
-      'Analyse des mots-clés',
-      'Optimisation des contenus',
-      'Suivi des résultats',
+      'Atelier de cadrage fonctionnel (1 à 2h)',
+      'Formalisation des parcours, priorisation des besoins',
+      'Validation du périmètre avant devis ou lancement',
+      'Spécifications évolutives, adaptées au budget',
     ],
   },
   {

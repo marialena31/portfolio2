@@ -26,7 +26,8 @@ export const homeData: HomeData = {
         link: '/services#migration',
       },
       {
-        question: "Vous avez besoin d'une analyse de sécurité avant un lancement ?",
+        question:
+          'Vous avez besoin d’un renfort technique ou d’une sécurisation avant un lancement ?',
         solution: 'security',
         link: '/services#security',
       },
@@ -40,20 +41,27 @@ export const homeData: HomeData = {
         description:
           'Mises à jour de sécurité, optimisation des performances et résolution des bugs.',
         icon: 'wrench',
-        link: '/services#maintenance',
+        link: '/services',
       },
       {
         title: 'Migration Magento',
-        description: 'Migration vers les dernières versions de Magento avec zéro perte de données.',
+        description: 'Migration vers les dernières versions avec 0 perte de données.',
         icon: 'arrow-up',
-        link: '/services#migration',
+        link: '/services',
       },
       {
         title: 'Sécurité Magento',
         description:
-          'Audits de sécurité, correction des vulnérabilités et mise en place de bonnes pratiques.',
+          'Audits de sécurité, correction des vulnérabilités, mise en conformité RGPD, PCI-DSS, NIS2.',
         icon: 'shield',
-        link: '/services#security',
+        link: '/services',
+      },
+      {
+        title: 'Coordination offshore & projets critiques',
+        description:
+          'Pilotage transverse, accompagnement prestataires, arbitrage projet, équipe hybride.',
+        icon: 'consulting',
+        link: '/services',
       },
     ],
   },

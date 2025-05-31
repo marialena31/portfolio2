@@ -27,7 +27,6 @@ export const aboutContent: ContentBlock[] = [
     level: 2,
     children: 'Ma mission',
   },
-
   {
     type: 'paragraph',
     children:
@@ -52,13 +51,11 @@ export const aboutContent: ContentBlock[] = [
       'Formation et documentation utilisateur',
     ],
   },
-
   {
     type: 'heading',
     level: 2,
     children: 'Mon approche',
   },
-
   {
     type: 'paragraph',
     children:
@@ -84,7 +81,6 @@ export const aboutContent: ContentBlock[] = [
     level: 2,
     children: 'Localisation & mode de travail',
   },
-
   {
     type: 'paragraph',
     children:

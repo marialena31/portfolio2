@@ -5,52 +5,49 @@ const createProject = (
   title: string,
   description: string,
   image: string,
-  tags: string[],
-  githubUrl?: string,
-  liveUrl?: string
+  tags: string[]
 ): Project => ({
   id,
   title,
   description,
   image,
   tags,
-  githubUrl: githubUrl as Project['githubUrl'],
-  liveUrl: liveUrl as Project['liveUrl'],
   slug: createSlug(title),
 });
 
-export const projects: Project[] = [
+export const portfolio: Project[] = [
   createProject(
     '1',
-    'E-commerce Platform',
-    'A modern e-commerce platform built with React and Node.js',
-    '/images/projects/ecommerce.jpg',
-    ['React', 'Node.js', 'MongoDB'],
-    'https://github.com/yourusername/ecommerce',
-    'https://ecommerce-demo.com'
-  ),
-  createProject(
-    '2',
-    'Portfolio Website',
-    'A personal portfolio website built with Gatsby and TypeScript',
-    '/images/projects/portfolio.jpg',
-    ['Gatsby', 'TypeScript', 'GraphQL'],
-    'https://github.com/yourusername/portfolio',
-    'https://portfolio-demo.com'
+    'Analyse stratégique & chiffrage – Projet Magento B2C',
+    'Extrait de cadrage d’un projet e-commerce grand public. Objectif : transformer un besoin métier flou en backlog structuré, avec chiffrage, options d’architecture et arbitrages client.',
+    '/images/portfolio/slide1-magento-b2c.JPG',
+    ['Magento B2C', 'Cadrage', 'Architecture', 'Pilotage']
   ),
   createProject(
     '3',
-    'Task Management App',
-    'A collaborative task management application',
-    '/images/projects/taskmanager.jpg',
-    ['Vue.js', 'Express', 'PostgreSQL'],
-    'https://github.com/yourusername/taskmanager',
-    'https://taskmanager-demo.com'
+    'Upgrade Magento 2.4.5 – Cadrage stratégique & pilotage projet',
+    'Support d’animation produit pour accompagner un upgrade Magento critique : anticipation des risques, arbitrages des fonctionnalités, gouvernance et coordination des équipes.',
+    '/images/portfolio/slide3-upgrade-magento.JPG',
+    ['Upgrade', 'Magento 2.4.5', 'Planning', 'DevOps']
+  ),
+  createProject(
+    '6',
+    'Plan de réversibilité – Marketplace mobile',
+    'Document de pilotage conçu pour cadrer une sortie de prestation en douceur : transfert des accès, documentation, reprise de backlog, formation et support à distance.',
+    '/images/portfolio/slide6-reversibilite.JPG',
+    ['Réversibilité', 'Marketplace', 'TMA', 'Support offshore']
+  ),
+  createProject(
+    '8',
+    'Scénario pédagogique – Formation Magento & architecture SI',
+    'Exemple de support de formation technique à destination de développeurs ou de Product Owners : composants clés de Magento, organisation des flux, enjeux d’intégration SI.',
+    '/images/portfolio/slide8-formation-magento.JPG',
+    ['Formation', 'Architecture SI', 'Magento', 'PO']
   ),
 ];
 
 // Validate all projects at runtime
-projects.forEach((project, index) => {
+portfolio.forEach((project, index) => {
   if (!validateProject(project)) {
     throw new Error(`Invalid project data at index ${index}`);
   }

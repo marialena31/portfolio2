@@ -82,14 +82,17 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
           return (
             <h2
               key={key}
-              className="text-2xl md:text-3xl font-bold mb-4 mt-8 text-primary leading-tight transition-colors duration-200 text-left"
+              className="text-2xl md:text-3xl font-bold mb-8 mt-12 text-primary leading-tight border-l-4 border-primary pl-4 bg-primary/5 transition-colors duration-200 text-left shadow-sm"
             >
               {renderContent(block.children)}
             </h2>
           );
         if (block.level === 3)
           return (
-            <h3 key={key} className="transition-colors duration-200 text-left">
+            <h3
+              key={key}
+              className="text-xl font-semibold mb-2 mt-6 text-primary-dark transition-colors duration-200 text-left"
+            >
               {renderContent(block.children)}
             </h3>
           );

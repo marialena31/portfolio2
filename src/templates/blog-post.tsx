@@ -4,24 +4,27 @@ import Layout from '../components/layout';
 import { SEO } from '../components/seo';
 
 interface BlogPostData {
-  blogPost: {
-    title: string;
-    date: string;
-    author: string;
-    content: string;
-    excerpt: string;
-    tags: string[];
+  markdownRemark: {
     id: string;
-    slug: string;
+    html: string;
+    frontmatter: {
+      title: string;
+      date: string;
+      author?: string;
+      description?: string;
+      tags?: string[];
+      slug: string;
+    };
   };
 }
 
 const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
-  const post = data.blogPost;
+  const post = data.markdownRemark;
+  const fm = post.frontmatter;
 
   return (
     <Layout className="otherPages">
-      <SEO title={post.title} description={post.excerpt} />
+      <SEO title={fm.title} description={fm.description} />
       <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
         <div className="max-w-[64rem] mx-auto bg-white rounded-lg shadow-md p-20 flex flex-col items-start text-left">
           <button
@@ -52,23 +55,25 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
           </button>
           <header className="mb-6">
             <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-tr from-primary to-primary-green bg-clip-text text-transparent mb-6 leading-tight">
-              {post.title}
+              {fm.title}
             </h1>
             <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
-              <time>{post.date}</time>
-              <span className="ml-2">par {post.author}</span>
+              <time>{fm.date}</time>
+              {fm.author && <span className="ml-2">par {fm.author}</span>}
             </div>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {post.tags.map(tag => (
-                <span key={tag} className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">
-                  {tag}
-                </span>
-              ))}
-            </div>
+            {fm.tags && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {fm.tags.map(tag => (
+                  <span key={tag} className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </header>
           <div
             className="blog-post-content prose prose-primary max-w-none"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: post.html }}
           />
           <div className="mt-8 flex justify-center">
             <Link
@@ -101,15 +106,17 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
 
 export const query = graphql`
   query BlogPostBySlug($slug: String!) {
-    blogPost(slug: { eq: $slug }) {
+    markdownRemark(frontmatter: { slug: { eq: $slug } }) {
       id
-      title
-      date
-      author
-      content
-      excerpt
-      tags
-      slug
+      html
+      frontmatter {
+        title
+        date(formatString: "YYYY-MM-DD")
+        author
+        description
+        tags
+        slug
+      }
     }
   }
 `;

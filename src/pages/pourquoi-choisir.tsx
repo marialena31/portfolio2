@@ -12,7 +12,7 @@ const PourquoiChoisirPage: React.FC<PageProps> = () => {
       <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
         <ContentRenderer
           content={pourquoiChoisirContent}
-          containerClassName="max-w-[64rem] p-20 mx-auto bg-white rounded-lg shadow-md flex flex-col items-start text-left"
+          containerClassName="max-w-[64rem] w-full mx-auto p-20 bg-white rounded-lg shadow-md"
         />
       </section>
     </Layout>
