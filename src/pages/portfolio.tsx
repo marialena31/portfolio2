@@ -2,19 +2,36 @@ import React, { useState } from 'react';
 import Layout from '../components/layout';
 import { SEO } from '../components/seo';
 import Tabs from '../components/Tabs';
+import CustomPdfViewer from '../components/CustomPdfViewer';
 
 import CaseStudyCard from '../components/CaseStudyCard';
 import ProjectCard from '../components/ProjectCard';
 import { caseStudies } from '../data/caseStudies';
 import { portfolio } from '../data/projects';
 
-const PDF_URL = '/portfolio.pdf'; // Place ton PDF dans /static/portfolio.pdf
+const PDF_URL = '/docs/portfolio.pdf'; // Place ton PDF dans /static/portfolio.pdf
 
 const CASES_PER_PAGE = 6;
 
 const PortfolioPage: React.FC = () => {
   const [visible, setVisible] = useState(CASES_PER_PAGE);
+  const [tabIndex, setTabIndex] = useState(0);
   const showMore = () => setVisible(v => v + CASES_PER_PAGE);
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleHash = () => {
+        if (window.location.hash === '#etudes-de-cas') {
+          setTabIndex(1);
+        } else {
+          setTabIndex(0);
+        }
+      };
+      handleHash();
+      window.addEventListener('hashchange', handleHash);
+      return () => window.removeEventListener('hashchange', handleHash);
+    }
+  }, []);
 
   return (
     <Layout>
@@ -32,19 +49,24 @@ const PortfolioPage: React.FC = () => {
                   <p className="text-lg text-gray-700 text-center max-w-2xl mb-6 mx-auto">
                     Découvrez un aperçu de mes réalisations, missions et preuves de livrables.
                   </p>
-                  <div className="flex justify-center mb-8">
-                    <a
-                      href={PDF_URL}
-                      download
-                      className="inline-block px-6 py-3 bg-primary text-white rounded font-semibold hover:bg-primary-dark transition-colors"
-                    >
-                      Télécharger le portfolio
-                    </a>
-                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {portfolio.map(project => (
-                      <ProjectCard key={project.id} project={project} />
-                    ))}
+                    {portfolio
+                      .filter((_, idx) => idx !== 3)
+                      .map(project => (
+                        <ProjectCard key={project.id} project={project} />
+                      ))}
+                  </div>
+                  <div className="mt-12">
+                    <CustomPdfViewer url={PDF_URL} className="min-h-[600px]" />
+                    <div className="mt-4 text-center">
+                      <a
+                        href={PDF_URL}
+                        download
+                        className="inline-block px-6 py-3 bg-primary text-white rounded font-semibold hover:bg-primary-dark transition-colors"
+                      >
+                        Télécharger le PDF
+                      </a>
+                    </div>
                   </div>
                 </div>
               ),
@@ -72,6 +94,8 @@ const PortfolioPage: React.FC = () => {
               ),
             },
           ]}
+          activeTab={tabIndex}
+          onTabChange={setTabIndex}
         />
       </div>
     </Layout>

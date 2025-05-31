@@ -1,6 +1,7 @@
 import { GatsbyNode } from 'gatsby';
 import path from 'path';
-import { projects } from './src/data/projects';
+import { portfolio } from './src/data/projects';
+import { Project } from './src/types/data';
 import { caseStudies } from './src/data/caseStudies';
 import { NextFunction, Request, Response } from 'express';
 import { RateLimiterMiddleware } from './src/middleware/rate-limiter';
@@ -150,7 +151,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
   const { createNode } = actions;
 
   // Create nodes for projects
-  projects.forEach(project => {
+  portfolio.forEach((project: Project) => {
     const nodeContent = {
       ...project,
     };

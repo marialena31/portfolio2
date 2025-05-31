@@ -21,10 +21,16 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 }) => {
   return (
     <div
-      className={`rounded-xl shadow-md p-6 bg-white flex flex-col gap-4 mb-6 ${highlight ? 'border-2 border-primary bg-primary/5' : ''}`}
+      className={`rounded-2xl shadow-lg p-6 md:p-8 flex flex-col justify-between gap-4 mb-4 md:mb-8 transition-all duration-200
+        bg-white
+        ${highlight ? 'border-4 border-primary shadow-xl' : 'border border-gray-100'}
+        hover:shadow-2xl hover:-translate-y-1`}
     >
-      <div className={`flex items-center gap-3 mb-2 ${highlight ? 'text-primary' : ''}`}>
-        <h3 className="text-lg font-semibold flex items-center gap-2">
+      <div className="flex items-center gap-3 mb-4">
+        <h3
+          className="text-lg md:text-xl font-bold flex items-center gap-3 text-gray-900"
+          {...(typeof title === 'string' ? { 'aria-label': title } : {})}
+        >
           {typeof title === 'string' ? (
             <>
               {emoji && (
@@ -38,17 +44,38 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             title
           )}
         </h3>
-        {price && <div className="ml-auto text-primary font-bold text-base">{price}</div>}
       </div>
-      <p className="text-gray-700 mb-2">{description}</p>
-      <ul className="flex flex-col gap-2 mt-2">
-        {features.map((feature, index) => (
-          <li key={index} className="flex items-center gap-2 text-sm">
-            <Icon name="check" className="text-primary w-4 h-4" />
-            {feature}
-          </li>
-        ))}
-      </ul>
+      <div className="flex-1 flex flex-col">
+        <p className="text-gray-800 text-base md:text-lg mb-2 leading-relaxed">{description}</p>
+        <ul className="flex flex-col gap-3 mt-2">
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-center gap-4 text-base md:text-lg text-gray-800">
+              <Icon name="check" className="text-primary w-5 h-5 flex-shrink-0" />
+              <span className="align-middle">
+                {feature
+                  .split(/(-|\|)/g)
+                  .map((part, idx) =>
+                    ['-', '|'].includes(part) && idx !== 0 ? <br key={idx} /> : part
+                  )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {price && (
+        <>
+          <hr className="border-t border-primary/30 mt-8 mb-4" />
+          <div className="text-center mt-2">
+            <span className="text-lg md:text-xl font-bold bg-gradient-to-tr from-primary to-primary-green bg-clip-text text-transparent drop-shadow-md">
+              {price
+                .split(/(-|\|)/g)
+                .map((part, idx) =>
+                  ['-', '|'].includes(part) && idx !== 0 ? <br key={idx} /> : part
+                )}
+            </span>
+          </div>
+        </>
+      )}
     </div>
   );
 };

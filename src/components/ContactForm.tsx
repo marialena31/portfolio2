@@ -13,15 +13,16 @@ interface FormData {
   message: string;
 }
 
-const initialForm: FormData = {
+const initialForm: FormData & { gdprConsent: boolean } = {
   name: '',
   email: '',
   subject: '',
   message: '',
+  gdprConsent: false,
 };
 
 const ContactForm: React.FC = () => {
-  const [form, setForm] = useState<FormData>(initialForm);
+  const [form, setForm] = useState(initialForm);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -30,9 +31,17 @@ const ContactForm: React.FC = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleGdprConsentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, gdprConsent: e.target.checked });
+  };
+
   const validate = () => {
     if (!form.name.trim() || !form.email.trim() || !form.subject.trim() || !form.message.trim()) {
       setError('Tous les champs sont requis.');
+      return false;
+    }
+    if (!form.gdprConsent) {
+      setError('Vous devez accepter la politique de confidentialité.');
       return false;
     }
     // Simple email validation
@@ -115,7 +124,7 @@ const ContactForm: React.FC = () => {
       <form onSubmit={handleSubmit} className="flex flex-col gap-6" autoComplete="off" noValidate>
         <div className="flex flex-col gap-2">
           <label htmlFor="name" className="font-medium text-primary text-sm">
-            Nom
+            Nom <span className="text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -124,13 +133,12 @@ const ContactForm: React.FC = () => {
             className="w-full px-3 py-2 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-400"
             value={form.name}
             onChange={handleChange}
-            required
-            placeholder="Votre nom"
+            autoComplete="off"
           />
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="email" className="font-medium text-primary text-sm">
-            Email
+            Email <span className="text-red-600">*</span>
           </label>
           <input
             type="email"
@@ -139,13 +147,12 @@ const ContactForm: React.FC = () => {
             className="w-full px-3 py-2 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-400"
             value={form.email}
             onChange={handleChange}
-            required
-            placeholder="Votre adresse email"
+            autoComplete="off"
           />
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="subject" className="font-medium text-primary text-sm">
-            Sujet
+            Sujet <span className="text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -154,13 +161,12 @@ const ContactForm: React.FC = () => {
             className="w-full px-3 py-2 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-400"
             value={form.subject}
             onChange={handleChange}
-            required
-            placeholder="Sujet du message"
+            autoComplete="off"
           />
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="message" className="font-medium text-primary text-sm">
-            Message
+            Message <span className="text-red-600">*</span>
           </label>
           <textarea
             id="message"
@@ -168,9 +174,8 @@ const ContactForm: React.FC = () => {
             className="w-full px-3 py-3 border border-primary/20 rounded-md text-base bg-surface-primary text-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 min-h-[120px] resize-vertical placeholder:text-gray-400"
             value={form.message}
             onChange={handleChange}
-            required
+            autoComplete="off"
             rows={6}
-            placeholder="Votre message"
           />
         </div>
         {error && <div className="text-red-600 font-medium text-sm mt-2 mb-2">{error}</div>}
@@ -179,6 +184,30 @@ const ContactForm: React.FC = () => {
             Votre message a bien été envoyé.
           </div>
         )}
+        <div className="flex items-center gap-2 mt-2 mb-2">
+          <input
+            type="checkbox"
+            id="gdprConsent"
+            name="gdprConsent"
+            required
+            checked={form.gdprConsent}
+            onChange={handleGdprConsentChange}
+            className="accent-primary w-5 h-5"
+            autoComplete="off"
+          />
+          <label htmlFor="gdprConsent" className="text-sm text-gray-700 select-none">
+            J’accepte que mes données soient traitées pour me recontacter (
+            <a
+              href="/mentions-legales"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-primary hover:text-primary-dark"
+            >
+              politique de confidentialité
+            </a>
+            ) <span className="text-red-600">*</span>
+          </label>
+        </div>
         <button
           type="submit"
           className="w-full py-3 px-6 rounded-md bg-primary text-white font-semibold text-lg shadow-md hover:bg-primary-dark transition-all disabled:opacity-60 disabled:cursor-not-allowed mt-2"
@@ -190,5 +219,22 @@ const ContactForm: React.FC = () => {
     </div>
   );
 };
+
+// Désactive les flèches sur input[type=number] si jamais il y en a
+if (typeof window !== 'undefined' && (window as any).__contactFormCssInjected !== true) {
+  const style = document.createElement('style');
+  style.innerHTML = `
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type='number'] {
+      -moz-appearance: textfield;
+    }
+  `;
+  document.head.appendChild(style);
+  (window as any).__contactFormCssInjected = true;
+}
 
 export default ContactForm;

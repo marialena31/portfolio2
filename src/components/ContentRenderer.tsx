@@ -1,4 +1,21 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faBolt,
+  faLock,
+  faBug,
+  faUserCog,
+  faChartLine,
+  faExclamationTriangle,
+  faCogs,
+  faSyncAlt,
+  faUsers,
+  faQuestionCircle,
+  faBoxOpen,
+  faLightbulb,
+  faBullseye,
+  faHandshake,
+} from '@fortawesome/free-solid-svg-icons';
 
 export interface ContentBlock {
   type: string;
@@ -12,6 +29,7 @@ export interface ContentBlock {
   caption?: string;
   header?: string[];
   rows?: string[][];
+  icon?: string; // Ajout pour permettre une icône FontAwesome optionnelle
 }
 
 export interface ContentRendererProps {
@@ -36,6 +54,24 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
       ));
     }
     return content;
+  };
+
+  // Map icon string to FontAwesome icon object
+  const iconMap: Record<string, any> = {
+    faBolt,
+    faLock,
+    faBug,
+    faUserCog,
+    faChartLine,
+    faExclamationTriangle,
+    faCogs,
+    faSyncAlt,
+    faUsers,
+    faQuestionCircle,
+    faBoxOpen,
+    faLightbulb,
+    faBullseye,
+    faHandshake,
   };
 
   // Fonction pour regrouper le contenu par section (basé sur les titres h2)
@@ -82,8 +118,11 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
           return (
             <h2
               key={key}
-              className="text-2xl md:text-3xl font-bold mb-8 mt-12 text-primary leading-tight border-l-4 border-primary pl-4 bg-primary/5 transition-colors duration-200 text-left shadow-sm"
+              className="text-2xl md:text-3xl font-bold mb-8 mt-12 text-primary leading-tight border-l-4 border-primary pl-4 bg-primary/5 transition-colors duration-200 text-left shadow-sm flex items-center gap-3"
             >
+              {block.icon && iconMap[block.icon] && (
+                <FontAwesomeIcon icon={iconMap[block.icon]} className="text-primary mr-2" />
+              )}
               {renderContent(block.children)}
             </h2>
           );
@@ -200,7 +239,11 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
         <div className="space-y-8 w-full text-left">
           {sections.map((section, index) => (
             <div key={index} className="mb-8 w-full text-left">
-              {section.title && <h2>{renderContent(section.title)}</h2>}
+              {section.title &&
+                renderBlock(
+                  { type: 'heading', level: 2, children: section.title },
+                  `section-title-${index}`
+                )}
               {section.content.map((block, blockIndex) =>
                 renderBlock(block, `${index}-${blockIndex}`)
               )}

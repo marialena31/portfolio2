@@ -26,6 +26,7 @@ export const aboutContent: ContentBlock[] = [
     type: 'heading',
     level: 2,
     children: 'Ma mission',
+    icon: 'faBullseye',
   },
   {
     type: 'paragraph',
@@ -55,6 +56,7 @@ export const aboutContent: ContentBlock[] = [
     type: 'heading',
     level: 2,
     children: 'Mon approche',
+    icon: 'faHandshake',
   },
   {
     type: 'paragraph',

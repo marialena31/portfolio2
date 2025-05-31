@@ -11,17 +11,22 @@ const ServicesPage: React.FC<PageProps> = () => {
       <SEO title="Services" pageName="services" />
       <main className="min-h-screen bg-gradient-to-br from-primary to-primary-dark text-white w-full box-border py-28">
         <div className="max-w-[64rem] mx-auto text-center mb-12 px-4">
-          <h1>Mes Services</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-8">Mes Services</h1>
           <p className="text-lg text-white/90 mb-8">
-            Je vous accompagne dans la mise en place de votre boutique en ligne, de l&apos;analyse
-            de vos besoins à la livraison du projet clés en main. Je vous aide à reprendre le
-            contrôle de votre écosystème digital — site e-commerce, WordPress, PIM, ERP,
-            marketplaces — avec un pilotage rigoureux, une expertise fonctionnelle solide, et des
-            solutions adaptées à votre budget, y compris via l&apos;offshore encadré.
+            Je vous accompagne dans la mise en place de votre boutique en ligne.
+            <br />
+            De l’analyse de vos besoins à la livraison du projet clés en main.
+            <br />
+            Je vous aide à reprendre le contrôle de votre écosystème digital : site e-commerce,
+            WordPress, PIM, ERP, marketplaces…
+            <br />
+            Avec un pilotage rigoureux, une expertise fonctionnelle solide.
+            <br />
+            Solutions adaptées à votre budget, y compris via l’offshore encadré.
           </p>
         </div>
 
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-[64rem] mx-auto mb-16 px-4">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 max-w-[64rem] mx-auto mb-16 px-4">
           <ServiceCard
             title={
               <>
@@ -122,10 +127,10 @@ const ServicesPage: React.FC<PageProps> = () => {
             description="Accédez à des ressources qualifiées, sans compromis sur la qualité."
             features={[
               'Prestataires par spécialité :',
-              '&#x1F1EE;&#x1F1F3; Inde &amp; &#x1F1F7;&#x1F1F4; Roumanie : Magento (TMA, dev)',
-              '&#x1F1E6;&#x1F1E9; Maroc &amp; &#x1F1F5;&#x1F1E6; Panama : WordPress',
-              '&#x1F1FA;&#x1F1EC; Madagascar &amp; &#x1F1F5;&#x1F1F1; Philippines : saisie produit FR/EN',
-              '&#x1F1FB;&#x1F1F3; Vietnam : en veille, selon besoins spécifiques',
+              'Inde & Roumanie : Magento (TMA, dev)',
+              'Maroc & Panama : WordPress',
+              'Madagascar & Philippines : saisie produit FR/EN',
+              'Vietnam : en veille, selon besoins spécifiques',
               'Relation transparente : vous choisissez entre contact direct ou pilotage centralisé',
               'Garantie qualité, délais, budget',
               'Propriété du code, des accès, de la roadmap conservée',
@@ -282,33 +287,29 @@ const ServicesPage: React.FC<PageProps> = () => {
           />
         </div>
 
-        <div className="max-w-[64rem] mx-auto mt-16 px-4">
-          <h2 className="bg-gradient-to-tr from-primary to-primary-green bg-clip-text text-transparent text-3xl font-bold my-8">
-            En bonus
+        <div className="bg-primary/70 rounded-2xl shadow-xl p-8 max-w-3xl mx-auto mt-16">
+          <h2 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+            <Icon name="gift" className="text-white text-3xl" />
+            Bonus
           </h2>
-          <ul className="flex flex-col md:flex-row gap-6 justify-center items-center">
-            <li>
-              <Icon
-                name="search-dollar"
-                className="text-primary bg-white rounded-full p-2 shadow-md mr-2 text-xl inline-block align-middle"
-              />
-              <span>Audit 1h gratuit</span>
-            </li>
-            <li>
-              <Icon
-                name="handshake"
-                className="text-primary bg-white rounded-full p-2 shadow-md mr-2 text-xl inline-block align-middle"
-              />
-              <span>Abonnement flexible ou engagement 12 mois avec remise</span>
-            </li>
-            <li>
-              <Icon
-                name="medal"
-                className="text-primary bg-white rounded-full p-2 shadow-md mr-2 text-xl inline-block align-middle"
-              />
-              <span>Satisfait ou remboursé le 1er mois</span>
-            </li>
-          </ul>
+          <div className="flex flex-col gap-6 items-center">
+            <div className="flex items-center gap-3">
+              <Icon name="bolt" className="text-yellow-300 text-2xl" />
+              <span className="text-white text-lg">Réponse sous 24h</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Icon name="user-shield" className="text-green-200 text-2xl" />
+              <span className="text-white text-lg">Accès à mon réseau d’experts</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Icon name="hand-holding-heart" className="text-pink-200 text-2xl" />
+              <span className="text-white text-lg">Conseils personnalisés</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Icon name="certificate" className="text-blue-200 text-2xl" />
+              <span className="text-white text-lg">Audit flash offert</span>
+            </div>
+          </div>
         </div>
       </main>
     </Layout>

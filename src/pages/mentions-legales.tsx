@@ -8,10 +8,12 @@ const MentionsLegalesPage: React.FC = () => {
       <SEO title="Mentions Légales" />
       <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
         <div className="max-w-[64rem] mx-auto bg-white rounded-lg shadow-md p-20 flex flex-col items-start text-left text-gray-800">
-          <h1>Mentions légales</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-primary mb-8 mt-4">
+            Mentions légales
+          </h1>
 
           <section>
-            <h2 className="transition-colors duration-200">Éditeur du site</h2>
+            <h2 className="text-2xl font-bold text-primary mb-6 mt-12">Éditeur du site</h2>
             <p>Le site expertecom.fr est édité par :</p>
             <address>
               Maria-Lena PIETRI
@@ -20,14 +22,14 @@ const MentionsLegalesPage: React.FC = () => {
               <br />
               SIRET : 483 743 761 00056
               <br />
-              Adresse : Colomiers, France
+              Adresse : Toulouse, France
               <br />
               Contact : contact@marialena-pietri.fr
             </address>
           </section>
 
           <section>
-            <h2 className="transition-colors duration-200">Hébergement</h2>
+            <h2 className="text-2xl font-bold text-primary mb-6 mt-12">Hébergement</h2>
             <p>Le site est hébergé par :</p>
             <address>
               Netlify Inc.
@@ -48,7 +50,7 @@ const MentionsLegalesPage: React.FC = () => {
           </section>
 
           <section>
-            <h2 className="transition-colors duration-200">Responsabilité</h2>
+            <h2 className="text-2xl font-bold text-primary mb-6 mt-12">Responsabilité</h2>
             <p>
               Maria-Lena PIETRI s&#39;efforce de fournir sur ce site des informations aussi précises
               que possible. &quot;Les présentes conditions générales d&#39;utilisation (CGU)

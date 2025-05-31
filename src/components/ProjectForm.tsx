@@ -80,6 +80,8 @@ const initialForm: FormData<ProjectFormData> = {
 };
 
 const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
+  // Désactive les contrôles natifs si demandé par la prop
+
   const [form, setForm] = useState<ProjectFormData>(initialForm);
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<ValidationErrors>({});
@@ -245,7 +247,36 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
             ))}
           </div>
         )}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate autoComplete="off">
+          <div className="flex flex-col gap-5 mb-5">
+            <label htmlFor="name" className="font-medium text-primary text-sm">
+              Nom <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+              autoComplete="off"
+            />
+          </div>
+          <div className="flex flex-col gap-5 mb-5">
+            <label htmlFor="company" className="font-medium text-primary text-sm">
+              Entreprise
+            </label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              value={form.company}
+              onChange={handleChange}
+              className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              autoComplete="off"
+            />
+          </div>
           <div className="flex flex-col gap-5 mb-5">
             <label htmlFor="email" className="font-medium text-primary text-sm">
               Email <span className="text-red-500">*</span>
@@ -258,6 +289,7 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
               onChange={handleChange}
               className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
               required
+              autoComplete="off"
             />
           </div>
           {/* 1. Type de besoin */}
@@ -272,6 +304,7 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
               onChange={handleChange}
               required
               className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              autoComplete="off"
             >
               <option value="">Sélectionnez...</option>
               <option value="Migration">Migration</option>
@@ -292,6 +325,7 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
               onChange={handleChange}
               required
               className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              autoComplete="off"
             >
               <option value="">Sélectionnez...</option>
               <option value="site entier">Site entier</option>
@@ -304,19 +338,16 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
             <label htmlFor="contexte" className="font-medium text-primary text-sm">
               Contexte <span className="text-red-500">*</span>
             </label>
-            <select
+            <textarea
               id="contexte"
               name="contexte"
               value={form.contexte}
               onChange={handleChange}
               required
               className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-            >
-              <option value="">Sélectionnez...</option>
-              <option value="projet existant">Projet existant</option>
-              <option value="nouveau projet">Nouveau projet</option>
-              <option value="reprise">Reprise</option>
-            </select>
+              rows={3}
+              autoComplete="off"
+            />
           </div>
           {/* 4. Délais souhaités / contact */}
           <div className="flex flex-col gap-5 mb-5">
@@ -329,8 +360,9 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
               value={form.delais}
               onChange={handleChange}
               required
-              rows={2}
               className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              rows={2}
+              autoComplete="off"
             />
           </div>
           {/* Pièce jointe */}
@@ -377,5 +409,22 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
     </div>
   );
 };
+
+// Désactive les flèches sur input[type=number] si demandé
+if (typeof window !== 'undefined' && (window as any).__projectFormCssInjected !== true) {
+  const style = document.createElement('style');
+  style.innerHTML = `
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type='number'] {
+      -moz-appearance: textfield;
+    }
+  `;
+  document.head.appendChild(style);
+  (window as any).__projectFormCssInjected = true;
+}
 
 export default ProjectForm;

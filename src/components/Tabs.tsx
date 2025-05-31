@@ -8,11 +8,27 @@ interface Tab {
 interface TabsProps {
   tabs: Tab[];
   initialTab?: number;
+  activeTab?: number;
+  onTabChange?: (idx: number) => void;
   className?: string;
 }
 
-const Tabs: React.FC<TabsProps> = ({ tabs, initialTab = 0, className = '' }) => {
-  const [activeTab, setActiveTab] = useState(initialTab);
+const Tabs: React.FC<TabsProps> = ({
+  tabs,
+  initialTab = 0,
+  activeTab,
+  onTabChange,
+  className = '',
+}) => {
+  const [internalTab, setInternalTab] = useState(initialTab);
+  const currentTab = typeof activeTab === 'number' ? activeTab : internalTab;
+  const handleTabChange = (idx: number) => {
+    if (onTabChange) {
+      onTabChange(idx);
+    } else {
+      setInternalTab(idx);
+    }
+  };
 
   return (
     <div className={`w-full ${className}`}>
@@ -22,23 +38,23 @@ const Tabs: React.FC<TabsProps> = ({ tabs, initialTab = 0, className = '' }) => 
             key={tab.label}
             className={`px-6 py-3 font-semibold text-base focus:outline-none transition-colors duration-200
               ${
-                activeTab === idx
+                currentTab === idx
                   ? 'text-primary border-b-2 border-primary bg-white'
                   : 'text-gray-500 hover:text-primary'
               }
             `}
-            onClick={() => setActiveTab(idx)}
-            aria-selected={activeTab === idx}
+            onClick={() => handleTabChange(idx)}
+            aria-selected={currentTab === idx}
             aria-controls={`tab-panel-${idx}`}
             role="tab"
-            tabIndex={activeTab === idx ? 0 : -1}
+            tabIndex={currentTab === idx ? 0 : -1}
           >
             {tab.label}
           </button>
         ))}
       </div>
-      <div id={`tab-panel-${activeTab}`} role="tabpanel" className="w-full">
-        {tabs[activeTab].content}
+      <div id={`tab-panel-${currentTab}`} role="tabpanel" className="w-full">
+        {tabs[currentTab].content}
       </div>
     </div>
   );

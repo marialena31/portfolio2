@@ -23,7 +23,8 @@ export const conseilsProContent: ContentBlock[] = [
   {
     type: 'heading',
     level: 2,
-    children: '💥 Mon projet Magento tourne au ralenti',
+    children: 'Mon projet Magento tourne au ralenti',
+    icon: 'faBolt',
   },
   {
     type: 'paragraph',
@@ -42,7 +43,8 @@ export const conseilsProContent: ContentBlock[] = [
   {
     type: 'heading',
     level: 2,
-    children: '🔐 Je crains pour la sécurité de mon site',
+    children: 'Je crains pour la sécurité de mon site',
+    icon: 'faLock',
   },
   {
     type: 'paragraph',
@@ -61,7 +63,8 @@ export const conseilsProContent: ContentBlock[] = [
   {
     type: 'heading',
     level: 2,
-    children: '📦 Mon projet est offshore, mais je n’ai plus de visibilité',
+    children: 'Mon projet est offshore, mais je n’ai plus de visibilité',
+    icon: 'faBoxOpen',
   },
   {
     type: 'paragraph',
@@ -79,7 +82,8 @@ export const conseilsProContent: ContentBlock[] = [
   {
     type: 'heading',
     level: 2,
-    children: '💡 Je n’ai pas de specs, mais j’ai une idée claire',
+    children: 'Je n’ai pas de specs, mais j’ai une idée claire',
+    icon: 'faLightbulb',
   },
   {
     type: 'paragraph',

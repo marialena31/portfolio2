@@ -8,11 +8,12 @@ const ConseilsProPage: React.FC = () => {
   return (
     <Layout>
       <SEO title="Conseils de pro - Galères & Réponses cash" />
-      <div className="bg-gradient-to-br from-primary to-primary-dark py-16 min-h-screen">
-        <div className="max-w-[64rem] mx-auto px-4 py-12">
-          <ContentRenderer content={conseilsProContent} />
-        </div>
-      </div>
+      <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
+        <ContentRenderer
+          content={conseilsProContent}
+          containerClassName="max-w-[64rem] mx-auto bg-white rounded-lg shadow-md p-20 flex flex-col items-start text-left"
+        />
+      </section>
     </Layout>
   );
 };
