@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+
+interface MailScan {
+  status: 'pending' | 'clean' | 'malicious';
+  virustotal?: string;
+}
+
+interface MailSendResponse {
+  success?: boolean;
+  scan?: MailScan;
+  error?: string;
+  vt_analysis_url?: string;
+}
 
 import { useFormValidation } from '../hooks/useFormValidation';
 import { ValidationSchema, ValidationErrors } from '../types/validation';
 import { EnvConfig, validateEnv } from '../types/env';
-import { FormData, FormProps } from '../types/form';
+import { FormProps } from '../types/form';
 
 const envConfig: EnvConfig = {
   GATSBY_API_URL: process.env.GATSBY_API_URL || 'http://localhost:3000',
@@ -12,8 +24,6 @@ const envConfig: EnvConfig = {
 };
 
 if (!validateEnv(envConfig)) {
-  console.error("⚠️ Configuration d'environnement invalide");
-  console.error('Veuillez vérifier votre fichier .env');
   throw new Error("Configuration d'environnement invalide");
 }
 
@@ -67,7 +77,7 @@ const validationSchema: ValidationSchema = {
   },
 };
 
-const initialForm: FormData<ProjectFormData> = {
+const initialForm: ProjectFormData = {
   name: '',
   company: '',
   email: '',
@@ -79,12 +89,36 @@ const initialForm: FormData<ProjectFormData> = {
   file: null,
 };
 
+const allowedExtensions = ['pdf', 'png', 'jpg', 'jpeg'];
+const maxSize = 5 * 1024 * 1024; // 5 Mo
+function validateFile(file: File): boolean {
+  const ext = file.name.split('.').pop()?.toLowerCase();
+  const allowedMimeTypes = ['application/pdf', 'image/png', 'image/jpeg'];
+
+  if (!ext || !allowedExtensions.includes(ext)) {
+    alert('Type de fichier non autorisé !');
+    return false;
+  }
+  if (!allowedMimeTypes.includes(file.type)) {
+    alert('Le type de fichier ne correspond pas au format autorisé !');
+    return false;
+  }
+  if (file.size > maxSize) {
+    alert('Fichier trop volumineux (max 5Mo) !');
+    return false;
+  }
+  return true;
+}
+
 const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
   // Désactive les contrôles natifs si demandé par la prop
 
   const [form, setForm] = useState<ProjectFormData>(initialForm);
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<ValidationErrors>({});
+  const [loadingScan, setLoadingScan] = useState(false);
+  const [scanMessage, setScanMessage] = useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
   const { validate, validateField, resetErrors } = useFormValidation<ProjectFormData>(
     validationSchema,
     initialForm
@@ -93,10 +127,12 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     resetErrors();
+    setLoadingScan(true);
+    // setScanMessage('Scan du fichier et envoi en cours...');
 
     try {
       // Récupérer le CSRF token depuis le serveur
-      const csrfResponse = await axios.get(`${GATSBY_API_URL}/api/csrf-token`, {
+      const csrfResponse: AxiosResponse<any> = await axios.get(`${GATSBY_API_URL}/api/csrf-token`, {
         withCredentials: true,
         headers: {
           Accept: 'application/json',
@@ -123,64 +159,122 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
       }
 
       // Préparer les données pour l'envoi
-      const data = {
-        to: GATSBY_TO_EMAIL_ADDRESS,
-        subject: `Nouveau brief projet - ${form.typeBesoin}`,
-        text:
+      let response: AxiosResponse<MailSendResponse>;
+      const apiKey = process.env.GATSBY_API_KEY || '';
+      if (form.file) {
+        const formData = new FormData();
+        formData.append('from', form.email);
+        formData.append('to', GATSBY_TO_EMAIL_ADDRESS);
+        formData.append('subject', `Nouveau brief projet - ${form.typeBesoin}`);
+        formData.append(
+          'text',
           `Nouveau brief projet reçu :\n\n` +
-          `Nom : ${form.name}\n` +
-          (form.company ? `Entreprise : ${form.company}\n` : '') +
-          `Email : ${form.email}\n` +
-          `\nType de besoin : ${form.typeBesoin}\n` +
-          `Périmètre : ${form.perimetre}\n` +
-          `Contexte : ${form.contexte}\n` +
-          `Délais souhaités / contact :\n${form.delais}\n`,
-        fromName: form.name,
-        fromEmail: form.email,
-        company: form.company || '',
-      };
+            `Nom : ${form.name}\n` +
+            (form.company ? `Entreprise : ${form.company}\n` : '') +
+            `Email : ${form.email}\n` +
+            `\nType de besoin : ${form.typeBesoin}\n` +
+            `Périmètre : ${form.perimetre}\n` +
+            `Contexte : ${form.contexte}\n` +
+            `Délais souhaités / contact :\n${form.delais}\n`
+        );
+        formData.append('file', form.file);
 
-      // Configuration de la requête
-      const config = {
-        headers: {
-          'x-csrf-token': csrfToken,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      };
+        const config = {
+          headers: {
+            'x-csrf-token': csrfToken,
+            ...(apiKey ? { 'x-api-key': apiKey } : {}),
+          },
+        };
+        response = await axios.post<MailSendResponse>(
+          `${GATSBY_API_URL}/api/mail/send`,
+          formData,
+          config
+        );
+      } else {
+        const data = {
+          from: form.email,
+          to: GATSBY_TO_EMAIL_ADDRESS,
+          subject: `Nouveau brief projet - ${form.typeBesoin}`,
+          text:
+            `Nouveau brief projet reçu :\n\n` +
+            `Nom : ${form.name}\n` +
+            (form.company ? `Entreprise : ${form.company}\n` : '') +
+            `Email : ${form.email}\n` +
+            `\nType de besoin : ${form.typeBesoin}\n` +
+            `Périmètre : ${form.perimetre}\n` +
+            `Contexte : ${form.contexte}\n` +
+            `Délais souhaités / contact :\n${form.delais}\n`,
+        };
+        const config = {
+          headers: {
+            'x-csrf-token': csrfToken,
+            ...(apiKey ? { 'x-api-key': apiKey } : {}),
+            'Content-Type': 'application/json',
+          },
+        };
+        response = await axios.post<MailSendResponse>(
+          `${GATSBY_API_URL}/api/mail/send`,
+          data,
+          config
+        );
+      }
 
-      // Affichage des logs pour le débogage
-      console.log('Envoi du formulaire:', {
-        data,
-        config,
-      });
+      const scan = response.data?.scan;
+      if (scan) {
+        if (scan.status === 'malicious') {
+          setErrors(prev => ({
+            ...prev,
+            general: `Fichier malveillant détecté ! <a href="${scan.virustotal}" target="_blank" rel="noopener noreferrer">Voir le rapport VirusTotal</a>`,
+          }));
+          setLoadingScan(false);
+          setScanMessage(null);
+          return;
+        } else if (scan.status === 'pending') {
+          setScanMessage('Scan en cours. Merci de patienter...');
+          setLoadingScan(true);
+          return;
+        } else if (scan.status === 'clean') {
+          setScanMessage(null);
+          setLoadingScan(false);
+        }
+      }
 
-      // Envoi des données
-      const response = await axios.post(`${GATSBY_API_URL}/api/mail/send`, data, config);
-      console.log('Réponse du serveur:', response.data);
+      if (response.data?.success === false) {
+        setErrors(prev => ({
+          ...prev,
+          general:
+            (response.data.error || '') +
+            (response.data.vt_analysis_url
+              ? ` <a href="${response.data.vt_analysis_url}" target="_blank" rel="noopener noreferrer">Voir l’analyse VirusTotal</a>`
+              : ''),
+        }));
+        setSuccess(false);
+        setLoadingScan(false);
+        setScanMessage(null);
+        return;
+      }
 
-      // Réinitialiser le formulaire et afficher le succès
       setForm(initialForm);
+      if (fileInputRef.current) fileInputRef.current.value = '';
       setSuccess(true);
 
-      // Réinitialiser après 5 secondes
       setTimeout(() => {
         setSuccess(false);
         setErrors({});
       }, 5000);
-    } catch (err: any) {
-      console.error("Erreur lors de l'envoi:", err);
-      console.error('Réponse du serveur:', err.response?.data);
-
-      // Gestion des erreurs
-      const errorMessage =
-        err.response?.data?.message || "Une erreur est survenue lors de l'envoi du formulaire";
-      setErrors(prev => ({
-        ...prev,
-        general: errorMessage,
-      }));
-    } finally {
-      // Rien à faire ici
+    } catch (err: unknown) {
+      setLoadingScan(false);
+      setScanMessage(null);
+      let backendError = "Une erreur est survenue lors de l'envoi du formulaire";
+      if (
+        err &&
+        typeof err === 'object' &&
+        'message' in err &&
+        typeof (err as { message?: string }).message === 'string'
+      ) {
+        backendError = (err as any).message;
+      }
+      setErrors(prev => ({ ...prev, general: backendError }));
     }
   };
 
@@ -374,13 +468,41 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
               type="file"
               id="file"
               name="file"
-              onChange={handleChange}
+              ref={fileInputRef}
+              onChange={e => {
+                const file = e.target.files && e.target.files[0];
+                if (file && !validateFile(file)) {
+                  e.target.value = '';
+                  setForm(prev => ({ ...prev, file: null }));
+                  setErrors(prev => ({
+                    ...prev,
+                    file: 'Fichier non valide (PDF/JPG/PNG, 5Mo max)',
+                  }));
+                  setLoadingScan(false);
+                  setScanMessage(null);
+                  return;
+                }
+                setErrors(prev => {
+                  const newErrors = { ...prev };
+                  delete newErrors.file;
+                  return newErrors;
+                });
+                handleChange(e);
+                setLoadingScan(false);
+                setScanMessage(null);
+              }}
               className="block w-full text-sm text-primary border border-primary/20 rounded-md cursor-pointer bg-surface-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-              accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
+              accept=".pdf,.jpg,.jpeg,.png"
             />
             <small className="text-xs text-gray-500">
-              Formats acceptés : PDF, DOC, XLS, JPG, PNG (max 5MB)
+              Formats acceptés : PDF, JPG, PNG (max 5MB).
+              <br />
+              Vous pouvez envoyer le message sans pièce jointe si besoin.
+              <br />
+              Le fichier sera scanné automatiquement lors de l’envoi.
             </small>
+
+            {errors.file && <div className="text-red-600 text-xs mt-1">{errors.file}</div>}
           </div>
           {/* Consentement RGPD */}
           <div className="flex items-center gap-2">
@@ -399,11 +521,47 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-3 px-6 rounded-md bg-primary text-white font-semibold text-lg shadow-md hover:bg-primary-dark transition-all disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-            disabled={false}
+            className={`w-full bg-primary text-white py-3 px-6 rounded font-semibold text-lg transition-colors flex items-center justify-center shadow-md select-none
+              ${loadingScan ? 'opacity-70 cursor-not-allowed scale-95 active:scale-95 bg-primary-dark' : 'hover:bg-primary-dark active:scale-95'}`}
+            disabled={loadingScan}
+            aria-busy={loadingScan}
+            aria-disabled={loadingScan}
           >
-            Envoyer ma demande
+            {loadingScan ? (
+              <>
+                <svg
+                  className="animate-spin h-5 w-5 mr-2 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                </svg>
+                Envoi en cours...
+              </>
+            ) : (
+              'Envoyer'
+            )}
           </button>
+          {/* Un seul message "Scan du fichier et envoi en cours..." sous le bouton */}
+          {loadingScan && (
+            <div className="text-blue-700 text-base font-medium mt-4 text-center">
+              Scan du fichier et envoi en cours...
+            </div>
+          )}
+          {success && (
+            <div className="mt-6 p-4 bg-green-100 text-green-800 rounded text-center text-base font-medium shadow">
+              Votre projet a bien été envoyé. Je vous recontacterai sous 48h !
+            </div>
+          )}
         </form>
       </div>
     </div>

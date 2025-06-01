@@ -13,14 +13,13 @@ const TestForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/api/mail/send', formData, {
+      await axios.post('http://localhost:3000/api/mail/send', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      console.log('Réponse:', response.data);
-    } catch (error) {
-      console.error('Erreur:', error);
+    } catch (err) {
+      // Erreur ignorée intentionnellement pour le test
     }
   };
 

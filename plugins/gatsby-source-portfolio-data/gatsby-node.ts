@@ -1,6 +1,6 @@
 import { GatsbyNode } from 'gatsby';
 import * as path from 'path';
-import { projects } from '../../src/data/projects';
+import { portfolio } from '../../src/data/projects';
 import { services } from '../../src/data/services';
 import { skills } from '../../src/data/skills';
 
@@ -130,7 +130,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
   });
 
   // Create nodes for projects
-  projects.forEach(project => {
+  portfolio.forEach(project => {
     const slug = project.title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')

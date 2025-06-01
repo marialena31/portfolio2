@@ -91,6 +91,16 @@ const ContactForm: React.FC = () => {
         },
       };
 
+      // Debug : afficher la valeur de TO_EMAIL côté navigateur
+
+      // Vérification explicite de la variable d'environnement TO_EMAIL
+      if (!TO_EMAIL) {
+        setError(
+          "L'adresse email de destination (TO_EMAIL) n'est pas définie côté frontend. Vérifie la variable d'environnement GATSBY_TO_EMAIL_ADDRESS et redémarre Gatsby."
+        );
+        setLoading(false);
+        return;
+      }
       // Envoi du mail
       await axios.post(
         `${API_URL}/api/mail/send`,
@@ -104,12 +114,28 @@ const ContactForm: React.FC = () => {
       setSuccess(true);
       setForm(initialForm);
     } catch (err: unknown) {
-      const error = err as { response?: { data?: { error?: string; message?: string } } };
-      setError(
-        error.response?.data?.error ||
-          error.response?.data?.message ||
-          "Erreur lors de l'envoi du message."
-      );
+      setLoading(false);
+      let errorMsg = 'Erreur lors de l’envoi du message.';
+      if (typeof err === 'object' && err !== null) {
+        // AxiosError typage
+        if (
+          typeof err === 'object' &&
+          err !== null &&
+          'response' in err &&
+          typeof (err as { response?: { data?: { error?: string } } }).response?.data?.error ===
+            'string'
+        ) {
+          errorMsg = (err as any).response.data.error;
+        } else if (
+          typeof err === 'object' &&
+          err !== null &&
+          'message' in err &&
+          typeof (err as { message?: string }).message === 'string'
+        ) {
+          errorMsg = (err as any).message;
+        }
+      }
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
