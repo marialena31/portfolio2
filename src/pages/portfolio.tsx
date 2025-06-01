@@ -3,6 +3,7 @@ import Layout from '../components/layout';
 import { SEO } from '../components/seo';
 import Tabs from '../components/Tabs';
 import CustomPdfViewer from '../components/CustomPdfViewer';
+import ClientOnly from '../components/ClientOnly';
 
 import CaseStudyCard from '../components/CaseStudyCard';
 import ProjectCard from '../components/ProjectCard';
@@ -57,7 +58,9 @@ const PortfolioPage: React.FC = () => {
                       ))}
                   </div>
                   <div className="mt-12">
-                    <CustomPdfViewer url={PDF_URL} mode="portfolio" containerHeight="800px" />
+                    <ClientOnly>
+                      <CustomPdfViewer url={PDF_URL} mode="portfolio" containerHeight="800px" />
+                    </ClientOnly>
                     <div className="mt-4 text-center">
                       <a
                         href={PDF_URL}
