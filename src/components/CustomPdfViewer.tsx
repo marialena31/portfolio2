@@ -27,12 +27,17 @@ interface CustomPdfViewerProps {
    * - "presentation" (défaut) : viewer plus petit (550px)
    */
   mode?: 'portfolio' | 'presentation';
+  /**
+   * Hauteur personnalisée du container PDF (ex: '800px', '550px', etc.)
+   */
+  containerHeight?: string;
 }
 
 const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
   url,
   className,
   mode = 'presentation',
+  containerHeight,
 }) => {
   // Définit le zoom par défaut à 70%
   const containerRef = useRef<HTMLDivElement>(null);
@@ -40,7 +45,8 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
   const [pdfDoc, setPdfDoc] = useState<any | null>(null);
   const [page, setPage] = useState(1);
   const [numPages, setNumPages] = useState(0);
-  const [scale, setScale] = useState(0.6);
+  // Pour éviter le flou, on utilise une valeur de scale proche de 1 (1 = 100% natif)
+  const [scale, setScale] = useState(mode === 'portfolio' ? 1 : 0.7);
   const currentCanvasRef = useRef<HTMLCanvasElement>(null);
   const minScale = 0.6;
   const maxScale = 2.4;
@@ -153,11 +159,13 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
             </button>
           </div>
           <div
-            className={
-              mode === 'portfolio'
-                ? 'pdf-viewer-container min-h-[800px] h-[800px]'
-                : 'pdf-viewer-container min-h-[550px] h-[550px]'
-            }
+            className={`pdf-viewer-container ${
+              containerHeight
+                ? `min-h-[${containerHeight}] h-[${containerHeight}]`
+                : mode === 'portfolio'
+                  ? 'min-h-[800px] h-[800px]'
+                  : 'min-h-[550px] h-[550px]'
+            }`}
           >
             <div
               className={
@@ -172,7 +180,8 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
                 className="fade-in-pdf"
                 style={{
                   width: '100%',
-                  height: mode === 'portfolio' ? 'auto' : '100%',
+                  height: '100%', // Toujours 100% pour éviter le flou
+
                   display: 'block',
                   margin: '0 auto',
                   background: 'white',

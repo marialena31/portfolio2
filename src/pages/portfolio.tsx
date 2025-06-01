@@ -57,7 +57,7 @@ const PortfolioPage: React.FC = () => {
                       ))}
                   </div>
                   <div className="mt-12">
-                    <CustomPdfViewer url={PDF_URL} className="min-h-[600px]" />
+                    <CustomPdfViewer url={PDF_URL} mode="portfolio" containerHeight="800px" />
                     <div className="mt-4 text-center">
                       <a
                         href={PDF_URL}
