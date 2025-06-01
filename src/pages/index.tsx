@@ -8,7 +8,7 @@ import Brands from '../components/home/brands';
 import CallToAction from '../components/home/call-to-action';
 import { homeData } from '../data/home';
 
-interface PageProps {}
+type PageProps = object;
 
 const IndexPage: React.FC<PageProps> = () => {
   return (

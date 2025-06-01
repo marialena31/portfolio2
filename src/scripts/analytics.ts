@@ -5,12 +5,7 @@ type AnalyticsEvent = {
   value?: number;
 };
 
-export const trackEvent = ({
-  category,
-  action,
-  label,
-  value,
-}: AnalyticsEvent): void => {
+export const trackEvent = ({ category, action, label, value }: AnalyticsEvent): void => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', action, {
       event_category: category,

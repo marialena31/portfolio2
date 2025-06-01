@@ -1,22 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-
 import * as pdfjsLib from 'pdfjs-dist/build/pdf';
-import * as pdfjsViewer from 'pdfjs-dist/web/pdf_viewer';
+import type { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api';
 import 'pdfjs-dist/web/pdf_viewer.css';
-
-// Fade-in animation for PDF canvas
-const style = document.createElement('style');
-style.innerHTML = `
-.fade-in-pdf {
-  opacity: 0;
-  animation: fadeInPdf 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
-}
-@keyframes fadeInPdf {
-  to { opacity: 1; }
-}`;
-document.head.appendChild(style);
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
+import { useIsClient } from '../hooks/useIsClient';
 
 interface CustomPdfViewerProps {
   url: string;
@@ -39,19 +25,41 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
   mode = 'presentation',
   containerHeight,
 }) => {
-  // Définit le zoom par défaut à 70%
-  const containerRef = useRef<HTMLDivElement>(null);
+  const isClient = useIsClient();
+
   const [error, setError] = useState<string | null>(null);
-  const [pdfDoc, setPdfDoc] = useState<any | null>(null);
+  const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy | null>(null);
   const [page, setPage] = useState(1);
   const [numPages, setNumPages] = useState(0);
-  // Pour éviter le flou, on utilise une valeur de scale proche de 1 (1 = 100% natif)
   const [scale, setScale] = useState(mode === 'portfolio' ? 1 : 0.7);
   const currentCanvasRef = useRef<HTMLCanvasElement>(null);
   const minScale = 0.6;
   const maxScale = 2.4;
 
   useEffect(() => {
+    if (!isClient) return;
+    if (!document.getElementById('fade-in-pdf-style')) {
+      const style = document.createElement('style');
+      style.id = 'fade-in-pdf-style';
+      style.innerHTML = `
+        .fade-in-pdf {
+          opacity: 0;
+          animation: fadeInPdf 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
+        }
+        @keyframes fadeInPdf {
+          to { opacity: 1; }
+        }`;
+      document.head.appendChild(style);
+    }
+  }, [isClient]);
+
+  useEffect(() => {
+    if (!isClient) return;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
+  }, [isClient]);
+
+  useEffect(() => {
+    if (!isClient) return;
     let cancelled = false;
     setError(null);
     setPdfDoc(null);
@@ -64,7 +72,7 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
           setPdfDoc(doc);
           setNumPages(doc.numPages);
         }
-      } catch (err) {
+      } catch {
         setError("Impossible d'afficher le PDF. Vérifiez le chemin ou le format.");
       }
     };
@@ -72,10 +80,11 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
     return () => {
       cancelled = true;
     };
-  }, [url]);
+  }, [isClient, url]);
 
   // Rendu PDF.js sur le canvas courant à chaque changement de page ou de zoom
   useEffect(() => {
+    if (!isClient) return;
     if (!pdfDoc || !currentCanvasRef.current) return;
     (async () => {
       try {
@@ -91,7 +100,7 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
         setError("Erreur lors de l'affichage de la page PDF.");
       }
     })();
-  }, [pdfDoc, page, scale]);
+  }, [isClient, pdfDoc, page, scale]);
 
   const goToPrevPage = () => {
     if (page > 1) setPage(page - 1);
@@ -105,8 +114,11 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
   // Animation fade-in à chaque changement de page
   const [fadeKey, setFadeKey] = useState(0);
   useEffect(() => {
+    if (!isClient) return;
     setFadeKey(k => k + 1);
-  }, [page, scale]);
+  }, [isClient, page, scale]);
+
+  if (!isClient) return null;
 
   return (
     <div

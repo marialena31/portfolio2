@@ -6,7 +6,7 @@ interface SchemaCustomizationArgs {
 
 export const createSchemaCustomization = ({ actions }: SchemaCustomizationArgs): void => {
   const { createTypes } = actions;
-  
+
   const typeDefs = `
     type Project implements Node {
       id: ID!
