@@ -1,23 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import { CaseStudy } from '../data/caseStudies';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 
 interface CaseStudyCardProps {
   study: CaseStudy;
 }
 
 const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ study }) => {
+  const [open, setOpen] = useState(false);
   return (
     <article className="bg-white rounded-xl shadow-md border border-primary/10 p-6 flex flex-col h-full transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-primary">
       <div className="flex flex-col gap-3 grow">
         {study.image && (
-          <div className="w-full h-[172px] overflow-hidden bg-white rounded-lg mb-2 flex items-center justify-center shadow-lg">
-            <img
-              src={study.image}
-              alt={study.title}
-              className="w-full h-full object-cover rounded-lg"
+          <>
+            <div
+              className="w-full h-[172px] overflow-hidden bg-white rounded-lg mb-2 flex items-center justify-center shadow-lg cursor-zoom-in"
+              onClick={() => setOpen(true)}
+              title="Voir l'image en grand"
+              tabIndex={0}
+              role="button"
+              aria-label="Voir l'image en grand"
+              onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setOpen(true)}
+            >
+              <img
+                src={study.image}
+                alt={study.title}
+                className="w-full h-full object-cover rounded-lg transition-transform duration-200 hover:scale-105"
+              />
+            </div>
+            <Lightbox
+              open={open}
+              close={() => setOpen(false)}
+              slides={[{ src: study.image, alt: study.title }]}
             />
-          </div>
+          </>
         )}
         <h2 className="text-xl font-semibold bg-gradient-to-tr from-primary to-primary-green bg-clip-text text-transparent mb-2">
           {study.title}

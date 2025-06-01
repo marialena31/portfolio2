@@ -63,7 +63,8 @@
     "ioredis": "^5.4.1",
     "pdfjs-dist": "^5.2.133",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "yet-another-react-lightbox": "^3.23.2"
   },
   "devDependencies": {
     "@ardatan/aggregate-error": "^0.0.6",

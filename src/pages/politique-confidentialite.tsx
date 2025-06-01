@@ -22,9 +22,9 @@ const PolitiqueConfidentialitePage: React.FC = () => {
               Responsable du traitement
             </h2>
             <address>
-              Maria-Lena PIETRI
+              Maria-Lena PIETRI EI
               <br />
-              Micro-entreprise – SIRET : 483 743 761 00056
+              Entreprise individuelle – SIRET : 483 743 761 00056
               <br />
               Adresse : Toulouse, France
               <br />

@@ -16,7 +16,7 @@ const MentionsLegalesPage: React.FC = () => {
             <h2 className="text-2xl font-bold text-primary mb-6 mt-12">Éditeur du site</h2>
             <p>Le site expertecom.fr est édité par :</p>
             <address>
-              Maria-Lena PIETRI
+              Maria-Lena PIETRI EI
               <br />
               Entreprise individuelle – Conseil et expertise en informatique
               <br />

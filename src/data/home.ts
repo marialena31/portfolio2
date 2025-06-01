@@ -16,20 +16,19 @@ export const homeData: HomeData = {
     title: 'Vos Besoins',
     items: [
       {
-        question: 'Votre site Magento manque de mises à jour ?',
-        solution: 'maintenance',
-        link: '/services#maintenance',
+        question: 'Votre Magento est en version obsolète ?',
+        solution: 'security',
+        link: '/services#security',
       },
       {
-        question: 'Vous préparez une migration ou une mise en ligne ?',
+        question: 'Votre mise en ligne approche et rien n’est prêt ?',
         solution: 'migration',
         link: '/services#migration',
       },
       {
-        question:
-          'Vous avez besoin d’un renfort technique ou d’une sécurisation avant un lancement ?',
-        solution: 'security',
-        link: '/services#security',
+        question: 'Vous avez un backlog bloqué ou une TMA en roue libre ?',
+        solution: 'maintenance',
+        link: '/services#maintenance',
       },
     ],
   },

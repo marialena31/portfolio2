@@ -15,9 +15,9 @@ export const conseilsProContent: ContentBlock[] = [
     type: 'paragraph',
     children:
       "👉 Vous vous reconnaissez dans l'un de ces cas ?\n\n" +
-      '<a href="https://linkedin.com/in/marialenapietri" class="underline text-blue-600 hover:text-blue-800" target="_blank">LinkedIn</a>' +
+      '<a href="https://linkedin.com/in/maria-lena-pietri" class="underline text-blue-600 hover:text-blue-800" target="_blank">LinkedIn</a>' +
       '\nou prenez\n\n' +
-      '<a href="/contact" class="underline text-blue-600 hover:text-blue-800">1h d\'audit gratuite</a>' +
+      '<a href="/contact" class="underline text-blue-600 hover:text-blue-800">45mn d\'audit gratuites</a>' +
       '\npour faire le point.',
   },
   {
@@ -105,9 +105,9 @@ export const conseilsProContent: ContentBlock[] = [
   {
     type: 'paragraph',
     children:
-      '👉\n<a href="/contact" class="underline text-blue-600 hover:text-blue-800">Prenez rendez-vous pour 1h gratuite</a>\n\n' +
+      '👉\n<a href="/contact" class="underline text-blue-600 hover:text-blue-800">Prenez rendez-vous pour 45mn gratuites</a>\n\n' +
       '👉 Ou retrouvez-moi sur\n' +
-      '<a href="https://linkedin.com/in/marialenapietri" class="underline text-blue-600 hover:text-blue-800" target="_blank">LinkedIn</a>' +
+      '<a href="https://linkedin.com/in/maria-lena-pietri" class="underline text-blue-600 hover:text-blue-800" target="_blank">LinkedIn</a>' +
       '\npour poser vos questions, me défier ou partager votre propre cas.',
   },
 ];

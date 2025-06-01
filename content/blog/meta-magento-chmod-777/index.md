@@ -70,6 +70,4 @@ Un **audit rapide** permet souvent de détecter ces erreurs silencieuses avant q
 
 ### 🎯 Besoin d’un regard externe ?
 
-Je propose un **diagnostic flash gratuit de 30 minutes**, pour évaluer les pratiques en place sur votre environnement Magento : sécurité, TMA, process de livraison, coordination prestataires.
-
-📩 [Contactez-moi ici](mailto:contact@expertecom.fr)
+Je propose un **diagnostic flash gratuit de 45 minutes**, pour évaluer les pratiques en place sur votre environnement Magento : sécurité, TMA, process de livraison, coordination prestataires.
