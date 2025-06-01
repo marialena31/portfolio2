@@ -240,8 +240,8 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       description: String!
       image: String!
       tags: [String!]!
-      githubUrl: String!
-      liveUrl: String!
+      githubUrl: String
+      liveUrl: String
       slug: String!
     }
   `;
