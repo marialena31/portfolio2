@@ -13,7 +13,11 @@ type PageProps = object;
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <Layout isHomePage>
-      <SEO title="Accueil" pageName="home" />
+      <SEO
+        title="Accueil"
+        pageName="home"
+        description="Création de sites web, e-commerce et conseils digitaux à Toulouse et partout en France."
+      />
       <Hero {...homeData.hero} />
       <Needs {...homeData.needs} />
       <Services title={homeData.services.title} items={homeData.services.items} />

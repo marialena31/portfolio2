@@ -102,7 +102,7 @@ const PdfViewerClientOnly: React.FC<CustomPdfViewerProps> = ({
 
   return (
     <div
-      className={`w-full max-w-[64rem] mx-auto bg-gray-100 rounded-2xl shadow-xl p-4 ${className ?? 'min-h-[500px]'}`}
+      className={`w-full max-w-[64rem] mx-auto bg-gray-100 rounded-2xl shadow-xl p-4 ${mode === 'portfolio' ? 'sm:p-2' : ''} ${className ?? 'min-h-[500px]'}`}
       style={{ transition: 'background 0.3s', height: containerHeight }}
     >
       {error ? (
@@ -147,12 +147,24 @@ const PdfViewerClientOnly: React.FC<CustomPdfViewerProps> = ({
               +
             </button>
           </div>
-          <div className="flex justify-center">
+          {mode === 'portfolio' && (
+            <div className="block sm:hidden text-center text-xs text-gray-500 mb-2">
+              Faites défiler horizontalement pour voir tout le document.
+            </div>
+          )}
+          <div
+            className={`${mode === 'portfolio' ? 'overflow-x-auto w-full' : 'flex justify-center'}`}
+            style={mode === 'portfolio' ? { WebkitOverflowScrolling: 'touch' } : {}}
+          >
             <canvas
               ref={currentCanvasRef}
               key={fadeKey}
-              className="fade-in-pdf bg-white rounded shadow"
-              style={{ maxWidth: '100%', height: 'auto', minHeight: 300 }}
+              className={`fade-in-pdf bg-white rounded shadow ${mode === 'portfolio' ? 'w-[700px] max-w-none sm:w-full' : ''}`}
+              style={
+                mode === 'portfolio'
+                  ? { minWidth: 600, maxWidth: '100%', height: 'auto', minHeight: 300 }
+                  : { maxWidth: '100%', height: 'auto', minHeight: 300 }
+              }
             />
           </div>
         </>

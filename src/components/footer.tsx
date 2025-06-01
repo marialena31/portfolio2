@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
         </div>
-        <p className="mt-6 text-xs text-gray-400 text-center max-w-3xl mx-auto">
+        <p className="mt-6 text-xs text-gray-700 text-center max-w-3xl mx-auto">
           © 2025 Maria-Lena PIETRI. Tous droits réservés.
           <br />
           Site conçu avec IA générative (ChatGPT + WindSurf) — contenu piloté, structuré, validé

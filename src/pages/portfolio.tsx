@@ -107,4 +107,10 @@ const PortfolioPage: React.FC = () => {
 
 export default PortfolioPage;
 
-export const Head = () => <SEO title="Portfolio & Études de cas" pageName="portfolio" />;
+export const Head = () => (
+  <SEO
+    title="Portfolio & Études de cas"
+    pageName="portfolio"
+    description="Découvrez des réalisations web, études de cas et projets clients menés avec succès."
+  />
+);

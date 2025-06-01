@@ -88,6 +88,8 @@ const Navigation: React.FC = () => {
           <img
             src="/images/expertecom-logo.png"
             alt=""
+            width="200"
+            height="50"
             style={{ height: 50, width: 'auto', display: 'block' }}
           />
         </Link>
@@ -132,12 +134,15 @@ const Navigation: React.FC = () => {
         <ul
           id="mainMenu"
           className={`flex items-center gap-4 md:static md:flex-row md:bg-transparent md:p-0 md:h-auto md:w-auto transition-all duration-200 ease-in-out
-            fixed top-16 left-0 right-0 bottom-0 bg-white p-8 flex-col z-40 shadow-lg md:shadow-none md:gap-4
+            fixed top-16 left-0 right-0 bottom-0 bg-gray-50 p-8 flex-col z-40 shadow-lg md:shadow-none md:gap-4
             ${isMenuOpen ? 'flex animate-fade-in' : 'hidden'} md:flex`}
           role="menu"
         >
+          <li className="md:hidden py-2">
+            <span className="text-xs uppercase text-gray-500 font-semibold">Accueil</span>
+          </li>
           {/* Accueil */}
-          <li role="none">
+          <li role="menuitem" className="py-2 border-t md:border-none">
             <Link
               to="/"
               className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
@@ -152,15 +157,15 @@ const Navigation: React.FC = () => {
           {/* Offre & services (méga menu) */}
           <li
             className="relative"
-            role="none"
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded={openMegaMenu === 'offre'}
             onMouseEnter={() => {
               if (!isMobile) handleMegaMenuEnter('offre');
             }}
           >
             <button
               className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              aria-haspopup="true"
-              aria-expanded={openMegaMenu === 'offre'}
               tabIndex={isMenuOpen ? 0 : -1}
               type="button"
             >
@@ -177,13 +182,14 @@ const Navigation: React.FC = () => {
             </button>
             <div
               className={`absolute left-0 top-full mt-2 w-[28rem] bg-white rounded-lg shadow-xl border border-gray-100 transition-opacity duration-200 z-50 p-6 hidden md:block ${openMegaMenu === 'offre' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+              role="menu"
               onMouseDown={e => e.preventDefault()}
               onMouseLeave={() => {
                 if (!isMobile) handleMegaMenuLeave();
               }}
             >
               <div className="grid grid-cols-3 gap-6">
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center" role="menuitem">
                   <FontAwesomeIcon icon={faHandshake} className="text-primary text-3xl mb-2" />
                   <div className="font-bold mb-2">Présentation des services</div>
                   <Link
@@ -194,7 +200,7 @@ const Navigation: React.FC = () => {
                     Découvrir
                   </Link>
                 </div>
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center" role="menuitem">
                   <FontAwesomeIcon icon={faLightbulb} className="text-primary text-3xl mb-2" />
                   <div className="font-bold mb-2">Pourquoi me choisir ?</div>
                   <Link
@@ -205,7 +211,7 @@ const Navigation: React.FC = () => {
                     Voir les atouts
                   </Link>
                 </div>
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center" role="menuitem">
                   <FontAwesomeIcon icon={faGears} className="text-primary text-3xl mb-2" />
                   <div className="font-bold mb-2">Conseils de pro</div>
                   <Link
@@ -221,12 +227,18 @@ const Navigation: React.FC = () => {
 
             {/* Mobile sous-menu */}
             <ul
-              className="md:hidden pl-4 mt-2"
+              className="md:hidden pl-4 mt-2 bg-gray-50 rounded-lg divide-y divide-gray-200"
+              role="menu"
               onClick={() => {
                 if (isMobile) setIsMenuOpen(false);
               }}
             >
-              <li>
+              <li className="py-2">
+                <span className="text-xs uppercase text-gray-500 font-semibold">
+                  Offre & services
+                </span>
+              </li>
+              <li role="menuitem">
                 <Link
                   to="/services"
                   className="block py-1"
@@ -237,7 +249,7 @@ const Navigation: React.FC = () => {
                   Présentation des services
                 </Link>
               </li>
-              <li>
+              <li role="menuitem">
                 <Link
                   to="/pourquoi-choisir"
                   className="block py-1"
@@ -248,22 +260,11 @@ const Navigation: React.FC = () => {
                   Pourquoi me choisir ?
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/conseils"
-                  className="block py-1"
-                  onClick={() => {
-                    if (isMobile) setIsMenuOpen(false);
-                  }}
-                >
-                  Conseils de pro
-                </Link>
-              </li>
             </ul>
           </li>
 
           {/* Plaquette ExpertEcom */}
-          <li role="none">
+          <li role="menuitem">
             <Link
               to="/plaquette"
               className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
@@ -277,7 +278,7 @@ const Navigation: React.FC = () => {
           </li>
 
           {/* Blog */}
-          <li role="none">
+          <li role="menuitem">
             <Link
               to="/blog"
               className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
@@ -292,15 +293,15 @@ const Navigation: React.FC = () => {
           {/* Portfolio & études de cas (méga menu) */}
           <li
             className="relative"
-            role="none"
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded={openMegaMenu === 'portfolio'}
             onMouseEnter={() => {
               if (!isMobile) handleMegaMenuEnter('portfolio');
             }}
           >
             <button
               className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              aria-haspopup="true"
-              aria-expanded={openMegaMenu === 'portfolio'}
               tabIndex={isMenuOpen ? 0 : -1}
               type="button"
             >
@@ -317,13 +318,14 @@ const Navigation: React.FC = () => {
             </button>
             <div
               className={`absolute left-0 top-full mt-2 w-[28rem] bg-white rounded-lg shadow-xl border border-gray-100 transition-opacity duration-200 z-50 p-6 hidden md:block ${openMegaMenu === 'portfolio' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+              role="menu"
               onMouseDown={e => e.preventDefault()}
               onMouseLeave={() => {
                 if (!isMobile) handleMegaMenuLeave();
               }}
             >
               <div className="grid grid-cols-2 gap-6">
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center" role="menuitem">
                   <FontAwesomeIcon icon={faImages} className="text-primary text-3xl mb-2" />
                   <div className="font-bold mb-2">Portfolio</div>
                   <Link
@@ -334,7 +336,7 @@ const Navigation: React.FC = () => {
                     Voir le portfolio
                   </Link>
                 </div>
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center" role="menuitem">
                   <FontAwesomeIcon icon={faSuitcase} className="text-primary text-3xl mb-2" />
                   <div className="font-bold mb-2">Études de cas</div>
                   <Link
@@ -350,12 +352,18 @@ const Navigation: React.FC = () => {
 
             {/* Mobile sous-menu */}
             <ul
-              className="md:hidden pl-4 mt-2"
+              className="md:hidden pl-4 mt-2 bg-gray-50 rounded-lg divide-y divide-gray-200"
+              role="menu"
               onClick={() => {
                 if (isMobile) setIsMenuOpen(false);
               }}
             >
-              <li>
+              <li className="py-2">
+                <span className="text-xs uppercase text-gray-500 font-semibold">
+                  Portfolio & études de cas
+                </span>
+              </li>
+              <li role="menuitem">
                 <Link
                   to="/portfolio"
                   className="block py-1"
@@ -366,7 +374,7 @@ const Navigation: React.FC = () => {
                   Portfolio
                 </Link>
               </li>
-              <li>
+              <li role="menuitem">
                 <Link
                   to="/portfolio#etudes-de-cas"
                   className="block py-1"
@@ -377,24 +385,15 @@ const Navigation: React.FC = () => {
                   Études de cas
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/conseils"
-                  className="block py-1"
-                  onClick={() => {
-                    if (isMobile) setIsMenuOpen(false);
-                  }}
-                >
-                  Conseils de pro
-                </Link>
-              </li>
             </ul>
           </li>
 
           {/* Contact */}
           <li
             className="relative"
-            role="none"
+            role="menuitem"
+            aria-haspopup="true"
+            aria-expanded={openMegaMenu === 'contact'}
             onMouseEnter={() => {
               if (!isMobile) handleMegaMenuEnter('contact');
             }}
@@ -425,7 +424,7 @@ const Navigation: React.FC = () => {
               }}
             >
               <div className="grid grid-cols-1 gap-6">
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center" role="menuitem">
                   <FontAwesomeIcon
                     icon={faEnvelopeOpenText}
                     className="text-primary text-3xl mb-2"
@@ -439,7 +438,7 @@ const Navigation: React.FC = () => {
                     Formulaire
                   </Link>
                 </div>
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center" role="menuitem">
                   <FontAwesomeIcon icon={faEnvelope} className="text-primary text-3xl mb-2" />
                   <div className="font-bold mb-2">Envoyer un message</div>
                   <Link
@@ -450,7 +449,7 @@ const Navigation: React.FC = () => {
                     Contact
                   </Link>
                 </div>
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center" role="menuitem">
                   <FontAwesomeIcon icon={faCalendarCheck} className="text-primary text-3xl mb-2" />
                   <div className="font-bold mb-2">Prendre rendez-vous</div>
                   <a

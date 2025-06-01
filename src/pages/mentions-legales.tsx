@@ -5,9 +5,12 @@ import { SEO } from '../components/seo';
 const MentionsLegalesPage: React.FC = () => {
   return (
     <Layout>
-      <SEO title="Mentions Légales" />
+      <SEO
+        title="Mentions Légales"
+        description="Informations légales, éditeur, hébergeur et politique du site expertecom.fr."
+      />
       <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
-        <div className="max-w-[64rem] mx-auto bg-white rounded-lg shadow-md p-20 flex flex-col items-start text-left text-gray-800">
+        <div className="max-w-[64rem] mx-auto bg-white rounded-lg shadow-md p-4 md:p-20 flex flex-col items-start text-left text-gray-800">
           <h1 className="text-3xl md:text-4xl font-bold text-primary mb-8 mt-4">
             Mentions légales
           </h1>

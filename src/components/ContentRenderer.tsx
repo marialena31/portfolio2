@@ -153,7 +153,7 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
           return (
             <ol key={key} className="list-decimal pl-6 my-6 text-left">
               {block.items?.map((item, i) => (
-                <li key={`${key}-${i}`} className="mb-2">
+                <li key={`${key}-${i}`} className="mb-2 text-gray-700">
                   {renderContent(item)}
                 </li>
               ))}

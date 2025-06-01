@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import Dropzone, { DropzoneRootProps, DropzoneInputProps } from 'react-dropzone';
+// Utilise Dropzone de react-dropzone pour l'upload accessible par drag-and-drop
 
 interface MailScan {
   status: 'pending' | 'clean' | 'malicious';
@@ -464,15 +466,11 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
             <label htmlFor="file" className="font-medium text-primary text-sm">
               Pièce jointe (facultative)
             </label>
-            <input
-              type="file"
-              id="file"
-              name="file"
-              ref={fileInputRef}
-              onChange={e => {
-                const file = e.target.files && e.target.files[0];
+            {/* Zone drag-and-drop accessible pour l'upload de fichier */}
+            <Dropzone
+              onDrop={(acceptedFiles: File[]) => {
+                const file = acceptedFiles[0];
                 if (file && !validateFile(file)) {
-                  e.target.value = '';
                   setForm(prev => ({ ...prev, file: null }));
                   setErrors(prev => ({
                     ...prev,
@@ -487,13 +485,55 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
                   delete newErrors.file;
                   return newErrors;
                 });
-                handleChange(e);
+                setForm(prev => ({ ...prev, file }));
                 setLoadingScan(false);
                 setScanMessage(null);
               }}
-              className="block w-full text-sm text-primary border border-primary/20 rounded-md cursor-pointer bg-surface-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-              accept=".pdf,.jpg,.jpeg,.png"
-            />
+              multiple={false}
+              accept={{
+                'application/pdf': ['.pdf'],
+                'image/jpeg': ['.jpg', '.jpeg'],
+                'image/png': ['.png'],
+              }}
+              maxSize={5 * 1024 * 1024} // 5 Mo
+            >
+              {({
+                getRootProps,
+                getInputProps,
+                isDragActive,
+                isFocused,
+                isDragReject,
+              }: {
+                getRootProps: (props?: DropzoneRootProps) => DropzoneRootProps;
+                getInputProps: (props?: DropzoneInputProps) => DropzoneInputProps;
+                isDragActive: boolean;
+                isFocused: boolean;
+                isDragReject: boolean;
+              }) => (
+                <div
+                  {...getRootProps({
+                    className:
+                      'border-2 border-dashed rounded-md p-4 text-center cursor-pointer bg-surface-primary focus:outline-none ' +
+                      (isDragActive || isFocused
+                        ? 'border-primary bg-primary/10'
+                        : 'border-primary/20') +
+                      (isDragReject ? ' border-red-500 bg-red-50' : ''),
+                    tabIndex: 0,
+                    'aria-label': 'Déposer un fichier ou cliquer pour sélectionner',
+                  })}
+                >
+                  <input {...getInputProps()} />
+                  {form.file ? (
+                    <span className="text-primary font-semibold">{form.file.name}</span>
+                  ) : (
+                    <span className="text-gray-500">
+                      Glissez-déposez un fichier ici, ou cliquez pour sélectionner (PDF, JPG, PNG, 5
+                      Mo max)
+                    </span>
+                  )}
+                </div>
+              )}
+            </Dropzone>
             <small className="text-xs text-gray-500">
               Formats acceptés : PDF, JPG, PNG (max 5MB).
               <br />
@@ -506,15 +546,15 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
           </div>
           {/* Consentement RGPD */}
           <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              name="gdprConsent"
-              checked={form.gdprConsent}
-              onChange={handleChange}
-              className="accent-primary w-4 h-4"
-              required
-            />
-            <label htmlFor="gdprConsent" className="text-gray-700 text-sm">
+            <label className="flex items-center gap-2 text-gray-700 text-sm select-none">
+              <input
+                type="checkbox"
+                name="gdprConsent"
+                checked={form.gdprConsent}
+                onChange={handleChange}
+                className="accent-primary w-4 h-4"
+                required
+              />
               J&apos;accepte que mes données soient utilisées pour me recontacter dans le cadre de
               ma demande (aucune revente, aucun spam). <span className="text-red-500">*</span>
             </label>

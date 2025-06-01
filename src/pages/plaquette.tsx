@@ -37,4 +37,10 @@ const PlaquettePage: React.FC = () => {
 
 export default PlaquettePage;
 
-export const Head = () => <SEO title="Plaquette commerciale" pageName="plaquette" />;
+export const Head = () => (
+  <SEO
+    title="Plaquette commerciale"
+    pageName="plaquette"
+    description="Téléchargez la plaquette professionnelle de Maria-Lena PIETRI, experte e-commerce."
+  />
+);

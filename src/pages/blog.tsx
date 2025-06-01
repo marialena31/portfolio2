@@ -10,7 +10,11 @@ const BlogPage: React.FC<PageProps<any>> = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title="Blog" pageName="blog" />
+      <SEO
+        title="Blog"
+        pageName="blog"
+        description="Conseils, retours d'expérience et actualités du web, e-commerce et digital."
+      />
       <div className="bg-gradient-to-br from-primary to-primary-dark py-24 min-h-[calc(100vh-4rem-6rem)] pb-16">
         <div className="max-w-[64rem] mx-auto px-4">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 mt-4 text-center">Blog</h1>

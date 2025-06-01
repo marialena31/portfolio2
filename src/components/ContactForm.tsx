@@ -116,24 +116,10 @@ const ContactForm: React.FC = () => {
     } catch (err: unknown) {
       setLoading(false);
       let errorMsg = 'Erreur lors de l’envoi du message.';
-      if (typeof err === 'object' && err !== null) {
-        // AxiosError typage
-        if (
-          typeof err === 'object' &&
-          err !== null &&
-          'response' in err &&
-          typeof (err as { response?: { data?: { error?: string } } }).response?.data?.error ===
-            'string'
-        ) {
-          errorMsg = (err as any).response.data.error;
-        } else if (
-          typeof err === 'object' &&
-          err !== null &&
-          'message' in err &&
-          typeof (err as { message?: string }).message === 'string'
-        ) {
-          errorMsg = (err as any).message;
-        }
+      if (err instanceof Error) {
+        errorMsg = err.message;
+      } else if (axios.isAxiosError(err)) {
+        errorMsg = err.response?.data?.error ?? 'Erreur inconnue';
       }
       setError(errorMsg);
     } finally {
@@ -211,17 +197,16 @@ const ContactForm: React.FC = () => {
           </div>
         )}
         <div className="flex items-center gap-2 mt-2 mb-2">
-          <input
-            type="checkbox"
-            id="gdprConsent"
-            name="gdprConsent"
-            required
-            checked={form.gdprConsent}
-            onChange={handleGdprConsentChange}
-            className="accent-primary w-5 h-5"
-            autoComplete="off"
-          />
-          <label htmlFor="gdprConsent" className="text-sm text-gray-700 select-none">
+          <label className="flex items-center gap-2 text-sm text-gray-700 select-none">
+            <input
+              type="checkbox"
+              name="gdprConsent"
+              required
+              checked={form.gdprConsent}
+              onChange={handleGdprConsentChange}
+              className="accent-primary w-5 h-5"
+              autoComplete="off"
+            />
             J’accepte que mes données soient traitées pour me recontacter (
             <a
               href="/mentions-legales"

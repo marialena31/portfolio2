@@ -63,6 +63,7 @@
     "pdfjs-dist": "^5.2.133",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.3.8",
     "yet-another-react-lightbox": "^3.23.2"
   },
   "devDependencies": {
