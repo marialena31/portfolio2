@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import * as pdfjsLib from 'pdfjs-dist/build/pdf';
+import type { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api';
 import 'pdfjs-dist/web/pdf_viewer.css';
 
 // Fade-in animation for PDF canvas
@@ -20,21 +21,11 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
 interface CustomPdfViewerProps {
   url: string;
   className?: string;
-  /**
-   * Mode d’affichage :
-   * - "portfolio" : grand viewer pour le portfolio (800px)
-   * - "presentation" (défaut) : viewer plus petit (550px)
-   */
-  mode?: 'portfolio' | 'presentation';
 }
 
-const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
-  url,
-  className,
-  mode = 'presentation',
-}) => {
+const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({ url, className }) => {
   const [error, setError] = useState<string | null>(null);
-  const [pdfDoc, setPdfDoc] = useState<any | null>(null);
+  const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy | null>(null);
   const [page, setPage] = useState(1);
   const [numPages, setNumPages] = useState(0);
   const [scale, setScale] = useState(0.6);
@@ -44,7 +35,7 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
   const minScale = 0.6;
   const maxScale = 2.4;
 
-  // Détection mobile
+  // Détection mobile responsive (auto)
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -65,8 +56,8 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
         if (!cancelled) {
           setPdfDoc(doc);
           setNumPages(doc.numPages);
-          // Si mobile ET mode portfolio, pré-rendre toutes les pages
-          if (mode === 'portfolio' && window.innerWidth < 768) {
+          // Si mobile, pré-rendre toutes les pages pour le carrousel
+          if (window.innerWidth < 768) {
             const canvases: HTMLCanvasElement[] = [];
             for (let i = 1; i <= doc.numPages; i++) {
               const page = await doc.getPage(i);
@@ -89,11 +80,11 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
     return () => {
       cancelled = true;
     };
-  }, [url, mode, isMobile]);
+  }, [url, isMobile]);
 
   // Rendu PDF.js sur le canvas courant à chaque changement de page ou de zoom (desktop)
   useEffect(() => {
-    if (!pdfDoc || !currentCanvasRef.current || (mode === 'portfolio' && isMobile)) return;
+    if (!pdfDoc || !currentCanvasRef.current || isMobile) return;
     (async () => {
       try {
         const pdfPage = await pdfDoc.getPage(page);
@@ -108,7 +99,7 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
         setError("Erreur lors de l'affichage de la page PDF.");
       }
     })();
-  }, [pdfDoc, page, scale, mode, isMobile]);
+  }, [pdfDoc, page, scale, isMobile]);
 
   const goToPrevPage = () => {
     if (page > 1) setPage(page - 1);
@@ -125,7 +116,8 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
     setFadeKey(k => k + 1);
   }, [page, scale]);
 
-  if (mode === 'portfolio' && isMobile) {
+  // Mobile : carrousel swipe natif
+  if (isMobile) {
     // Affichage mobile : toutes les pages en scroll horizontal natif
     return (
       <div className="w-full overflow-x-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
@@ -173,7 +165,7 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
     );
   }
 
-  // Desktop ou autre mode : viewer classique avec contrôles
+  // Desktop : viewer classique avec contrôles
   return (
     <div
       className={`w-full max-w-[64rem] mx-auto bg-gray-100 rounded-2xl shadow-xl p-4 ${className ?? 'min-h-[500px]'}`}
@@ -224,27 +216,15 @@ const CustomPdfViewer: React.FC<CustomPdfViewerProps> = ({
               +
             </button>
           </div>
-          <div
-            className={
-              mode === 'portfolio'
-                ? 'pdf-viewer-container min-h-[800px] h-[800px]'
-                : 'pdf-viewer-container min-h-[550px] h-[550px]'
-            }
-          >
-            <div
-              className={
-                mode === 'portfolio'
-                  ? 'relative w-4/5 h-auto overflow-visible bg-transparent mx-auto'
-                  : 'relative w-full h-auto overflow-visible bg-transparent'
-              }
-            >
+          <div className="pdf-viewer-container">
+            <div className="relative w-4/5 h-auto overflow-visible bg-transparent mx-auto">
               <canvas
                 key={fadeKey}
                 ref={currentCanvasRef}
                 className="fade-in-pdf"
                 style={{
                   width: '100%',
-                  height: mode === 'portfolio' ? 'auto' : '100%',
+                  height: 'auto',
                   display: 'block',
                   margin: '0 auto',
                   background: 'white',

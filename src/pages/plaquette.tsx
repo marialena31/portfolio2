@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/layout';
-import CustomPdfViewer from '../components/CustomPdfViewer';
+import CustomPdfViewerNoSSR from '../components/CustomPdfViewerNoSSR';
 import { SEO } from '../components/seo';
 
 const PlaquettePage: React.FC = () => {
@@ -17,7 +17,7 @@ const PlaquettePage: React.FC = () => {
           <h2 className="text-xl font-semibold mb-2">
             Plaquette de présentation d&apos;ExpertEcom (PDF complet)
           </h2>
-          <CustomPdfViewer url="/docs/ExpertEcom.pdf" mode="portfolio" className="min-h-[500px]" />
+          <CustomPdfViewerNoSSR url="/docs/ExpertEcom.pdf" className="min-h-[500px]" />
           <div className="mt-4 text-center">
             <a
               href="/docs/ExpertEcom.pdf"

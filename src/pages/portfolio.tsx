@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Layout from '../components/layout';
 import { SEO } from '../components/seo';
 import Tabs from '../components/Tabs';
-import CustomPdfViewer from '../components/CustomPdfViewer';
+import CustomPdfViewerNoSSR from '../components/CustomPdfViewerNoSSR';
 
 import CaseStudyCard from '../components/CaseStudyCard';
 import ProjectCard from '../components/ProjectCard';
@@ -57,7 +57,7 @@ const PortfolioPage: React.FC = () => {
                       ))}
                   </div>
                   <div className="mt-12">
-                    <CustomPdfViewer url={PDF_URL} mode="portfolio" className="min-h-[600px]" />
+                    <CustomPdfViewerNoSSR url={PDF_URL} className="min-h-[600px]" />
                     <div className="mt-4 text-center">
                       <a
                         href={PDF_URL}
