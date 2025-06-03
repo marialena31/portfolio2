@@ -147,8 +147,5 @@
     "*.{js,jsx,json,md}": [
       "prettier --write"
     ]
-  },
-  "engines": {
-    "node": ">=20.0.0"
   }
 }
