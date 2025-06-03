@@ -66,6 +66,10 @@
     "react-dropzone": "^14.3.8",
     "yet-another-react-lightbox": "^3.23.2"
   },
+  "engines": {
+    "node": "20.x",
+    "npm": "10.x"
+  },
   "devDependencies": {
     "@ardatan/aggregate-error": "^0.0.6",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
