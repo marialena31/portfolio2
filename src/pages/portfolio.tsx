@@ -3,7 +3,6 @@ import Layout from '../components/layout';
 import { SEO } from '../components/seo';
 import Tabs from '../components/Tabs';
 import CustomPdfViewer from '../components/CustomPdfViewer';
-import ClientOnly from '../components/ClientOnly';
 
 import CaseStudyCard from '../components/CaseStudyCard';
 import ProjectCard from '../components/ProjectCard';
@@ -58,9 +57,7 @@ const PortfolioPage: React.FC = () => {
                       ))}
                   </div>
                   <div className="mt-12">
-                    <ClientOnly>
-                      <CustomPdfViewer url={PDF_URL} mode="portfolio" containerHeight="800px" />
-                    </ClientOnly>
+                    <CustomPdfViewer url={PDF_URL} mode="portfolio" className="min-h-[600px]" />
                     <div className="mt-4 text-center">
                       <a
                         href={PDF_URL}
@@ -107,10 +104,4 @@ const PortfolioPage: React.FC = () => {
 
 export default PortfolioPage;
 
-export const Head = () => (
-  <SEO
-    title="Portfolio & Études de cas"
-    pageName="portfolio"
-    description="Découvrez des réalisations web, études de cas et projets clients menés avec succès."
-  />
-);
+export const Head = () => <SEO title="Portfolio & Études de cas" pageName="portfolio" />;

@@ -23,18 +23,8 @@ export interface FormSubmitEvent {
   preventDefault: () => void;
 }
 
-export type FormData<T extends Record<string, any>> = {
+export type FormState<T extends Record<string, any>> = {
   [K in keyof T]: T[K];
 } & {
   file?: File | null;
 };
-
-export interface FormProps<T extends Record<string, any>> {
-  onSubmit: (data: FormData<T>) => Promise<void>;
-  initialData?: Partial<FormData<T>>;
-  validationSchema: ValidationSchema;
-  successMessage?: string;
-  errorMessage?: string;
-  onSubmitSuccess?: () => void;
-  onSubmitError?: (error: Error) => void;
-}

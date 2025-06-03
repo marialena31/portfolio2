@@ -15,7 +15,7 @@ const CaseStudyPage: React.FC<PageProps<object, CaseStudyPageContext>> = ({ page
   if (!study) {
     return (
       <Layout>
-        <div className="max-w-[64rem] mx-auto bg-white rounded-lg shadow-md p-20 my-16 text-center">
+        <div className="bg-white max-w-[64rem] w-full mx-auto px-4 md:px-[10rem] py-[5rem] shadow rounded-lg md:my-16 my-8 text-center">
           <h1 className="text-2xl font-bold text-primary mb-4">Étude de cas introuvable</h1>
           <Link to="/portfolio" className="text-primary underline">
             Retour au portfolio
@@ -29,7 +29,7 @@ const CaseStudyPage: React.FC<PageProps<object, CaseStudyPageContext>> = ({ page
     <Layout>
       <SEO title={study.title} description={study.excerpt} />
       <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85 min-h-screen">
-        <div className="max-w-[64rem] mx-auto bg-white rounded-lg shadow-md p-20 flex flex-col gap-8">
+        <div className="bg-white max-w-[64rem] w-full mx-auto px-4 md:px-[10rem] py-[5rem] shadow rounded-lg md:my-16 my-8 flex flex-col gap-8 items-start text-left">
           <Link
             to="/portfolio"
             className="inline-flex items-center text-primary hover:text-primary-dark transition-colors font-medium mb-4"

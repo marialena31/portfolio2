@@ -1,24 +1,10 @@
 import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import Dropzone, { DropzoneRootProps, DropzoneInputProps } from 'react-dropzone';
-// Utilise Dropzone de react-dropzone pour l'upload accessible par drag-and-drop
-
-interface MailScan {
-  status: 'pending' | 'clean' | 'malicious';
-  virustotal?: string;
-}
-
-interface MailSendResponse {
-  success?: boolean;
-  scan?: MailScan;
-  error?: string;
-  vt_analysis_url?: string;
-}
 
 import { useFormValidation } from '../hooks/useFormValidation';
 import { ValidationSchema, ValidationErrors } from '../types/validation';
 import { EnvConfig, validateEnv } from '../types/env';
-import { FormProps } from '../types/form';
+import { FormState } from '../types/form';
 
 const envConfig: EnvConfig = {
   GATSBY_API_URL: process.env.GATSBY_API_URL || 'http://localhost:3000',
@@ -26,6 +12,8 @@ const envConfig: EnvConfig = {
 };
 
 if (!validateEnv(envConfig)) {
+  console.error("⚠️ Configuration d'environnement invalide");
+  console.error('Veuillez vérifier votre fichier .env');
   throw new Error("Configuration d'environnement invalide");
 }
 
@@ -42,6 +30,8 @@ interface ProjectFormData {
   gdprConsent: boolean;
   file: File | null;
 }
+
+type ProjectFormState = FormState<ProjectFormData>;
 
 const validationSchema: ValidationSchema = {
   name: {
@@ -79,7 +69,7 @@ const validationSchema: ValidationSchema = {
   },
 };
 
-const initialForm: ProjectFormData = {
+const initialForm: ProjectFormState = {
   name: '',
   company: '',
   email: '',
@@ -96,7 +86,7 @@ const maxSize = 5 * 1024 * 1024; // 5 Mo
 function validateFile(file: File): boolean {
   const ext = file.name.split('.').pop()?.toLowerCase();
   const allowedMimeTypes = ['application/pdf', 'image/png', 'image/jpeg'];
-
+  console.log('DEBUG validateFile:', file.name, file.type, ext);
   if (!ext || !allowedExtensions.includes(ext)) {
     alert('Type de fichier non autorisé !');
     return false;
@@ -112,10 +102,10 @@ function validateFile(file: File): boolean {
   return true;
 }
 
-const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
+const ProjectForm: React.FC = () => {
   // Désactive les contrôles natifs si demandé par la prop
 
-  const [form, setForm] = useState<ProjectFormData>(initialForm);
+  const [form, setForm] = useState<ProjectFormState>(initialForm);
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [loadingScan, setLoadingScan] = useState(false);
@@ -130,11 +120,11 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
     e.preventDefault();
     resetErrors();
     setLoadingScan(true);
-    // setScanMessage('Scan du fichier et envoi en cours...');
+    setScanMessage('Scan du fichier et envoi en cours...');
 
     try {
       // Récupérer le CSRF token depuis le serveur
-      const csrfResponse: AxiosResponse<any> = await axios.get(`${GATSBY_API_URL}/api/csrf-token`, {
+      const csrfResponse = await axios.get(`${GATSBY_API_URL}/api/csrf-token`, {
         withCredentials: true,
         headers: {
           Accept: 'application/json',
@@ -161,7 +151,7 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
       }
 
       // Préparer les données pour l'envoi
-      let response: AxiosResponse<MailSendResponse>;
+      let response: AxiosResponse<any, any>;
       const apiKey = process.env.GATSBY_API_KEY || '';
       if (form.file) {
         const formData = new FormData();
@@ -187,11 +177,48 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
             ...(apiKey ? { 'x-api-key': apiKey } : {}),
           },
         };
-        response = await axios.post<MailSendResponse>(
-          `${GATSBY_API_URL}/api/mail/send`,
-          formData,
-          config
-        );
+        // Optionnel : log debug
+        // console.log('Envoi du formulaire avec pièce jointe:', Array.from(formData.entries()));
+        try {
+          response = await axios.post(`${GATSBY_API_URL}/api/mail/send`, formData, config);
+          // Gestion du retour du backend pour les cas scan : sain, malveillant, lent
+          if (response.data && response.data.scan) {
+            if (response.data.scan.status === 'malicious') {
+              setErrors(prev => ({
+                ...prev,
+                general: `Fichier malveillant détecté ! <a href="${response.data.scan.virustotal}" target="_blank" rel="noopener noreferrer">Voir le rapport VirusTotal</a>`,
+              }));
+              setLoadingScan(false);
+              setScanMessage(null);
+              return;
+            } else if (response.data.scan.status === 'pending') {
+              setScanMessage('Scan en cours. Merci de patienter...');
+              setLoadingScan(true);
+              // Optionnel : polling pour mise à jour ?
+              return;
+            } else if (response.data.scan.status === 'clean') {
+              setScanMessage(null);
+              setLoadingScan(false);
+            }
+          } else {
+            setScanMessage(null);
+            setLoadingScan(false);
+          }
+        } catch (err: any) {
+          setLoadingScan(false);
+          setScanMessage(null);
+          if (err.response && err.response.status === 429) {
+            setErrors(prev => ({
+              ...prev,
+              general:
+                'Le scan antivirus est temporairement indisponible (quota VirusTotal atteint). Réessaie plus tard ou envoie le message sans pièce jointe.',
+            }));
+          } else {
+            setErrors(prev => ({ ...prev, general: 'Erreur lors de l’envoi du fichier.' }));
+          }
+          console.error('Erreur lors de l’envoi du fichier:', err);
+          return;
+        }
       } else {
         const data = {
           from: form.email,
@@ -214,38 +241,16 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
             'Content-Type': 'application/json',
           },
         };
-        response = await axios.post<MailSendResponse>(
-          `${GATSBY_API_URL}/api/mail/send`,
-          data,
-          config
-        );
+        console.log('Envoi du formulaire sans pièce jointe:', data);
+        response = await axios.post(`${GATSBY_API_URL}/api/mail/send`, data, config);
       }
-
-      const scan = response.data?.scan;
-      if (scan) {
-        if (scan.status === 'malicious') {
-          setErrors(prev => ({
-            ...prev,
-            general: `Fichier malveillant détecté ! <a href="${scan.virustotal}" target="_blank" rel="noopener noreferrer">Voir le rapport VirusTotal</a>`,
-          }));
-          setLoadingScan(false);
-          setScanMessage(null);
-          return;
-        } else if (scan.status === 'pending') {
-          setScanMessage('Scan en cours. Merci de patienter...');
-          setLoadingScan(true);
-          return;
-        } else if (scan.status === 'clean') {
-          setScanMessage(null);
-          setLoadingScan(false);
-        }
-      }
+      console.log('Réponse du serveur:', response.data);
 
       if (response.data?.success === false) {
         setErrors(prev => ({
           ...prev,
           general:
-            (response.data.error || '') +
+            response.data.error +
             (response.data.vt_analysis_url
               ? ` <a href="${response.data.vt_analysis_url}" target="_blank" rel="noopener noreferrer">Voir l’analyse VirusTotal</a>`
               : ''),
@@ -256,27 +261,30 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
         return;
       }
 
+      // Réinitialiser le formulaire et afficher le succès
       setForm(initialForm);
       if (fileInputRef.current) fileInputRef.current.value = '';
       setSuccess(true);
 
+      // Réinitialiser après 5 secondes
       setTimeout(() => {
         setSuccess(false);
         setErrors({});
       }, 5000);
-    } catch (err: unknown) {
+    } catch (err: any) {
+      console.error("Erreur lors de l'envoi:", err);
+      console.error('Réponse du serveur:', err.response?.data);
+
+      // Gestion des erreurs
+      const errorMessage =
+        err.response?.data?.message || "Une erreur est survenue lors de l'envoi du formulaire";
+      setErrors(prev => ({
+        ...prev,
+        general: errorMessage,
+      }));
+    } finally {
       setLoadingScan(false);
       setScanMessage(null);
-      let backendError = "Une erreur est survenue lors de l'envoi du formulaire";
-      if (
-        err &&
-        typeof err === 'object' &&
-        'message' in err &&
-        typeof (err as { message?: string }).message === 'string'
-      ) {
-        backendError = (err as any).message;
-      }
-      setErrors(prev => ({ ...prev, general: backendError }));
     }
   };
 
@@ -323,7 +331,7 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
 
   return (
     <div className="px-4 md:px-0 flex justify-center bg-gradient-to-b from-primary-dark/95 to-primary/85">
-      <div className="bg-white max-w-[64rem] w-full mx-auto px-[10rem] py-[5rem] shadow rounded-lg md:my-16 my-8">
+      <div className="bg-white max-w-[64rem] w-full mx-auto px-4 md:px-[10rem] py-[5rem] shadow rounded-lg md:my-16 my-8">
         <h1 className="text-primary text-3xl font-bold text-center mb-4">Déposez votre projet</h1>
         <p className="text-gray-500 text-center mb-8 text-base leading-relaxed">
           Vous avez un besoin clair ou un projet à formuler ?<br />
@@ -336,29 +344,14 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
             {Object.entries(errors).map(([field, error]) => (
               <p key={field}>
                 <strong>
-                  {field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:{' '}
-                </strong>
+                  {field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:
+                </strong>{' '}
                 {error}
               </p>
             ))}
           </div>
         )}
-        <form onSubmit={handleSubmit} noValidate autoComplete="off">
-          <div className="flex flex-col gap-5 mb-5">
-            <label htmlFor="name" className="font-medium text-primary text-sm">
-              Nom <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-              autoComplete="off"
-            />
-          </div>
+        <form onSubmit={handleSubmit} noValidate>
           <div className="flex flex-col gap-5 mb-5">
             <label htmlFor="company" className="font-medium text-primary text-sm">
               Entreprise
@@ -466,11 +459,15 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
             <label htmlFor="file" className="font-medium text-primary text-sm">
               Pièce jointe (facultative)
             </label>
-            {/* Zone drag-and-drop accessible pour l'upload de fichier */}
-            <Dropzone
-              onDrop={(acceptedFiles: File[]) => {
-                const file = acceptedFiles[0];
+            <input
+              type="file"
+              id="file"
+              name="file"
+              ref={fileInputRef}
+              onChange={e => {
+                const file = e.target.files && e.target.files[0];
                 if (file && !validateFile(file)) {
+                  e.target.value = '';
                   setForm(prev => ({ ...prev, file: null }));
                   setErrors(prev => ({
                     ...prev,
@@ -485,55 +482,13 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
                   delete newErrors.file;
                   return newErrors;
                 });
-                setForm(prev => ({ ...prev, file }));
+                handleChange(e);
                 setLoadingScan(false);
                 setScanMessage(null);
               }}
-              multiple={false}
-              accept={{
-                'application/pdf': ['.pdf'],
-                'image/jpeg': ['.jpg', '.jpeg'],
-                'image/png': ['.png'],
-              }}
-              maxSize={5 * 1024 * 1024} // 5 Mo
-            >
-              {({
-                getRootProps,
-                getInputProps,
-                isDragActive,
-                isFocused,
-                isDragReject,
-              }: {
-                getRootProps: (props?: DropzoneRootProps) => DropzoneRootProps;
-                getInputProps: (props?: DropzoneInputProps) => DropzoneInputProps;
-                isDragActive: boolean;
-                isFocused: boolean;
-                isDragReject: boolean;
-              }) => (
-                <div
-                  {...getRootProps({
-                    className:
-                      'border-2 border-dashed rounded-md p-4 text-center cursor-pointer bg-surface-primary focus:outline-none ' +
-                      (isDragActive || isFocused
-                        ? 'border-primary bg-primary/10'
-                        : 'border-primary/20') +
-                      (isDragReject ? ' border-red-500 bg-red-50' : ''),
-                    tabIndex: 0,
-                    'aria-label': 'Déposer un fichier ou cliquer pour sélectionner',
-                  })}
-                >
-                  <input {...getInputProps()} />
-                  {form.file ? (
-                    <span className="text-primary font-semibold">{form.file.name}</span>
-                  ) : (
-                    <span className="text-gray-500">
-                      Glissez-déposez un fichier ici, ou cliquez pour sélectionner (PDF, JPG, PNG, 5
-                      Mo max)
-                    </span>
-                  )}
-                </div>
-              )}
-            </Dropzone>
+              className="block w-full text-sm text-primary border border-primary/20 rounded-md cursor-pointer bg-surface-primary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              accept=".pdf,.jpg,.jpeg,.png"
+            />
             <small className="text-xs text-gray-500">
               Formats acceptés : PDF, JPG, PNG (max 5MB).
               <br />
@@ -541,20 +496,19 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
               <br />
               Le fichier sera scanné automatiquement lors de l’envoi.
             </small>
-
             {errors.file && <div className="text-red-600 text-xs mt-1">{errors.file}</div>}
           </div>
           {/* Consentement RGPD */}
           <div className="flex items-center gap-2">
-            <label className="flex items-center gap-2 text-gray-700 text-sm select-none">
-              <input
-                type="checkbox"
-                name="gdprConsent"
-                checked={form.gdprConsent}
-                onChange={handleChange}
-                className="accent-primary w-4 h-4"
-                required
-              />
+            <input
+              type="checkbox"
+              name="gdprConsent"
+              checked={form.gdprConsent}
+              onChange={handleChange}
+              className="accent-primary w-4 h-4"
+              required
+            />
+            <label htmlFor="gdprConsent" className="text-gray-700 text-sm">
               J&apos;accepte que mes données soient utilisées pour me recontacter dans le cadre de
               ma demande (aucune revente, aucun spam). <span className="text-red-500">*</span>
             </label>
@@ -608,7 +562,6 @@ const ProjectForm: React.FC<FormProps<ProjectFormData>> = () => {
   );
 };
 
-// Désactive les flèches sur input[type=number] si demandé
 if (typeof window !== 'undefined' && (window as any).__projectFormCssInjected !== true) {
   const style = document.createElement('style');
   style.innerHTML = `

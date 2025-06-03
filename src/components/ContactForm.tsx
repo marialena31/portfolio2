@@ -92,7 +92,7 @@ const ContactForm: React.FC = () => {
       };
 
       // Debug : afficher la valeur de TO_EMAIL côté navigateur
-
+      console.log('TO_EMAIL (browser):', TO_EMAIL);
       // Vérification explicite de la variable d'environnement TO_EMAIL
       if (!TO_EMAIL) {
         setError(
@@ -114,21 +114,19 @@ const ContactForm: React.FC = () => {
       setSuccess(true);
       setForm(initialForm);
     } catch (err: unknown) {
-      setLoading(false);
-      let errorMsg = 'Erreur lors de l’envoi du message.';
-      if (err instanceof Error) {
-        errorMsg = err.message;
-      } else if (axios.isAxiosError(err)) {
-        errorMsg = err.response?.data?.error ?? 'Erreur inconnue';
-      }
-      setError(errorMsg);
+      const error = err as { response?: { data?: { error?: string; message?: string } } };
+      setError(
+        error.response?.data?.error ||
+          error.response?.data?.message ||
+          "Erreur lors de l'envoi du message."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="bg-white max-w-[64rem] mx-auto px-[10rem] py-[5rem] shadow rounded-lg">
+    <div className="bg-white max-w-[64rem] w-full mx-auto px-4 md:px-[10rem] py-[5rem] shadow rounded-lg md:my-16 my-8">
       <h1 className="text-primary text-3xl font-bold text-center mb-4">Contact</h1>
       <p className="text-gray-500 text-center mb-8 text-base leading-relaxed">
         Contactez-moi pour plus d&apos;informations.
@@ -197,16 +195,17 @@ const ContactForm: React.FC = () => {
           </div>
         )}
         <div className="flex items-center gap-2 mt-2 mb-2">
-          <label className="flex items-center gap-2 text-sm text-gray-700 select-none">
-            <input
-              type="checkbox"
-              name="gdprConsent"
-              required
-              checked={form.gdprConsent}
-              onChange={handleGdprConsentChange}
-              className="accent-primary w-5 h-5"
-              autoComplete="off"
-            />
+          <input
+            type="checkbox"
+            id="gdprConsent"
+            name="gdprConsent"
+            required
+            checked={form.gdprConsent}
+            onChange={handleGdprConsentChange}
+            className="accent-primary w-5 h-5"
+            autoComplete="off"
+          />
+          <label htmlFor="gdprConsent" className="text-sm text-gray-700 select-none">
             J’accepte que mes données soient traitées pour me recontacter (
             <a
               href="/mentions-legales"

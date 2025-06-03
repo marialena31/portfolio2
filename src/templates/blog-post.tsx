@@ -26,7 +26,7 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
     <Layout className="otherPages">
       <SEO title={fm.title} description={fm.description} />
       <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
-        <div className="max-w-[64rem] mx-auto bg-white rounded-lg shadow-md p-20 flex flex-col items-start text-left">
+        <div className="bg-white max-w-[64rem] w-full mx-auto px-4 md:px-[10rem] py-[5rem] shadow rounded-lg md:my-16 my-8 flex flex-col items-start text-left">
           <button
             onClick={() => window.history.back()}
             className="inline-flex items-center text-primary hover:text-primary-dark transition-colors font-medium mb-8"

@@ -88,8 +88,6 @@ const Navigation: React.FC = () => {
           <img
             src="/images/expertecom-logo.png"
             alt=""
-            width="200"
-            height="50"
             style={{ height: 50, width: 'auto', display: 'block' }}
           />
         </Link>
@@ -130,19 +128,124 @@ const Navigation: React.FC = () => {
             )}
           </svg>
         </button>
+        {isMobile && isMenuOpen && (
+          <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-8 text-xl font-semibold md:hidden transition-all">
+            <button
+              className="absolute top-4 right-4 text-4xl text-gray-800 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"
+              onClick={() => setIsMenuOpen(false)}
+              aria-label="Fermer le menu"
+            >
+              &times;
+            </button>
+            <nav className="flex flex-col items-center gap-2 w-full">
+              <Link
+                to="/"
+                className="w-full text-center py-3 text-lg font-semibold hover:text-primary"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Accueil
+              </Link>
+
+              <span className="w-full text-left py-2 pl-4 text-xs font-bold text-gray-400 uppercase tracking-wider select-none cursor-default">
+                Offre & services
+              </span>
+              <Link
+                to="/services"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Présentation des services
+              </Link>
+              <Link
+                to="/pourquoi-choisir"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Pourquoi me choisir ?
+              </Link>
+              <Link
+                to="/conseils-pro"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Conseils de pro
+              </Link>
+
+              <span className="w-full text-left py-2 pl-4 text-xs font-bold text-gray-400 uppercase tracking-wider select-none cursor-default">
+                Portfolio & études de cas
+              </span>
+              <Link
+                to="/portfolio"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Portfolio
+              </Link>
+              <Link
+                to="/portfolio#etudes-de-cas"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Études de cas
+              </Link>
+
+              <span className="w-full text-left py-2 pl-4 text-xs font-bold text-gray-400 uppercase tracking-wider select-none cursor-default">
+                Contact
+              </span>
+              <Link
+                to="/projet"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Déposer un projet
+              </Link>
+              <Link
+                to="/contact"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Envoyer un message
+              </Link>
+              <a
+                href="https://calendly.com/pietri-marialena/contact-30"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Prendre rendez-vous
+              </a>
+
+              <span className="w-full text-left py-2 pl-4 text-xs font-bold text-gray-400 uppercase tracking-wider select-none cursor-default">
+                Ressources
+              </span>
+              <Link
+                to="/plaquette"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Plaquette ExpertEcom
+              </Link>
+              <Link
+                to="/blog"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Blog
+              </Link>
+            </nav>
+          </div>
+        )}
 
         <ul
           id="mainMenu"
           className={`flex items-center gap-4 md:static md:flex-row md:bg-transparent md:p-0 md:h-auto md:w-auto transition-all duration-200 ease-in-out
-            fixed top-16 left-0 right-0 bottom-0 bg-gray-50 p-8 flex-col z-40 shadow-lg md:shadow-none md:gap-4
+            fixed top-16 left-0 right-0 bottom-0 bg-white p-8 flex-col z-40 shadow-lg md:shadow-none md:gap-4
             ${isMenuOpen ? 'flex animate-fade-in' : 'hidden'} md:flex`}
           role="menu"
         >
-          <li className="md:hidden py-2">
-            <span className="text-xs uppercase text-gray-500 font-semibold">Accueil</span>
-          </li>
           {/* Accueil */}
-          <li role="menuitem" className="py-2 border-t md:border-none">
+          <li role="none">
             <Link
               to="/"
               className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
@@ -157,15 +260,15 @@ const Navigation: React.FC = () => {
           {/* Offre & services (méga menu) */}
           <li
             className="relative"
-            role="menuitem"
-            aria-haspopup="true"
-            aria-expanded={openMegaMenu === 'offre'}
+            role="none"
             onMouseEnter={() => {
               if (!isMobile) handleMegaMenuEnter('offre');
             }}
           >
             <button
               className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              aria-haspopup="true"
+              aria-expanded={openMegaMenu === 'offre'}
               tabIndex={isMenuOpen ? 0 : -1}
               type="button"
             >
@@ -182,89 +285,64 @@ const Navigation: React.FC = () => {
             </button>
             <div
               className={`absolute left-0 top-full mt-2 w-[28rem] bg-white rounded-lg shadow-xl border border-gray-100 transition-opacity duration-200 z-50 p-6 hidden md:block ${openMegaMenu === 'offre' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-              role="menu"
               onMouseDown={e => e.preventDefault()}
               onMouseLeave={() => {
                 if (!isMobile) handleMegaMenuLeave();
               }}
             >
               <div className="grid grid-cols-3 gap-6">
-                <div className="flex flex-col items-center text-center" role="menuitem">
-                  <FontAwesomeIcon icon={faHandshake} className="text-primary text-3xl mb-2" />
-                  <div className="font-bold mb-2">Présentation des services</div>
-                  <Link
-                    to="/services"
-                    className="text-sm text-gray-700 hover:text-primary transition-colors"
-                    tabIndex={0}
-                  >
-                    Découvrir
-                  </Link>
-                </div>
-                <div className="flex flex-col items-center text-center" role="menuitem">
-                  <FontAwesomeIcon icon={faLightbulb} className="text-primary text-3xl mb-2" />
-                  <div className="font-bold mb-2">Pourquoi me choisir ?</div>
-                  <Link
-                    to="/pourquoi-choisir"
-                    className="text-sm text-gray-700 hover:text-primary transition-colors"
-                    tabIndex={0}
-                  >
-                    Voir les atouts
-                  </Link>
-                </div>
-                <div className="flex flex-col items-center text-center" role="menuitem">
-                  <FontAwesomeIcon icon={faGears} className="text-primary text-3xl mb-2" />
-                  <div className="font-bold mb-2">Conseils de pro</div>
-                  <Link
-                    to="/conseils-pro"
-                    className="text-sm text-gray-700 hover:text-primary transition-colors"
-                    tabIndex={0}
-                  >
-                    Lire les conseils
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile sous-menu */}
-            <ul
-              className="md:hidden pl-4 mt-2 bg-gray-50 rounded-lg divide-y divide-gray-200"
-              role="menu"
-              onClick={() => {
-                if (isMobile) setIsMenuOpen(false);
-              }}
-            >
-              <li className="py-2">
-                <span className="text-xs uppercase text-gray-500 font-semibold">
-                  Offre & services
-                </span>
-              </li>
-              <li role="menuitem">
                 <Link
                   to="/services"
-                  className="block py-1"
-                  onClick={() => {
-                    if (isMobile) setIsMenuOpen(false);
-                  }}
+                  className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
+                  tabIndex={0}
                 >
-                  Présentation des services
+                  <FontAwesomeIcon
+                    icon={faHandshake}
+                    className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
+                  />
+                  <div className="font-bold mb-2 group-hover:text-primary">
+                    Présentation des services
+                  </div>
+                  <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
+                    Découvrir
+                  </div>
                 </Link>
-              </li>
-              <li role="menuitem">
                 <Link
                   to="/pourquoi-choisir"
-                  className="block py-1"
-                  onClick={() => {
-                    if (isMobile) setIsMenuOpen(false);
-                  }}
+                  className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
+                  tabIndex={0}
                 >
-                  Pourquoi me choisir ?
+                  <FontAwesomeIcon
+                    icon={faLightbulb}
+                    className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
+                  />
+                  <div className="font-bold mb-2 group-hover:text-primary">
+                    Pourquoi me choisir ?
+                  </div>
+                  <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
+                    Voir les atouts
+                  </div>
                 </Link>
-              </li>
-            </ul>
+                <Link
+                  to="/conseils-pro"
+                  className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
+                  tabIndex={0}
+                >
+                  <FontAwesomeIcon
+                    icon={faGears}
+                    className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
+                  />
+                  <div className="font-bold mb-2 group-hover:text-primary">Conseils de pro</div>
+                  <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
+                    Lire les conseils
+                  </div>
+                </Link>
+              </div>
+            </div>
           </li>
 
           {/* Plaquette ExpertEcom */}
-          <li role="menuitem">
+          <li role="none">
             <Link
               to="/plaquette"
               className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
@@ -278,7 +356,7 @@ const Navigation: React.FC = () => {
           </li>
 
           {/* Blog */}
-          <li role="menuitem">
+          <li role="none">
             <Link
               to="/blog"
               className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
@@ -293,15 +371,15 @@ const Navigation: React.FC = () => {
           {/* Portfolio & études de cas (méga menu) */}
           <li
             className="relative"
-            role="menuitem"
-            aria-haspopup="true"
-            aria-expanded={openMegaMenu === 'portfolio'}
+            role="none"
             onMouseEnter={() => {
               if (!isMobile) handleMegaMenuEnter('portfolio');
             }}
           >
             <button
               className="text-gray-900 hover:text-primary text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              aria-haspopup="true"
+              aria-expanded={openMegaMenu === 'portfolio'}
               tabIndex={isMenuOpen ? 0 : -1}
               type="button"
             >
@@ -318,82 +396,44 @@ const Navigation: React.FC = () => {
             </button>
             <div
               className={`absolute left-0 top-full mt-2 w-[28rem] bg-white rounded-lg shadow-xl border border-gray-100 transition-opacity duration-200 z-50 p-6 hidden md:block ${openMegaMenu === 'portfolio' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-              role="menu"
-              onMouseDown={e => e.preventDefault()}
-              onMouseLeave={() => {
-                if (!isMobile) handleMegaMenuLeave();
-              }}
             >
               <div className="grid grid-cols-2 gap-6">
-                <div className="flex flex-col items-center text-center" role="menuitem">
-                  <FontAwesomeIcon icon={faImages} className="text-primary text-3xl mb-2" />
-                  <div className="font-bold mb-2">Portfolio</div>
-                  <Link
-                    to="/portfolio"
-                    className="text-sm text-gray-700 hover:text-primary transition-colors"
-                    tabIndex={0}
-                  >
-                    Voir le portfolio
-                  </Link>
-                </div>
-                <div className="flex flex-col items-center text-center" role="menuitem">
-                  <FontAwesomeIcon icon={faSuitcase} className="text-primary text-3xl mb-2" />
-                  <div className="font-bold mb-2">Études de cas</div>
-                  <Link
-                    to="/portfolio#etudes-de-cas"
-                    className="text-sm text-gray-700 hover:text-primary transition-colors"
-                    tabIndex={0}
-                  >
-                    Voir les études de cas
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile sous-menu */}
-            <ul
-              className="md:hidden pl-4 mt-2 bg-gray-50 rounded-lg divide-y divide-gray-200"
-              role="menu"
-              onClick={() => {
-                if (isMobile) setIsMenuOpen(false);
-              }}
-            >
-              <li className="py-2">
-                <span className="text-xs uppercase text-gray-500 font-semibold">
-                  Portfolio & études de cas
-                </span>
-              </li>
-              <li role="menuitem">
                 <Link
                   to="/portfolio"
-                  className="block py-1"
-                  onClick={() => {
-                    if (isMobile) setIsMenuOpen(false);
-                  }}
+                  className="group cursor-pointer hover:bg-primary/5 rounded transition"
+                  tabIndex={0}
                 >
-                  Portfolio
+                  <FontAwesomeIcon
+                    icon={faImages}
+                    className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
+                  />
+                  <div className="font-bold mb-2 group-hover:text-primary">Portfolio</div>
+                  <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
+                    Voir le portfolio
+                  </div>
                 </Link>
-              </li>
-              <li role="menuitem">
                 <Link
                   to="/portfolio#etudes-de-cas"
-                  className="block py-1"
-                  onClick={() => {
-                    if (isMobile) setIsMenuOpen(false);
-                  }}
+                  className="group cursor-pointer hover:bg-primary/5 rounded transition"
+                  tabIndex={0}
                 >
-                  Études de cas
+                  <FontAwesomeIcon
+                    icon={faSuitcase}
+                    className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
+                  />
+                  <div className="font-bold mb-2 group-hover:text-primary">Études de cas</div>
+                  <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
+                    Voir les études de cas
+                  </div>
                 </Link>
-              </li>
-            </ul>
+              </div>
+            </div>
           </li>
 
           {/* Contact */}
           <li
             className="relative"
-            role="menuitem"
-            aria-haspopup="true"
-            aria-expanded={openMegaMenu === 'contact'}
+            role="none"
             onMouseEnter={() => {
               if (!isMobile) handleMegaMenuEnter('contact');
             }}
@@ -417,84 +457,59 @@ const Navigation: React.FC = () => {
               </svg>
             </button>
             <div
-              className={`absolute left-0 top-full mt-2 w-[20rem] bg-white rounded-lg shadow-xl border border-gray-100 transition-opacity duration-200 z-50 p-6 hidden md:block ${openMegaMenu === 'contact' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+              className={`absolute left-auto right-0 top-full mt-2 w-full max-w-screen-sm sm:w-[20rem] sm:max-w-[95vw] bg-white rounded-lg shadow-xl border border-gray-100 transition-opacity duration-200 z-50 p-6 overflow-x-auto hidden md:block ${openMegaMenu === 'contact' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
               onMouseDown={e => e.preventDefault()}
               onMouseLeave={() => {
                 if (!isMobile) handleMegaMenuLeave();
               }}
             >
-              <div className="grid grid-cols-1 gap-6">
-                <div className="flex flex-col items-center text-center" role="menuitem">
-                  <FontAwesomeIcon
-                    icon={faEnvelopeOpenText}
-                    className="text-primary text-3xl mb-2"
-                  />
-                  <div className="font-bold mb-2">Déposer un projet</div>
-                  <Link
-                    to="/projet"
-                    className="text-sm text-gray-700 hover:text-primary transition-colors"
-                    tabIndex={0}
-                  >
-                    Formulaire
-                  </Link>
-                </div>
-                <div className="flex flex-col items-center text-center" role="menuitem">
-                  <FontAwesomeIcon icon={faEnvelope} className="text-primary text-3xl mb-2" />
-                  <div className="font-bold mb-2">Envoyer un message</div>
-                  <Link
-                    to="/contact"
-                    className="text-sm text-gray-700 hover:text-primary transition-colors"
-                    tabIndex={0}
-                  >
-                    Contact
-                  </Link>
-                </div>
-                <div className="flex flex-col items-center text-center" role="menuitem">
-                  <FontAwesomeIcon icon={faCalendarCheck} className="text-primary text-3xl mb-2" />
-                  <div className="font-bold mb-2">Prendre rendez-vous</div>
-                  <a
-                    href="https://calendly.com/expertecom/30min"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-gray-700 hover:text-primary transition-colors"
-                    tabIndex={0}
-                  >
-                    Calendly
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile sous-menu */}
-            <ul
-              className="md:hidden pl-4 mt-2"
-              onClick={() => {
-                if (isMobile) setIsMenuOpen(false);
-              }}
-            >
-              <li>
+              <div className="grid grid-cols-1 gap-6 min-w-[16rem]">
                 <Link
                   to="/projet"
-                  className="block py-1"
-                  onClick={() => {
-                    if (isMobile) setIsMenuOpen(false);
-                  }}
+                  className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
+                  tabIndex={0}
                 >
-                  Déposer un projet
+                  <FontAwesomeIcon
+                    icon={faEnvelopeOpenText}
+                    className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
+                  />
+                  <div className="font-bold mb-2 group-hover:text-primary">Déposer un projet</div>
+                  <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
+                    Formulaire
+                  </div>
                 </Link>
-              </li>
-              <li>
                 <Link
-                  to="/contact#rdv"
-                  className="block py-1"
-                  onClick={() => {
-                    if (isMobile) setIsMenuOpen(false);
-                  }}
+                  to="/contact"
+                  className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
+                  tabIndex={0}
                 >
-                  Prendre rendez-vous
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
+                    className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
+                  />
+                  <div className="font-bold mb-2 group-hover:text-primary">Envoyer un message</div>
+                  <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
+                    Contact
+                  </div>
                 </Link>
-              </li>
-            </ul>
+                <a
+                  href="https://calendly.com/pietri-marialena/contact-30"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
+                  tabIndex={0}
+                >
+                  <FontAwesomeIcon
+                    icon={faCalendarCheck}
+                    className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
+                  />
+                  <div className="font-bold mb-2 group-hover:text-primary">Prendre rendez-vous</div>
+                  <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
+                    Calendly
+                  </div>
+                </a>
+              </div>
+            </div>
           </li>
         </ul>
       </div>

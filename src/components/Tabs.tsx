@@ -32,7 +32,7 @@ const Tabs: React.FC<TabsProps> = ({
 
   return (
     <div className={`w-full ${className}`}>
-      <div className="flex border-b border-primary/20 mb-6" role="tablist">
+      <div className="flex border-b border-primary/20 mb-6">
         {tabs.map((tab, idx) => (
           <button
             key={tab.label}
@@ -48,7 +48,6 @@ const Tabs: React.FC<TabsProps> = ({
             aria-controls={`tab-panel-${idx}`}
             role="tab"
             tabIndex={currentTab === idx ? 0 : -1}
-            id={`tab-${idx}`}
           >
             {tab.label}
           </button>

@@ -8,16 +8,12 @@ import Brands from '../components/home/brands';
 import CallToAction from '../components/home/call-to-action';
 import { homeData } from '../data/home';
 
-type PageProps = object;
+type PageProps = unknown;
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <Layout isHomePage>
-      <SEO
-        title="Accueil"
-        pageName="home"
-        description="Création de sites web, e-commerce et conseils digitaux à Toulouse et partout en France."
-      />
+      <SEO title="Accueil" pageName="home" />
       <Hero {...homeData.hero} />
       <Needs {...homeData.needs} />
       <Services title={homeData.services.title} items={homeData.services.items} />

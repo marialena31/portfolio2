@@ -153,7 +153,7 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
           return (
             <ol key={key} className="list-decimal pl-6 my-6 text-left">
               {block.items?.map((item, i) => (
-                <li key={`${key}-${i}`} className="mb-2 text-gray-700">
+                <li key={`${key}-${i}`} className="mb-2 text-gray-700 text-base">
                   {renderContent(item)}
                 </li>
               ))}
@@ -163,7 +163,7 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
         return (
           <ul key={key} className="list-disc pl-6 my-6 text-left">
             {block.items?.map((item, i) => (
-              <li key={`${key}-${i}`} className="mb-2">
+              <li key={`${key}-${i}`} className="mb-2 text-gray-700 text-base">
                 {renderContent(item)}
               </li>
             ))}
@@ -186,7 +186,9 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
                 {block.rows.map((row, rowIndex) => (
                   <tr key={rowIndex}>
                     {row.map((cell, cellIndex) => (
-                      <td key={cellIndex}>{renderContent(cell)}</td>
+                      <td key={cellIndex} className="text-gray-700 text-base">
+                        {renderContent(cell)}
+                      </td>
                     ))}
                   </tr>
                 ))}

@@ -10,18 +10,14 @@ const BlogPage: React.FC<PageProps<any>> = ({ data }) => {
 
   return (
     <Layout>
-      <SEO
-        title="Blog"
-        pageName="blog"
-        description="Conseils, retours d'expérience et actualités du web, e-commerce et digital."
-      />
+      <SEO title="Blog" pageName="blog" />
       <div className="bg-gradient-to-br from-primary to-primary-dark py-24 min-h-[calc(100vh-4rem-6rem)] pb-16">
         <div className="max-w-[64rem] mx-auto px-4">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 mt-4 text-center">Blog</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto max-w-5xl">
             {posts.map((post: any) => (
               <article
-                className="bg-white rounded-lg shadow-md border border-primary/10 p-6 relative transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-primary flex flex-col h-full"
+                className="bg-white max-w-[64rem] w-full mx-auto px-4 md:px-[10rem] py-[5rem] shadow rounded-lg md:my-16 my-8 flex flex-col items-start text-left border border-primary/10 transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-primary h-full"
                 key={post.id}
               >
                 <Link

@@ -3,8 +3,6 @@ import Layout from '../components/layout';
 import CustomPdfViewer from '../components/CustomPdfViewer';
 import { SEO } from '../components/seo';
 
-const PDF_URL = '/docs/ExpertEcom.pdf'; // Place ton PDF dans public/docs/ExpertEcom.pdf
-
 const PlaquettePage: React.FC = () => {
   return (
     <Layout>
@@ -19,7 +17,7 @@ const PlaquettePage: React.FC = () => {
           <h2 className="text-xl font-semibold mb-2">
             Plaquette de présentation d&apos;ExpertEcom (PDF complet)
           </h2>
-          <CustomPdfViewer url="/docs/ExpertEcom.pdf" className="min-h-[500px]" />
+          <CustomPdfViewer url="/docs/ExpertEcom.pdf" mode="portfolio" className="min-h-[500px]" />
           <div className="mt-4 text-center">
             <a
               href="/docs/ExpertEcom.pdf"
@@ -37,10 +35,4 @@ const PlaquettePage: React.FC = () => {
 
 export default PlaquettePage;
 
-export const Head = () => (
-  <SEO
-    title="Plaquette commerciale"
-    pageName="plaquette"
-    description="Téléchargez la plaquette professionnelle de Maria-Lena PIETRI, experte e-commerce."
-  />
-);
+export const Head = () => <SEO title="Plaquette commerciale" pageName="plaquette" />;
