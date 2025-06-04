@@ -1,5 +1,7 @@
 # Home Components
 
+**Note : Migration en cours vers “1 composant = 1 dossier avec README.md”. Merci d’ajouter un README à chaque composant lors de la migration.**
+
 Components specific to the home page of the portfolio website.
 
 ## Components

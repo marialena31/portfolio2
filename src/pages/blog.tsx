@@ -17,7 +17,7 @@ const BlogPage: React.FC<PageProps<any>> = ({ data }) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto max-w-5xl">
             {posts.map((post: any) => (
               <article
-                className="bg-white max-w-[64rem] w-full mx-auto px-4 md:px-[10rem] py-[5rem] shadow rounded-lg md:my-16 my-8 flex flex-col items-start text-left border border-primary/10 transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-primary h-full"
+                className="bg-white mx-auto px-4 py-4 shadow rounded-lg my-8 flex flex-col items-start text-left border border-primary/10 transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-primary"
                 key={post.id}
               >
                 <Link

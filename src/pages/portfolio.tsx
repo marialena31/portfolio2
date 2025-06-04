@@ -5,7 +5,7 @@ import Tabs from '../components/Tabs';
 import CustomPdfViewerNoSSR from '../components/CustomPdfViewerNoSSR';
 
 import CaseStudyCard from '../components/CaseStudyCard';
-import ProjectCard from '../components/ProjectCard';
+import ProjectCard from '../components/ProjectCard/ProjectCard';
 import { caseStudies } from '../data/caseStudies';
 import { portfolio } from '../data/projects';
 

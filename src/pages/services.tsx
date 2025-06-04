@@ -2,7 +2,7 @@ import React from 'react';
 import { PageProps } from 'gatsby';
 import Layout from '../components/layout';
 import { SEO } from '../components/seo';
-import { ServiceCard } from '../components/ServiceCard';
+import ServiceCard from '../components/ServiceCard/ServiceCard';
 import { Icon } from '../components/Icon';
 
 const ServicesPage: React.FC<PageProps> = () => {

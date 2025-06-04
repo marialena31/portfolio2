@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
-import { useFormValidation } from '../hooks/useFormValidation';
-import { ValidationSchema, ValidationErrors } from '../types/validation';
-import { EnvConfig, validateEnv } from '../types/env';
-import { FormState } from '../types/form';
+import { useFormValidation } from '../../hooks/useFormValidation';
+import { ValidationSchema, ValidationErrors } from '../../types/validation';
+import { EnvConfig, validateEnv } from '../../types/env';
+import { FormState } from '../../types/form';
 
 const envConfig: EnvConfig = {
   GATSBY_API_URL: process.env.GATSBY_API_URL || 'http://localhost:3000',

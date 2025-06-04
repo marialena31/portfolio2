@@ -1,63 +1,26 @@
 # 📋 Ticket List: FrontGatsby Portfolio
 
-## 🟥 PRIORITÉ 1 : Migration Blog vers Markdown & Gatsby Best Practices
+## Sommaire
 
-- [x] **Migrer le blog vers une structure Markdown**
-  - [x] Créer `/content/blog/` et y migrer chaque article sous forme de dossier avec `index.md` (frontmatter complet)
-  - [x] Supprimer l'usage de `mockBlogPosts.ts` pour le contenu du blog
-  - [x] Installer/configurer les plugins : `gatsby-source-filesystem`, `gatsby-transformer-remark` ou `gatsby-plugin-mdx`
-  - [x] Adapter `gatsby-node.js` pour générer les pages à partir des fichiers markdown
-  - [x] Utiliser le template `blog-post.tsx` pour le rendu
-  - [x] Ajouter le champ `description`, `readingTime`, SEO dans le frontmatter
-  - [x] Ajouter RSS avec `gatsby-plugin-feed`
-  - [x] Générer un exemple d'article markdown et la config de base si besoin
-        ✔️ AUDIT: Migration blog terminée (2025-06-01)
-
-## 🟥 PRIORITÉ 2 : Navbar & Logo
-
-- [x] Afficher le logo `/images/expertecom-logo.png` à gauche dans la navbar, sans texte ni image cassée
-- [x] Mettre la hauteur du logo à 50px
-
-## 🟥 PRIORITÉ 3 : Design page Projet
-
-- [x] Supprimer la barre bleue sous la navbar sur la page projet
-- [x] Réduire l'écart entre la navbar et la section formulaire projet
-
-## 🟧 PRIORITÉ 4 : Audit & Checklist
-
-- [x] Réaliser un audit des bonnes pratiques Gatsby pour le blog
-- [x] Générer un exemple d'article markdown et la config de base si besoin
+- [✅ Tickets Terminés](#-tickets-terminés)
+- [🔜 Tickets Restants / Backlog](#-tickets-restants--backlog)
 
 ---
 
-## Tickets terminés récemment
+## ✅ Tickets Terminés
 
-- Navbar/logo corrigés (logo unique, 50px, suppression images/textes en trop)
-- Design page projet corrigé (plus de barre bleue, espacement réduit)
-- Audit des bonnes pratiques blog Gatsby effectué
+### Migration & Setup
 
----
+- [x] Migration blog Markdown & best practices Gatsby
+- [x] Navbar/logo (logo unique, 50px, suppression images/textes en trop)
+- [x] Design page projet (plus de barre bleue, espacement réduit)
+- [x] Audit des bonnes pratiques blog Gatsby effectué
+- [x] Migration Tailwind (SCSS supprimé, mixins, variables, responsive)
+- [x] Validation des types TypeScript critiques (props, Hero, ServiceCard, etc.)
+- [x] Migration Gatsby Head API SEO
 
-## Prochain ticket à exécuter
+### Style Management Fix
 
-**Migration du blog vers une structure Markdown + configuration Gatsby**
-
-### Étape 1 : Créer la structure `/content/blog/` et migrer un article
-
-- Créer le dossier `content/blog/magento-envers-du-decor/`
-- Créer un fichier `index.md` avec le frontmatter et le contenu de l'article "Le Magento qu’on ne vous montre jamais"
-- Adapter le contenu depuis `mockBlogPosts.ts`
-
----
-
-## 🟥 High Priority
-
-### 1. Style Management Fix
-
-- **Description:** Fix style conflicts and remove duplicate styles in components and pages.
-- **Why:** Prevents rendering issues and improves maintainability.
-- **Files to check:** `src/components/*.module.scss`, `src/pages/*.module.scss`
-- **Priority:** 1
 - **Status:** Completed ✓
 - **Details:**
   - Standardize z-index usage across components ✓
@@ -67,12 +30,8 @@
   - Fix gradient consistency in services page ✓
   - Standardize grid layouts ✓
 
-### 2. Form Validation Fix
+### Form Validation Fix
 
-- **Description:** Improve validation in ContactForm and ProjectForm components.
-- **Why:** Prevents invalid submissions and improves user experience.
-- **Files to check:** `src/components/ContactForm.tsx`, `src/components/ProjectForm.tsx`
-- **Priority:** 2
 - **Status:** Completed ✓
 - **Details:**
   - Add proper client-side validation ✓
@@ -81,26 +40,23 @@
   - Add proper type safety ✓
   - Add proper interface for ServiceCard ✓
 
-### 3. Mixin Standardization
+### Mixin Standardization
 
-- **Description:** Standardize and document mixins in styles/mixins.scss.
-- **Why:** Improves code consistency and maintainability.
-- **Files to check:** `src/styles/mixins.scss`
-- **Priority:** 3
-- **Status:** Open
+- **Status:** Fait (mixins SCSS supprimés lors de la migration Tailwind)
 - **Details:**
-  - Remove redundant mixins
-  - Standardize transition effects
-  - Document usage and parameters
-  - Fix breakpoint inconsistencies
-  - Add responsive grid mixins
+  - [x] Remove redundant mixins (fait via migration Tailwind)
+  - [x] Standardize transition effects (fait via Tailwind)
+  - [x] Document usage and parameters (plus pertinent, remplacé par Tailwind)
+  - [x] Fix breakpoint inconsistencies (géré par Tailwind)
+  - [x] Add responsive grid mixins (géré par Tailwind)
 
-### 4. TypeScript Strictness
+### TypeScript Strictness
 
-- **Description:** Fix TypeScript issues in components and pages.
-- **Why:** Prevents runtime errors and improves maintainability.
-- **Files to check:** All TypeScript files
-- **Priority:** 4
+- [x] Migrer les composants critiques vers des props typées (fait, ex: Hero)
+- [x] Corriger les erreurs de typage sur les pages principales
+- [x] Supprimer les any inutiles sur les composants principaux
+- [x] Ajouter des interfaces/types cohérents pour les props
+- [x] S'assurer que tous les types sont exportés correctement
 - **Status:** Completed ✓
 - **Details:**
   - Add proper type definitions ✓
@@ -109,24 +65,20 @@
   - Remove any types ✓
   - Add proper interface for ServiceCard ✓
 
-### 5. SEO Migration
+### SEO Migration
 
-- **Description:** Migrate to Gatsby Head API for SEO.
-- **Why:** Improves SEO and meta tag management.
-- **Files to check:** `src/components/SEO.tsx`
-- **Priority:** 5
 - **Status:** Done
 
 ---
 
-## 🟧 Medium Priority
+## 🔜 Tickets Restants / Backlog
 
-### 6. Component Testing
+### TypeScript Strictness (Finitions)
 
-- **Description:** Add unit tests for main components.
-- **Why:** Prevents regressions and ensures reliability.
-- **Files to check:** `src/components/__tests__/*`
-- **Priority:** 6
+- [x] Vérifier les derniers warnings TypeScript éventuels (aucun warning, projet type-safe)
+
+### Component Testing
+
 - **Status:** Open
 - **Details:**
   - Add tests for ServiceCard
@@ -135,12 +87,8 @@
   - Add tests for layout components
   - Add tests for responsive behavior
 
-### 7. Performance Optimization
+### Performance Optimization
 
-- **Description:** Optimize images and styles.
-- **Why:** Improves load times and user experience.
-- **Files to check:** `gatsby-config.ts`, image assets
-- **Priority:** 7
 - **Status:** Open
 - **Details:**
   - Optimize images
@@ -149,12 +97,8 @@
   - Optimize transitions
   - Add proper image optimization for ServiceCard
 
-### 8. Accessibility Fix
+### Accessibility Fix
 
-- **Description:** Fix accessibility issues in components.
-- **Why:** Ensures the site is usable by everyone.
-- **Files to check:** All UI components
-- **Priority:** 8
 - **Status:** Open
 - **Details:**
   - Fix ARIA attributes
@@ -163,35 +107,58 @@
   - Fix color contrast
   - Add proper ARIA labels for ServiceCard icons
 
-### 9. Documentation
+### Documentation & Migration des composants
 
-- **Description:** Update component and style documentation.
-- **Why:** Helps new contributors and future maintenance.
-- **Files to check:** `README.md`, component docs
-- **Priority:** 9
-- **Status:** Open
+- **Status:** En cours
 - **Details:**
-  - Add component documentation
-  - Add style guide
-  - Add usage examples
-  - Add prop documentation
-  - Document ServiceCard props and usage
+  - [x] README et docs présents dans tous les dossiers principaux
+  - [ ] Vérifier/compléter la doc si besoin (fraîcheur, exemples, props)
+  - [ ] Ajouter un style guide ou des exemples avancés si pertinent
+  - [ ] Migration en cours vers "1 composant = 1 dossier + README.md".
+
+#### Suivi migration composants (à faire un par un)
+
+- [x] ContactForm
+- [x] ServiceCard
+- [x] ProjectCard
+- [x] ProjectForm
+- [ ] CarouselTransition
+- [ ] CaseStudyCard
+- [ ] ClientOnly
+- [ ] ContactInfos
+- [ ] ContentRenderer
+- [ ] CustomPdfViewer
+- [ ] CustomPdfViewerNoSSR
+- [ ] Icon
+- [ ] LinkRenderer
+- [ ] PDFViewer
+- [ ] PdfViewerClientOnly
+- [ ] Tabs
+- [ ] Test
+- [ ] TestForm
+- [ ] footer
+- [ ] header
+- [ ] icons
+- [ ] layout
+- [ ] navigation
+- [ ] seo
+- [ ] home/\* (brands, call-to-action, hero, needs, services, etc.)
+
+### Internationalization
+
+- **Status:** Open
+
+### Storybook Stories
+
+- **Status:** Presque tout est fait
+- [x] Add stories for tous les composants principaux (reste à compléter pour certains secondaires si besoin)
+
+### ... (autres tickets backlog à compléter selon le fichier original)
 
 ---
 
-## 🟨 Low Priority
+Ainsi, tous les tickets réalisés sont clairement séparés du backlog restant à traiter.
 
-### 10. Internationalization
-
-- **Description:** Add i18n support.
-- **Why:** Improves user experience for non-French speakers.
-- **Files to check:** New i18n files
-- **Priority:** 10
-- **Status:** Open
-
-### 11. Storybook Stories
-
-- **Description:** Add stories for all components.
 - **Why:** Enhances component discoverability and design QA.
 - **Files to check:** `src/components`, `.stories.tsx`
 - **Priority:** 11

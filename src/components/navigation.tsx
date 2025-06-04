@@ -86,7 +86,7 @@ const Navigation: React.FC = () => {
       <div className="flex items-center justify-between h-16 max-w-5xl mx-auto">
         <Link to="/" className="flex items-center" aria-label="Go to homepage">
           <img
-            src="/images/expertecom-logo.png"
+            src="/images/expertecom-logo.webp"
             alt=""
             style={{ height: 50, width: 'auto', display: 'block' }}
           />
@@ -271,6 +271,7 @@ const Navigation: React.FC = () => {
               aria-expanded={openMegaMenu === 'offre'}
               tabIndex={isMenuOpen ? 0 : -1}
               type="button"
+              role="menuitem"
             >
               Offre & services
               <svg
@@ -295,6 +296,7 @@ const Navigation: React.FC = () => {
                   to="/services"
                   className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
                   tabIndex={0}
+                  role="menuitem"
                 >
                   <FontAwesomeIcon
                     icon={faHandshake}
@@ -311,6 +313,7 @@ const Navigation: React.FC = () => {
                   to="/pourquoi-choisir"
                   className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
                   tabIndex={0}
+                  role="menuitem"
                 >
                   <FontAwesomeIcon
                     icon={faLightbulb}
@@ -327,6 +330,7 @@ const Navigation: React.FC = () => {
                   to="/conseils-pro"
                   className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
                   tabIndex={0}
+                  role="menuitem"
                 >
                   <FontAwesomeIcon
                     icon={faGears}
@@ -382,6 +386,7 @@ const Navigation: React.FC = () => {
               aria-expanded={openMegaMenu === 'portfolio'}
               tabIndex={isMenuOpen ? 0 : -1}
               type="button"
+              role="menuitem"
             >
               Portfolio & études de cas
               <svg
@@ -402,6 +407,7 @@ const Navigation: React.FC = () => {
                   to="/portfolio"
                   className="group cursor-pointer hover:bg-primary/5 rounded transition"
                   tabIndex={0}
+                  role="menuitem"
                 >
                   <FontAwesomeIcon
                     icon={faImages}
@@ -416,6 +422,7 @@ const Navigation: React.FC = () => {
                   to="/portfolio#etudes-de-cas"
                   className="group cursor-pointer hover:bg-primary/5 rounded transition"
                   tabIndex={0}
+                  role="menuitem"
                 >
                   <FontAwesomeIcon
                     icon={faSuitcase}
@@ -444,6 +451,7 @@ const Navigation: React.FC = () => {
               aria-expanded={openMegaMenu === 'contact'}
               tabIndex={isMenuOpen ? 0 : -1}
               type="button"
+              role="menuitem"
             >
               Contact
               <svg

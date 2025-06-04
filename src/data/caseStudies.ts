@@ -24,7 +24,7 @@ export const caseStudies: CaseStudy[] = [
       "Déploiement de la version pilote au Chili en 2016, puis extension progressive à plusieurs filiales. Intégration poussée avec l'ERP, flux complexes, modules Magento sur-mesure, travail avec équipe support en Inde. Réversibilité complète assurée en 2019.",
     role: 'Développeuse Magento puis coordinatrice projet',
     stack: ['Magento 2', 'ERP', 'Docker', 'Jenkins', 'API SOAP/XML'],
-    image: '/images/case-studies/Legrand.png',
+    image: '/images/case-studies/Legrand.webp',
     slug: 'legrand-magento-b2b',
     url: '',
     excerpt:
@@ -38,7 +38,7 @@ export const caseStudies: CaseStudy[] = [
       'Refonte complète du site e-commerce B2B pour la maison Valrhona, avec exigence forte sur le design, la qualité de code et la performance.',
     role: 'Lead développeuse back-end Magento 2',
     stack: ['Magento 2', 'PHP', 'MySQL', 'GraphQL', 'Docker'],
-    image: '/images/case-studies/valrhona.png',
+    image: '/images/case-studies/valrhona.webp',
     slug: 'valrhona-magento-refonte',
     url: '',
     excerpt:
@@ -52,7 +52,7 @@ export const caseStudies: CaseStudy[] = [
       'Projet de structuration de l’offre produit pour le e-commerce, création d’un PIM, automatisation des catalogues papier, et pilotage des flux entre AS400, Excel et web.',
     role: 'Cheffe de projet digital & responsable produit',
     stack: ['PIM', 'AS400', 'Magento', 'XML', 'Excel'],
-    image: '/images/case-studies/Chausson.png',
+    image: '/images/case-studies/Chausson.webp',
     slug: 'chausson-materiaux-digitalisation',
     url: '',
     excerpt:

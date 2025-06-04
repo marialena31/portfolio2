@@ -15,7 +15,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, cta }) => {
     <section className="relative flex items-center justify-center min-h-screen w-full px-4 py-24 overflow-hidden text-white bg-gradient-to-b from-primary-dark/95 to-primary/85">
       <div className="absolute inset-0 w-full h-full z-0">
         <StaticImage
-          src="../../images/banner.png"
+          src="../../images/banner.webp"
           alt="Background banner"
           placeholder="blurred"
           layout="fullWidth"

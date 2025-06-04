@@ -2,7 +2,7 @@ import React from 'react';
 import { PageProps } from 'gatsby';
 import Layout from '../components/layout';
 import { SEO } from '../components/seo';
-import ContactForm from '../components/ContactForm';
+import ContactForm from '../components/ContactForm/ContactForm';
 import ContactInfos from '../components/ContactInfos';
 
 const ContactPage: React.FC<PageProps> = () => {

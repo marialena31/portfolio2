@@ -2,7 +2,7 @@ import * as React from 'react';
 import { HeadFC, PageProps } from 'gatsby';
 import Layout from '../components/layout';
 import { SEO } from '../components/seo';
-import ProjectForm from '../components/ProjectForm';
+import ProjectForm from '../components/ProjectForm/ProjectForm';
 
 const ProjectPage: React.FC<PageProps> = () => {
   return (
