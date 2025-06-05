@@ -2,9 +2,10 @@ import { HomeData } from '../types/data';
 
 export const homeData: HomeData = {
   hero: {
-    title: 'Externaliser, ce n’est pas lâcher prise.',
+    title:
+      'Cheffe de projet e-commerce & Magento, je reprends les projets en souffrance et les transforme en succès.',
     subtitle:
-      'Vous avez un projet offshore ? Ou un partenaire que vous avez du mal à piloter ?\n\nJe vous accompagne pour garder la main sur vos projets web externalisés, avec exigence, méthode et clarté.*',
+      'Spécialisée dans la structuration, la coordination transverse et la conformité numérique, j’accompagne mes clients dans la maîtrise de leurs risques et la réussite de leurs transformations digitales.',
     cta: {
       text: 'Obtenez un audit gratuit',
       link: '/contact',

@@ -6,7 +6,7 @@ module.exports = {
     description: `Découvrez mes services de freelance Magento : maintenance, migrations complexes, sécurisation et développement sur mesure. Contactez-moi pour un audit gratuit et optimisez votre site e-commerce dès aujourd'hui !`,
     author: `@mlpietri`,
     siteUrl: `https://expertecom.fr`,
-    image: `/images/Logo.jpg`,
+    image: `/images/expertecom-logo.png`,
     twitterUsername: `@mlpietri`,
     pageMetadata: {
       home: {
@@ -111,7 +111,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `ExpertEcom Portfolio`,
+        name: `ExpertEcom`,
         short_name: `ExpertEcom`,
         start_url: `/`,
         background_color: `#ffffff`,
