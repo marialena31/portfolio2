@@ -24,9 +24,6 @@
     "test:e2e": "start-server-and-test 'yarn develop' http://localhost:8000 'yarn cy:open'",
     "test:e2e:ci": "start-server-and-test 'yarn develop' http://localhost:8000 'yarn cy:run'",
     "prepare": "husky install",
-    "setup": "ts-node src/scripts/setup-project.ts",
-    "optimize-images": "ts-node src/scripts/optimize-images.ts",
-    "generate-icons": "ts-node src/scripts/convert-icons.ts",
     "check-env": "npx ts-node src/scripts/check-env.ts",
     "security-check": "yarn audit",
     "contrast-check": "color-contrast-calc",
@@ -135,9 +132,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "webpack-bundle-analyzer": "^4.10.2"
-  },
-  "resolutions": {
-    "webpack": "^5.0.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
