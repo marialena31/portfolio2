@@ -75,7 +75,7 @@
 
 ### TypeScript Strictness (Finitions)
 
-- [x] Vérifier les derniers warnings TypeScript éventuels (aucun warning, projet type-safe)
+- [x] Vérifier les derniers warnings TypeScript éventuels (aucun warning, projet type-safe) ✓
 
 ### Component Testing
 

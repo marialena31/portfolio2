@@ -1,0 +1,5 @@
+# robots.txt for https://expertecom.fr
+User-agent: *
+Allow: /
+
+Sitemap: https://expertecom.fr/sitemap.xml

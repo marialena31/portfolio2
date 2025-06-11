@@ -7,7 +7,10 @@ import { SEO } from '../components/seo';
 const ConseilsProPage: React.FC = () => {
   return (
     <Layout>
-      <SEO title="Conseils de pro - Galères & Réponses cash" />
+      <SEO
+        title="Conseils de pro - Galères & Réponses cash"
+        description="Astuces, retours d'expérience et réponses sans langue de bois pour réussir vos projets e-commerce, éviter les pièges de l'offshore et piloter efficacement vos prestataires."
+      />
       <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
         <ContentRenderer
           content={conseilsProContent}

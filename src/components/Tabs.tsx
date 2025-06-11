@@ -32,7 +32,7 @@ const Tabs: React.FC<TabsProps> = ({
 
   return (
     <div className={`w-full ${className}`}>
-      <div className="flex border-b border-primary/20 mb-6">
+      <div className="flex border-b border-primary/20 mb-6" role="tablist">
         {tabs.map((tab, idx) => (
           <button
             key={tab.label}

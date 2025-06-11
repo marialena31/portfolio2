@@ -93,11 +93,9 @@ const Navigation: React.FC = () => {
         </Link>
 
         <button
-          className="md:hidden bg-transparent border-none text-gray-900 cursor-pointer p-2 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-          onClick={toggleMenu}
-          aria-label="Ouvrir ou fermer le menu de navigation"
-          aria-expanded={isMenuOpen}
-          aria-controls="mainMenu"
+          className="md:hidden text-3xl text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -113,18 +111,20 @@ const Navigation: React.FC = () => {
             role="img"
           >
             {isMenuOpen ? (
-              <>
-                <title>Close menu</title>
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </>
+              <li role="none">
+                <a role="menuitem">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </a>
+              </li>
             ) : (
-              <>
-                <title>Open menu</title>
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </>
+              <li role="none">
+                <a role="menuitem">
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </a>
+              </li>
             )}
           </svg>
         </button>
@@ -212,6 +212,7 @@ const Navigation: React.FC = () => {
                 rel="noopener noreferrer"
                 className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
                 onClick={() => setIsMenuOpen(false)}
+                role="menuitem"
               >
                 Prendre rendez-vous
               </a>

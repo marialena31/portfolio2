@@ -13,6 +13,7 @@ export interface CaseStudy {
   slug: string;
   url?: string;
   excerpt: string;
+  description: string; // description SEO personnalisée
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -29,6 +30,8 @@ export const caseStudies: CaseStudy[] = [
     url: '',
     excerpt:
       'Premier projet Magento B2B en France en version alpha. Intégration multi-filiale, coordination offshore, réversibilité complète après 3 ans de développement progressif.',
+    description:
+      "Découvrez comment Legrand a déployé une plateforme Magento B2B multi-filiale innovante, intégrée à l'ERP et pilotée entre la France, l'Inde et l'Amérique latine. Un retour d'expérience sur la gestion de projets complexes, la coordination offshore et la réussite d'une réversibilité totale.",
   },
   {
     id: '2',
@@ -43,6 +46,8 @@ export const caseStudies: CaseStudy[] = [
     url: '',
     excerpt:
       'Refonte sur Magento 2.3 avec focus qualité. Gestion du catalogue complexe, intégration flux B2B, montée en charge, livraison en prod avant passation à la TMA.',
+    description:
+      'Plongez dans la refonte du site B2B Valrhona sous Magento 2 et Mirakl Marketplace : enjeux de performance, gestion de catalogue complexe et intégration de flux métiers pour un acteur majeur du chocolat professionnel.',
   },
   {
     id: '3',
@@ -57,5 +62,7 @@ export const caseStudies: CaseStudy[] = [
     url: '',
     excerpt:
       'Refonte du référentiel produit et mise en place d’une base unifiée pour le e-commerce. Coordination multi-métiers et livraison de 4 catalogues automatisés.',
+    description:
+      'Découvrez comment Chausson Matériaux a digitalisé et automatisé la gestion de son catalogue produit pour le e-commerce B2B grâce à un PIM, une coordination multi-métiers et une intégration AS400/Magento efficace.',
   },
 ];

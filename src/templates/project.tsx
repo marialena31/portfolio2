@@ -5,8 +5,10 @@ import { SEO } from '../components/seo';
 
 import { ProjectTemplateQueryQuery } from '../types/graphql-types';
 
+type ProjectWithSeo = ProjectTemplateQueryQuery['portfolioProject'] & { descriptionSeo?: string };
+
 const ProjectTemplate: React.FC<PageProps<ProjectTemplateQueryQuery>> = ({ data }) => {
-  const project = data.portfolioProject;
+  const project = data.portfolioProject as ProjectWithSeo;
 
   if (!project) {
     return <div>Project not found</div>;
@@ -16,7 +18,7 @@ const ProjectTemplate: React.FC<PageProps<ProjectTemplateQueryQuery>> = ({ data 
     <Layout>
       <SEO
         title={project.title}
-        description={project.description}
+        description={project.descriptionSeo || project.description}
         image={project.image}
         pageName="project"
       />

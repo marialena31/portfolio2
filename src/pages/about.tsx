@@ -8,7 +8,11 @@ import { aboutContent } from '../data/about';
 const AboutPage: React.FC<PageProps> = () => {
   return (
     <Layout>
-      <SEO title="À propos" pageName="about" />
+      <SEO
+        title="À propos de Maria-Lena Pietri"
+        pageName="about"
+        description="Découvrez mon parcours, mon expertise Magento et e-commerce, et ma vision du pilotage de projets digitaux pour PME, ETI et grands comptes."
+      />
       <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
         <ContentRenderer
           content={aboutContent}

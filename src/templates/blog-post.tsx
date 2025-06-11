@@ -7,6 +7,7 @@ interface BlogPostData {
   markdownRemark: {
     id: string;
     html: string;
+    excerpt?: string;
     frontmatter: {
       title: string;
       date: string;
@@ -14,6 +15,7 @@ interface BlogPostData {
       description?: string;
       tags?: string[];
       slug: string;
+      cover?: string;
     };
   };
 }
@@ -24,7 +26,15 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
 
   return (
     <Layout className="otherPages">
-      <SEO title={fm.title} description={fm.description} />
+      <SEO
+        title={fm.title}
+        description={
+          fm.description ||
+          post.excerpt ||
+          `Découvrez un article inédit sur le e-commerce, Magento, pilotage digital, conseils et retours d'expérience par Maria-Lena Pietri.`
+        }
+        image={fm.cover || undefined}
+      />
       <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
         <div className="bg-white max-w-[64rem] w-full mx-auto px-4 md:px-[10rem] py-[5rem] shadow rounded-lg md:my-16 my-8 flex flex-col items-start text-left">
           <button
@@ -109,6 +119,7 @@ export const query = graphql`
     markdownRemark(frontmatter: { slug: { eq: $slug } }) {
       id
       html
+      excerpt(pruneLength: 160)
       frontmatter {
         title
         date(formatString: "YYYY-MM-DD")
@@ -116,6 +127,7 @@ export const query = graphql`
         description
         tags
         slug
+        cover
       }
     }
   }

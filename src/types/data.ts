@@ -45,6 +45,7 @@ export interface Project {
   githubUrl?: ValidUrl;
   liveUrl?: ValidUrl;
   slug: Slug;
+  descriptionSeo?: string; // Meta description SEO personnalisée
 }
 
 export interface Skill {

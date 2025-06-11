@@ -8,6 +8,7 @@ import { Icon } from '../components/Icon';
 const ServicesPage: React.FC<PageProps> = () => {
   return (
     <Layout>
+      <SEO title="Services Magento, e-commerce & pilotage projet" pageName="services" />
       <SEO title="Services" pageName="services" />
       <main className="min-h-screen bg-gradient-to-br from-primary to-primary-dark text-white w-full box-border py-28">
         <div className="max-w-[64rem] mx-auto text-center mb-12 px-4">
