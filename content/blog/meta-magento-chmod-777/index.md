@@ -5,6 +5,8 @@ description: 'Retour sur une erreur critique dans un module officiel Meta/Facebo
 author: 'Maria-Lena Pietri'
 tags: ['Magento', 'cybersécurité', 'DevOps', 'bonne pratique', 'faille', 'audit']
 slug: 'meta-magento-chmod-777'
+cover: './meta-magento-chmod-777.webp'
+coverAlt: "Illustration sécurité et droits sur Magento, chmod 777"
 ---
 
 ## Une documentation officielle, une ligne fatale

@@ -9,7 +9,7 @@ export const aboutContent: ContentBlock[] = [
   {
     type: 'paragraph',
     children:
-      "Je m'appelle Maria-Lena Pietri. Depuis plus de 15 ans, j'interviens sur des projets e-commerce complexes, en tant que cheffe de projet, responsable fonctionnelle ou product owner. Mon parcours m'a conduite à piloter des refontes Magento, à structurer des bases produits, à mettre en place des PIM, à cadrer des flux entre ERP, e-commerce et CRM.",
+      "Je m'appelle Maria-Lena Pietri. Depuis plus de 15 ans, j'interviens sur des projets e-commerce complexes, en tant que chef de projet, responsable fonctionnelle ou product owner. Mon parcours m'a conduite à piloter des refontes Magento, à structurer des bases produits, à mettre en place des PIM, à cadrer des flux entre ERP, e-commerce et CRM.",
   },
   {
     type: 'quote',

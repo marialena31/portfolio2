@@ -13,7 +13,11 @@ type PageProps = unknown;
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <Layout isHomePage>
-      <SEO title="Accueil" pageName="home" />
+      <SEO
+        title="Chef de projet Magento & e-commerce | Accueil"
+        pageName="home"
+        description="Chef de projet Magento & e-commerce, j’aide les entreprises à reprendre le contrôle de leurs projets digitaux. Audit gratuit, migration, sécurisation, pilotage transverse."
+      />
       <Hero {...homeData.hero} />
       <Needs {...homeData.needs} />
       <Services title={homeData.services.title} items={homeData.services.items} />

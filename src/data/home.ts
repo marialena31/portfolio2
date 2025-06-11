@@ -3,7 +3,7 @@ import { HomeData } from '../types/data';
 export const homeData: HomeData = {
   hero: {
     title:
-      'Cheffe de projet e-commerce & Magento, je reprends les projets en souffrance et les transforme en succès.',
+      'Chef de projet e-commerce & Magento, je reprends les projets en souffrance et les transforme en succès.',
     subtitle:
       'Spécialisée dans la structuration, la coordination transverse et la conformité numérique, j’accompagne mes clients dans la maîtrise de leurs risques et la réussite de leurs transformations digitales.',
     cta: {

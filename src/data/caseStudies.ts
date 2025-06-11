@@ -55,7 +55,7 @@ export const caseStudies: CaseStudy[] = [
     clientType: 'Distribution BTP',
     context:
       'Projet de structuration de l’offre produit pour le e-commerce, création d’un PIM, automatisation des catalogues papier, et pilotage des flux entre AS400, Excel et web.',
-    role: 'Cheffe de projet digital & responsable produit',
+    role: 'Chef de projet digital & responsable produit',
     stack: ['PIM', 'AS400', 'Magento', 'XML', 'Excel'],
     image: '/images/case-studies/Chausson.webp',
     slug: 'chausson-materiaux-digitalisation',

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, PageProps } from 'gatsby';
 import Layout from '../components/layout';
 import { SEO } from '../components/seo';
-import { caseStudies, CaseStudy } from '../data/caseStudies';
+import { caseStudies } from '../data/caseStudies';
 
 interface CaseStudyPageContext {
   slug: string;
@@ -10,7 +10,13 @@ interface CaseStudyPageContext {
 
 const CaseStudyPage: React.FC<PageProps<object, CaseStudyPageContext>> = ({ pageContext }) => {
   const { slug } = pageContext;
-  const study = caseStudies.find(cs => cs.slug === slug);
+  // Vérification de la structure du slug pour SEO : pas d'espaces, pas de majuscules, pas de caractères spéciaux
+  const normalizedSlug = slug
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '-')
+    .replace(/--+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  const study = caseStudies.find(cs => cs.slug === slug || cs.slug === normalizedSlug);
 
   if (!study) {
     return (

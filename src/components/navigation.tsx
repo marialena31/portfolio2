@@ -55,17 +55,6 @@ const Navigation: React.FC = () => {
     megaMenuTimeout.current = setTimeout(() => setOpenMegaMenu(null), 180);
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    // Trap focus within menu when open
-    if (!isMenuOpen) {
-      setTimeout(() => {
-        const firstMenuItem = document.querySelector('[data-nav-item]') as HTMLElement;
-        firstMenuItem?.focus();
-      }, 100);
-    }
-  };
-
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isMenuOpen) {
@@ -111,20 +100,16 @@ const Navigation: React.FC = () => {
             role="img"
           >
             {isMenuOpen ? (
-              <li role="none">
-                <a role="menuitem">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </a>
-              </li>
+              <>
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </>
             ) : (
-              <li role="none">
-                <a role="menuitem">
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                </a>
-              </li>
+              <>
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </>
             )}
           </svg>
         </button>

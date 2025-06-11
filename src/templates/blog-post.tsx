@@ -15,7 +15,8 @@ interface BlogPostData {
       description?: string;
       tags?: string[];
       slug: string;
-      cover?: string;
+      cover?: { publicURL: string } | string;
+      coverAlt?: string;
     };
   };
 }
@@ -33,7 +34,11 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
           post.excerpt ||
           `Découvrez un article inédit sur le e-commerce, Magento, pilotage digital, conseils et retours d'expérience par Maria-Lena Pietri.`
         }
-        image={fm.cover || undefined}
+        image={
+          fm.cover && typeof fm.cover === 'object' && 'publicURL' in fm.cover
+            ? fm.cover.publicURL
+            : undefined
+        }
       />
       <section className="pt-16 pb-16 bg-gradient-to-b from-primary-dark/95 to-primary/85">
         <div className="bg-white max-w-[64rem] w-full mx-auto px-4 md:px-[10rem] py-[5rem] shadow rounded-lg md:my-16 my-8 flex flex-col items-start text-left">
@@ -81,6 +86,14 @@ const BlogPostTemplate: React.FC<PageProps<BlogPostData>> = ({ data }) => {
               </div>
             )}
           </header>
+          {fm.cover && typeof fm.cover === 'object' && 'publicURL' in fm.cover && (
+            <img
+              src={fm.cover.publicURL}
+              alt={fm.coverAlt || `Illustration de l’article : ${fm.title}`}
+              className="w-full max-h-96 object-cover rounded-lg mb-8 shadow"
+              loading="lazy"
+            />
+          )}
           <div
             className="blog-post-content prose prose-primary max-w-none"
             dangerouslySetInnerHTML={{ __html: post.html }}
@@ -127,7 +140,9 @@ export const query = graphql`
         description
         tags
         slug
-        cover
+        cover {
+          publicURL
+        }
       }
     }
   }

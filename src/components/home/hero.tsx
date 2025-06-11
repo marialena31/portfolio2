@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import { StaticImage } from 'gatsby-plugin-image';
 
 import { HomeButton } from '../../types/data';
 
@@ -13,16 +12,6 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ title, subtitle, cta }) => {
   return (
     <section className="relative flex items-center justify-center min-h-screen w-full px-4 py-24 overflow-hidden text-white bg-gradient-to-b from-primary-dark/95 to-primary/85">
-      <div className="absolute inset-0 w-full h-full z-0">
-        <StaticImage
-          src="../../images/banner.webp"
-          alt="Background banner"
-          placeholder="blurred"
-          layout="fullWidth"
-          className="w-full h-full object-cover object-center opacity-60 dark:opacity-30"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/90 to-primary/80 dark:from-gray-900 dark:to-gray-800 opacity-95 z-10" />
-      </div>
       <div className="relative z-20 max-w-4xl w-full mx-auto px-4 text-center text-white">
         <h1 className="text-[2.5rem] leading-[1.5] font-bold mb-8 text-white drop-shadow-xl tracking-tight">
           {title}

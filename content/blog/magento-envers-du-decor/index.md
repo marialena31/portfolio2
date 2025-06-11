@@ -5,6 +5,8 @@ description: 'Sous les modules clinquants : dette technique, backlog fantôme, e
 author: 'Maria-Lena Pietri'
 tags: ['Magento', 'E-commerce', 'Pilotage']
 slug: 'magento-envers-du-decor'
+cover: './magento-envers-du-decor.webp'
+coverAlt: "Vue d'ensemble technique et humaine d'un projet Magento en difficulté"
 ---
 
 Magento, c’est puissant. Flexible. Ambitieux. C’est aussi, souvent, un projet qui dérape lentement avant de s’écraser sans bruit. Et personne ne vous a prévenu. Parce que Magento, dans les brochures, c’est la promesse : un site scalable, modulaire, personnalisable à l’infini. Mais la réalité en agence, sur le terrain, avec des prestataires pressés et des clients mal accompagnés ? C’est une autre histoire.
