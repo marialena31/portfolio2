@@ -136,21 +136,21 @@ const Navigation: React.FC = () => {
               </span>
               <Link
                 to="/services"
-                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium min-w-[48px] min-h-[48px]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Présentation des services
               </Link>
               <Link
                 to="/pourquoi-choisir"
-                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium min-w-[48px] min-h-[48px]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Pourquoi me choisir ?
               </Link>
               <Link
                 to="/conseils-pro"
-                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium min-w-[48px] min-h-[48px]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Conseils de pro
@@ -161,14 +161,14 @@ const Navigation: React.FC = () => {
               </span>
               <Link
                 to="/portfolio"
-                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium min-w-[48px] min-h-[48px]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Portfolio
               </Link>
               <Link
                 to="/portfolio#etudes-de-cas"
-                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium min-w-[48px] min-h-[48px]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Études de cas
@@ -179,14 +179,14 @@ const Navigation: React.FC = () => {
               </span>
               <Link
                 to="/projet"
-                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium min-w-[48px] min-h-[48px]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Déposer un projet
               </Link>
               <Link
                 to="/contact"
-                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium min-w-[48px] min-h-[48px]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Envoyer un message
@@ -195,7 +195,7 @@ const Navigation: React.FC = () => {
                 href="https://calendly.com/pietri-marialena/contact-30"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium min-w-[48px] min-h-[48px]"
                 onClick={() => setIsMenuOpen(false)}
                 role="menuitem"
               >
@@ -207,14 +207,14 @@ const Navigation: React.FC = () => {
               </span>
               <Link
                 to="/plaquette"
-                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium min-w-[48px] min-h-[48px]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Plaquette ExpertEcom
               </Link>
               <Link
                 to="/blog"
-                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium min-w-[48px] min-h-[48px]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blog
@@ -277,57 +277,63 @@ const Navigation: React.FC = () => {
                 if (!isMobile) handleMegaMenuLeave();
               }}
             >
-              <div className="grid grid-cols-3 gap-6">
-                <Link
-                  to="/services"
-                  className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
-                  tabIndex={0}
-                  role="menuitem"
-                >
-                  <FontAwesomeIcon
-                    icon={faHandshake}
-                    className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
-                  />
-                  <div className="font-bold mb-2 group-hover:text-primary">
-                    Présentation des services
-                  </div>
-                  <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
-                    Découvrir
-                  </div>
-                </Link>
-                <Link
-                  to="/pourquoi-choisir"
-                  className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
-                  tabIndex={0}
-                  role="menuitem"
-                >
-                  <FontAwesomeIcon
-                    icon={faLightbulb}
-                    className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
-                  />
-                  <div className="font-bold mb-2 group-hover:text-primary">
-                    Pourquoi me choisir ?
-                  </div>
-                  <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
-                    Voir les atouts
-                  </div>
-                </Link>
-                <Link
-                  to="/conseils-pro"
-                  className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
-                  tabIndex={0}
-                  role="menuitem"
-                >
-                  <FontAwesomeIcon
-                    icon={faGears}
-                    className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
-                  />
-                  <div className="font-bold mb-2 group-hover:text-primary">Conseils de pro</div>
-                  <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
-                    Lire les conseils
-                  </div>
-                </Link>
-              </div>
+              <ul className="grid grid-cols-3 gap-6" role="menu">
+                <li role="none">
+                  <Link
+                    to="/services"
+                    className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
+                    tabIndex={0}
+                    role="menuitem"
+                  >
+                    <FontAwesomeIcon
+                      icon={faHandshake}
+                      className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
+                    />
+                    <div className="font-bold mb-2 group-hover:text-primary">
+                      Présentation des services
+                    </div>
+                    <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
+                      Découvrir
+                    </div>
+                  </Link>
+                </li>
+                <li role="none">
+                  <Link
+                    to="/pourquoi-choisir"
+                    className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
+                    tabIndex={0}
+                    role="menuitem"
+                  >
+                    <FontAwesomeIcon
+                      icon={faLightbulb}
+                      className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
+                    />
+                    <div className="font-bold mb-2 group-hover:text-primary">
+                      Pourquoi me choisir ?
+                    </div>
+                    <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
+                      Voir les atouts
+                    </div>
+                  </Link>
+                </li>
+                <li role="none">
+                  <Link
+                    to="/conseils-pro"
+                    className="flex flex-col items-center text-center group focus:outline-none cursor-pointer hover:bg-primary/5 rounded transition"
+                    tabIndex={0}
+                    role="menuitem"
+                  >
+                    <FontAwesomeIcon
+                      icon={faGears}
+                      className="text-primary text-3xl mb-2 group-hover:text-primary-dark transition-colors"
+                    />
+                    <div className="font-bold mb-2 group-hover:text-primary">Conseils de pro</div>
+                    <div className="text-sm text-gray-700 group-hover:text-primary transition-colors">
+                      Lire les conseils
+                    </div>
+                  </Link>
+                </li>
+              </ul>
             </div>
           </li>
 

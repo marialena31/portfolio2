@@ -40,7 +40,7 @@ const Services: React.FC<ServicesProps> = ({ title, items }) => {
               </p>
               <a
                 href={service.link}
-                className="inline-block mt-auto px-6 py-2 bg-black dark:bg-primary text-white no-underline rounded-md font-medium transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 dark:hover:bg-white dark:hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                className="inline-block mt-auto px-6 py-2 min-w-[48px] min-h-[48px] bg-black dark:bg-primary text-white no-underline rounded-md font-medium transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 dark:hover:bg-white dark:hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
                 En savoir plus
               </a>

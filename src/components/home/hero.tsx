@@ -33,7 +33,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, cta }) => {
             ) : (
               <Link
                 to={cta.link}
-                className={`inline-block text-lg font-semibold px-8 py-3 ${cta.type === 'primary' ? 'bg-primary text-white border-2 border-white' : 'bg-white text-primary border-2 border-primary'} rounded transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary shadow-lg dark:bg-primary dark:text-white dark:border-primary dark:hover:bg-white dark:hover:text-primary`}
+                className={`inline-block text-lg font-semibold px-8 py-3 min-w-[48px] min-h-[48px] ${cta.type === 'primary' ? 'bg-primary text-white border-2 border-white rounded transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary shadow-lg dark:bg-primary dark:text-white dark:border-primary dark:hover:bg-white dark:hover:text-primary' : 'bg-white text-primary border-2 border-primary rounded transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary shadow-lg dark:bg-primary dark:text-white dark:border-primary dark:hover:bg-white dark:hover:text-primary'}`}
               >
                 {cta.text}
               </Link>

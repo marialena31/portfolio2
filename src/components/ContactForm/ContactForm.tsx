@@ -202,20 +202,19 @@ const ContactForm: React.FC = () => {
             required
             checked={form.gdprConsent}
             onChange={handleGdprConsentChange}
-            className="accent-primary w-5 h-5"
-            autoComplete="off"
+            className="accent-primary w-4 h-4"
           />
-          <label htmlFor="gdprConsent" className="text-sm text-gray-700 select-none">
-            J’accepte que mes données soient traitées pour me recontacter (
+          <label htmlFor="gdprConsent" className="ml-2 text-sm text-gray-700 select-none">
+            J’accepte la{' '}
             <a
-              href="/mentions-legales"
+              href="/politique-confidentialite"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline text-primary hover:text-primary-dark"
+              className="underline text-primary"
             >
               politique de confidentialité
-            </a>
-            ) <span className="text-red-600">*</span>
+            </a>{' '}
+            et le traitement de mes données. <span className="text-red-600">*</span>
           </label>
         </div>
         <button

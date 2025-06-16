@@ -28,11 +28,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               aria-label="Voir l'image en grand"
               onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setOpen(true)}
             >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover rounded-lg transition-transform duration-200 hover:scale-105"
-              />
+              <picture>
+                <source srcSet={project.image.replace(/\.JPG$/i, '.webp')} type="image/webp" />
+                <img
+                  src={project.image.replace(/\.webp$/i, '.JPG')}
+                  alt={project.title}
+                  width={320}
+                  height={172}
+                  className="w-full h-full object-cover rounded-lg transition-transform duration-200 hover:scale-105"
+                />
+              </picture>
             </div>
             <Lightbox
               open={open}

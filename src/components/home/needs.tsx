@@ -21,7 +21,7 @@ const Needs: React.FC<NeedsProps> = ({ title, items }) => {
           {items.map((item, index) => (
             <Link
               to={item.link}
-              className="bg-white dark:bg-gray-900 rounded-md p-8 flex justify-between items-center no-underline border border-primary/10 dark:border-gray-700 transition-transform duration-200 hover:-translate-y-1 hover:shadow-md hover:border-primary dark:hover:border-primary group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              className="group block rounded-lg p-6 min-w-[48px] min-h-[48px] bg-white dark:bg-gray-900 shadow-md hover:shadow-lg transition-all duration-200 border border-primary/10 hover:border-primary hover:-translate-y-1"
               key={index}
             >
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-0">

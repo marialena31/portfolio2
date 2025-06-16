@@ -84,7 +84,7 @@ const CallToAction: React.FC<CallToActionProps> = ({ title, subtitle, buttons })
               <a
                 key={index}
                 href={button.link}
-                className="inline-block font-bold px-8 py-3 rounded-md shadow-md bg-white text-primary text-base transition-all duration-200 border-2 border-primary hover:bg-primary hover:text-white focus:outline-primary focus:outline-2 focus:outline-offset-2"
+                className="inline-block font-bold px-8 py-3 min-w-[48px] min-h-[48px] rounded-md shadow-md bg-white text-primary text-base transition-all duration-200 border-2 border-primary hover:bg-primary hover:text-white focus:outline-primary focus:outline-2 focus:outline-offset-2"
                 target="_blank"
                 rel="noopener noreferrer"
               >

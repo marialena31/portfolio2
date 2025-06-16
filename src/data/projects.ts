@@ -22,7 +22,7 @@ export const portfolio: Project[] = [
     '1',
     'Analyse stratégique & chiffrage – Projet Magento B2C',
     'Extrait de cadrage d’un projet e-commerce grand public. Objectif : transformer un besoin métier flou en backlog structuré, avec chiffrage, options d’architecture et arbitrages client.',
-    '/images/portfolio/portfolio1.JPG',
+    '/images/portfolio/portfolio1.webp',
     ['Magento B2C', 'Cadrage', 'Architecture', 'Pilotage'],
     'Découvrez comment cadrer un projet Magento B2C dès les premières étapes : analyse stratégique, chiffrage, structuration du backlog et accompagnement client pour garantir la réussite de la transformation digitale.'
   ),
@@ -30,7 +30,7 @@ export const portfolio: Project[] = [
     '3',
     'Upgrade Magento 2.4.5 – Cadrage stratégique & pilotage projet',
     'Support d’animation produit pour accompagner un upgrade Magento critique : anticipation des risques, arbitrages des fonctionnalités, gouvernance et coordination des équipes.',
-    '/images/portfolio/portfolio2.JPG',
+    '/images/portfolio/portfolio2.webp',
     ['Upgrade', 'Magento 2.4.5', 'Planning', 'DevOps'],
     "Exemple d'accompagnement sur un upgrade Magento 2.4.5 : gestion des risques, arbitrages techniques, gouvernance projet et coordination des équipes pour une migration réussie."
   ),
@@ -38,7 +38,7 @@ export const portfolio: Project[] = [
     '6',
     'Plan de réversibilité – Marketplace mobile',
     'Document de pilotage conçu pour cadrer une sortie de prestation en douceur : transfert des accès, documentation, reprise de backlog, formation et support à distance.',
-    '/images/portfolio/portfolio3.JPG',
+    '/images/portfolio/portfolio3.webp',
     ['Réversibilité', 'Marketplace', 'TMA', 'Support offshore'],
     'Découvrez comment piloter une réversibilité de marketplace mobile : transfert de compétences, sécurisation des accès, documentation et accompagnement à la reprise pour une transition sans accroc.'
   ),
@@ -46,7 +46,7 @@ export const portfolio: Project[] = [
     '8',
     'Scénario pédagogique – Formation Magento & architecture SI',
     'Exemple de support de formation technique à destination de développeurs ou de Product Owners : composants clés de Magento, organisation des flux, enjeux d’intégration SI.',
-    '/images/portfolio/portfolio4.JPG',
+    '/images/portfolio/portfolio4.webp',
     ['Formation', 'Architecture SI', 'Magento', 'PO'],
     "Formation sur l'architecture Magento et l'intégration SI : pédagogie, explications des flux, bonnes pratiques pour développeurs et Product Owners en contexte e-commerce complexe."
   ),
