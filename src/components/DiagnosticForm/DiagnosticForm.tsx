@@ -200,7 +200,7 @@ const DiagnosticForm: React.FC = () => {
     setErrors({});
     setSubmitted(false);
     // Anti-spam honeypot
-    const honeypot = (e.target as any).website2?.value;
+    const honeypot = (e.target as HTMLFormElement).website2?.value;
     if (honeypot) {
       setErrors({ form: 'Erreur anti-spam.' });
       setLoading(false);
@@ -219,12 +219,6 @@ const DiagnosticForm: React.FC = () => {
       if (!csrfToken) throw new Error('Impossible de récupérer le token CSRF');
       // Calculer scores et reco
       const { axisScores, recommendation } = computeScoringAndReco(answers);
-      const cleanAxisScores = (scores: Record<string, number>) =>
-        Object.fromEntries(
-          Object.entries(scores).filter(
-            ([k, v]) => typeof v === 'number' && !isNaN(v) && v !== null && v !== undefined
-          )
-        );
       const cleanedAxisScores = cleanAxisScores(axisScores);
       // Construire le payload plat
       const payload = {
@@ -250,8 +244,12 @@ const DiagnosticForm: React.FC = () => {
       } else {
         setErrors({ form: resp.data?.error || 'Erreur lors de l’envoi.' });
       }
-    } catch (err: any) {
-      setErrors({ form: err.message || 'Erreur lors de l’envoi.' });
+    } catch (err) {
+      if (err instanceof Error) {
+        setErrors({ form: err.message });
+      } else {
+        setErrors({ form: 'Erreur lors de l’envoi.' });
+      }
     } finally {
       setLoading(false);
     }
@@ -261,32 +259,17 @@ const DiagnosticForm: React.FC = () => {
   const [step, setStep] = React.useState(0);
   // Nouvelle structure pour les réponses utilisateur
   type Answers = { [questionId: string]: number };
-  type AxisScores = { [axis: string]: number };
-  type Messages = string[];
-  interface Contact {
-    firstName: string;
-    lastName: string;
-    email: string;
-    company: string;
-    website: string;
-  }
-  interface Score {
-    business: number;
-    m1status: number;
-    eco: number;
-    budget: number;
-  }
-  interface Errors {
+  type Errors = {
     form?: string;
     firstName?: string;
     lastName?: string;
     email?: string;
     company?: string;
     website?: string;
-  }
+  };
 
   const [answers, setAnswers] = React.useState<Answers>({});
-  const [contact, setContact] = React.useState<Contact>({
+  const [contact, setContact] = React.useState({
     firstName: '',
     lastName: '',
     email: '',
@@ -294,11 +277,14 @@ const DiagnosticForm: React.FC = () => {
     website: '',
   });
   const [errors, setErrors] = React.useState<Errors>({});
-  const [axisScores, setAxisScores] = React.useState<AxisScores>({});
-  const [recommendation, setRecommendation] = React.useState<string>('');
-  const [messages, setMessages] = React.useState<Messages>([]);
   const [submitted, setSubmitted] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+
+  // On recalcule les scores et la reco à chaque fois qu'on affiche le résultat
+  const { axisScores, recommendation } = React.useMemo(
+    () => computeScoringAndReco(answers),
+    [answers]
+  );
 
   // Helper pour avancer dans le formulaire
   const nextStep = () => {
