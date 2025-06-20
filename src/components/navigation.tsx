@@ -155,6 +155,13 @@ const Navigation: React.FC = () => {
               >
                 Conseils de pro
               </Link>
+              <Link
+                to="/diagnostic-magento1"
+                className="w-full text-left py-2 pl-8 text-base text-primary hover:text-primary-dark font-medium min-w-[48px] min-h-[48px]"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Diagnostic Magento 1
+              </Link>
 
               <span className="w-full text-left py-2 pl-4 text-xs font-bold text-gray-400 uppercase tracking-wider select-none cursor-default">
                 Portfolio & études de cas
@@ -361,6 +368,20 @@ const Navigation: React.FC = () => {
               tabIndex={isMenuOpen ? 0 : -1}
             >
               <span>Blog</span>
+            </Link>
+          </li>
+
+          {/* Diagnostic Magento 1 */}
+          <li role="none">
+            <Link
+              to="/diagnostic-magento1"
+              className="text-primary font-semibold hover:text-primary-dark text-base no-underline transition-colors duration-200 py-2 px-4 md:py-0 md:px-2 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              role="menuitem"
+              data-nav-item
+              tabIndex={isMenuOpen ? 0 : -1}
+            >
+              <FontAwesomeIcon icon={faGears} className="text-primary text-lg" />
+              <span>Diagnostic Magento 1</span>
             </Link>
           </li>
 
